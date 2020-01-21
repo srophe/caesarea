@@ -5,22 +5,21 @@
     -->
     <config>
         <!-- Application title -->
-        <title>The Srophe web application</title>
+        <title>The Caesarea-Maritima.org web application</title>
         <!-- App description -->
-        <description>A collaborative research project publishling online reference works concerning the
-            culture, history, and literature of Syriac communities from antiquity to the present.</description>
+        <description></description>
         <!-- Contact email -->
-        <contact>info@syriaca.app</contact>
+        <contact></contact>
         <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
-        <logo>srophe.svg</logo>
+        <logo></logo>
         <!-- Web Site URL -->
-        <url>http://syriaca.org/</url>
+        <url></url>
         <!-- Root of app for building dynamic links. Default is eXist app root  /exist/apps/srophe -->
-        <nav-base>/exist/apps/srophe</nav-base>
+        <nav-base>/exist/apps/caesarea</nav-base>
         <!-- eXist app root for app deployment-->
-        <app-root>srophe</app-root>
+        <app-root>caesarea</app-root>
         <!-- eXist data app root for TEI application.  -->
-        <data-root>srophe-data</data-root>
+        <data-root>caesarea-data</data-root>
         <!-- Base URI for identifiers in app data -->
         <base_uri>http://syriaca.org</base_uri>
         <!-- 

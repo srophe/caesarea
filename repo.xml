@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
-    <description>The Srophé web application</description>
+    <description>The Caesarea-Maritima.org web application</description>
     <author/>
     <author/>
     <website/>
@@ -8,7 +8,7 @@
     <license>GNU-LGPL</license>
     <copyright>true</copyright>
     <type>application</type>
-    <target>srophe</target>
+    <target>caesarea</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
 
