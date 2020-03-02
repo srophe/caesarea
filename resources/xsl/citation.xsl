@@ -100,7 +100,7 @@
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',1)"/>
             <xsl:text>.</xsl:text>
         </xsl:for-each>
-        <xsl:text> Syriaca.org, 2016-.</xsl:text>
+        <xsl:text> Ceasarea City and Port Exploration Project, 2020-.</xsl:text>
         <!-- publication date statement -->
         <xsl:text> Entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">
