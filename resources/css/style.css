@@ -215,6 +215,8 @@ img{ margin:0px }
 .keboard-btn {margin-left:-1em;}
 
 /* L */
+.label {color: #666; font-size: 100%;}
+
 /* Styles for languages and scripts for Syriac styles */
 /* styles for languages and scripts */
 :lang(en) {
@@ -490,3 +492,6 @@ pre {
     }
 .caret {float:left; margin-left:.5em; margin-top:.5em;}    
 }
+
+/* Caesarea customizations */
+.tei-ab > .tei-quote {display: list-item; margin: 1em 2em; font-size: 1.15em;}
