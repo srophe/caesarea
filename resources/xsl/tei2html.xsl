@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
@@ -120,8 +119,11 @@
             <xsl:when test="string(/*/@id)">
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
-            <xsl:when test="//t:publicationStmt/t:idno[@type='URI'][starts-with(.,$base-uri)]">
+            <xsl:when test="/descendant::t:publicationStmt/t:idno[@type='URI'][starts-with(.,$base-uri)]">
                 <xsl:value-of select="replace(replace(//t:publicationStmt/t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
+            </xsl:when>
+            <xsl:when test="/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
+                <xsl:value-of select="replace(replace(//t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="concat($base-uri,'/0000')"/>
@@ -324,7 +326,9 @@
             <div class="body">
                 <xsl:sequence select="local:attributes(.)"/>
                 <div class="section" style="display:block;">
-                    <xsl:apply-templates/>
+                    <!-- Caesarea customization:  -->
+                    <!-- <xsl:apply-templates/> -->
+                    <xsl:apply-templates select="*[not(self::t:ab[@type='identifier']) and not(self::t:desc[@type='abstract'])]"/>
                 </div>
                 <xsl:if test="//t:note[@place='foot']">
                     <div class="footnotes" lang="en">
@@ -333,6 +337,9 @@
                             <xsl:apply-templates select="//t:note[@place='foot']" mode="footnote"/>
                         </bdi>
                     </div>    
+                </xsl:if>
+                <xsl:if test="descendant::t:listBibl">
+                    <xsl:call-template name="sources"/>   
                 </xsl:if>
             </div>
         </bdi>
@@ -439,7 +446,7 @@
         </div>
     </xsl:template>
     
-    <!-- L -->
+    <!-- H -->
     <xsl:template match="t:head">
         <xsl:choose>
             <xsl:when test="parent::t:div1">
@@ -504,7 +511,7 @@
         </xsl:choose>
     </xsl:template>
     <!-- Suppress List Relations, Syriaca.org handles these with XQuery functions.  -->
-    <xsl:template match="t:listRelation[parent::*/parent::t:body]"/>
+    <xsl:template match="t:listRelation[parent::*/parent::t:body] | t:listBibl[parent::t:body]"/>
     
     <!-- N -->
     <xsl:template match="t:note">
@@ -1656,7 +1663,7 @@
                     </xsl:choose>
                     -->
                     <xsl:for-each select="t:bibl | t:listBibl">
-                        <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>
+                       <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
                         <xsl:apply-templates select="." mode="footnote"/>
                     </xsl:for-each>
                 </ul>
