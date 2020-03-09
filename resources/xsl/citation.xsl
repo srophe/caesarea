@@ -38,7 +38,7 @@
         
         <!-- monographic title -->
         <xsl:text> in </xsl:text>
-        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
+        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/><xsl:text>, </xsl:text>
         
         <!-- publication date statement -->
         <xsl:text> last modified </xsl:text>
