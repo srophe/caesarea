@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
     <!-- 
         Application configuration file for the Srophe application. 
@@ -7,13 +6,13 @@
         <!-- Application title -->
         <title>The Caesarea-Maritima.org</title>
         <!-- App description -->
-        <description></description>
+        <description/>
         <!-- Contact email -->
-        <contact></contact>
+        <contact/>
         <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
-        <logo></logo>
+        <logo/>
         <!-- Web Site URL -->
-        <url></url>
+        <url/>
         <!-- Root of app for building dynamic links. Default is eXist app root  /exist/apps/srophe -->
         <nav-base>/exist/apps/caesarea</nav-base>
         <!-- eXist app root for app deployment-->
@@ -21,7 +20,7 @@
         <!-- eXist data app root for TEI application.  -->
         <data-root>caesarea-data</data-root>
         <!-- Base URI for identifiers in app data -->
-        <base_uri>http://syriaca.org</base_uri>
+        <base_uri>https://caesarea-maritima.org</base_uri>
         <!-- 
             Path to ODD file. Can be used in XSLT or XQuery transformations for controlled values. 
             Path to ODD file from app-root, or as an absolute path. 
@@ -50,10 +49,19 @@
             See resources/keyboard/layouts for more options. 
         -->
         <keyboard-options>
+            <option id="ms-Arabic (101)">Arabic</option>
+            <option id="qwerty">English QWERTY</option>
+            <option id="ms-French">French</option>
+            <option id="german-qwertz-1">German</option>
+            <option id="ms-Greek">Greek</option>
+            <option id="ms-Hebrew">Hebrew</option>
+            <option id="ms-Italian">Italian</option>
+            <option id="polish-qwerty">Polish</option>
+            <option id="ms-Russian">Russian</option>
+            <option id="ms-Spanish">Spanish</option>
             <option id="syriac-phonetic">Syriac Phonetic</option>
             <option id="syriac-standard">Syriac Standard</option>
-            <option id="ms-Arabic (101)">Arabic Mod. Standard</option>
-            <option id="qwerty">English QWERTY</option>
+
         </keyboard-options>
         
         <!-- Configure Collections. Optional -->
@@ -64,7 +72,8 @@
                 record-URI-pattern="URI for building links to record views."
                 app-root="folder name in app" 
                 data-root="folder name in data"/>-->
-            <collection name="places" title="The Syriac Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="http://syriaca.org/place/"/>
+            <collection name="testimonia" title="testimonia" app-root="/" data-root="testimonia" record-URI-pattern="https://caesarea-maritima.org/testimonia/"/>
+            <!--
             <collection name="persons" title="SBD" app-root="/" data-root="persons" record-URI-pattern="http://syriaca.org/person/"/>
             <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>
             <collection name="bibl" title="Caesarea Maritima: A Bibliography" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
