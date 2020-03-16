@@ -12,6 +12,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
 import module namespace data="http://syriaca.org/srophe/data" at "data.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+import module namespace timeline = "http://syriaca.org/srophe/timeline" at "lib/timeline.xqm";
 import module namespace maps="http://syriaca.org/srophe/maps" at "maps.xqm";
 import module namespace page="http://syriaca.org/srophe/page" at "paging.xqm";
 
@@ -48,6 +49,10 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
     if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             {browse:get-map($hits)}
+        </div>
+    else if($browse:view = 'timeline') then 
+        <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
+            {timeline:timeline($hits, 'Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')}
         </div>
     else
         <div class="{if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then 'col-md-8 col-md-push-4' else 'col-md-12'}" xmlns="http://www.w3.org/1999/xhtml">
