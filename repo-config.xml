@@ -4,7 +4,7 @@
     -->
     <config>
         <!-- Application title -->
-        <title>The Caesarea-Maritima.org</title>
+        <title>Caesarea-Maritima.org</title>
         <!-- App description -->
         <description/>
         <!-- Contact email -->
@@ -47,6 +47,7 @@
             If adding additional keyboards you will need to make sure to add the link to the 
             keyboard javascript file in the HTML header of templates/page.html
             See resources/keyboard/layouts for more options. 
+           
         -->
         <keyboard-options>
             <option id="ms-Arabic (101)">Arabic</option>
@@ -76,7 +77,8 @@
             <!--
             <collection name="persons" title="SBD" app-root="/" data-root="persons" record-URI-pattern="http://syriaca.org/person/"/>
             <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>
-            <collection name="bibl" title="Caesarea Maritima: A Bibliography" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>-->
+            <collection name="bibl" title="Works Cited" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
+            -->
         </collections>
     </config>
 </meta>

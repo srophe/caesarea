@@ -1,14 +1,33 @@
 <facets xmlns="http://expath.org/ns/facet">
     <!-- 
-        Date Composed(/TEI/teiHeader/profileDesc/creation/origDate)
-Place Composed (/TEI/teiHeader/profileDesc/creation/origPlace)
-Original Language (/TEI/teiHeader/profileDesc/langUsage/language/@Ident)
-Author (/TEI/teiHeader/profileDesc/creation/persName/@ROLE="author")
-Title ( /TEI/teiHeader/profileDesc/creation/title/@type="uniform")
-
-NOTE: add a dsiplay, no option
+      a. Author (/TEI/teiHeader/profileDesc/creation/persName/@ROLE="author")
+b. Work ( /TEI/teiHeader/profileDesc/creation/title/@type="uniform")
+c. Original Language (/TEI/teiHeader/profileDesc/langUsage/language/@Ident)
+d. Historical Era Composed(/TEI/teiHeader/profileDesc/creation/origDate @to Be Determined)
+e. Place Composed (/TEI/teiHeader/profileDesc/creation/origPlace)
     -->
-    <facet-definition name="Date Composed" display="none">
+    <facet-definition name="Author">
+        <group-by>
+            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="Work">
+        <group-by>
+            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:title[@type='uniform']/@ref</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="Original Language">
+        <group-by>
+            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:langUsage/tei:language/@ident</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="Historical Era Composed">
         <group-by>
             <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate</sub-path>
         </group-by>
@@ -22,27 +41,7 @@ NOTE: add a dsiplay, no option
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
-    <facet-definition name="Original Language">
-        <group-by>
-            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:langUsage/tei:language/@ident</sub-path>
-        </group-by>
-        <max-values show="5">10</max-values>
-        <order-by direction="ascending">value</order-by>
-    </facet-definition>
-    <facet-definition name="Author">
-        <group-by>
-            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref</sub-path>
-        </group-by>
-        <max-values show="5">10</max-values>
-        <order-by direction="ascending">value</order-by>
-    </facet-definition>
-    <facet-definition name="Title">
-        <group-by>
-            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:title[@type='uniform']/@ref</sub-path>
-        </group-by>
-        <max-values show="5">10</max-values>
-        <order-by direction="ascending">value</order-by>
-    </facet-definition>
+    
     <!-- A simple facet for browsing by Syriaca.org place names (filtering on English) 
     <facet-definition name="Places Mentioned">
         <group-by>

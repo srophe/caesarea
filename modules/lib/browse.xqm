@@ -11,6 +11,8 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 (: Import Srophe application modules. :)
 import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
 import module namespace data="http://syriaca.org/srophe/data" at "data.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
+import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 import module namespace timeline = "http://syriaca.org/srophe/timeline" at "lib/timeline.xqm";
 import module namespace maps="http://syriaca.org/srophe/maps" at "maps.xqm";
@@ -44,6 +46,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
 :)
 declare function browse:show-hits($node as node(), $model as map(*), $collection, $sort-options as xs:string*, $facets as xs:string?){
   let $hits := $model("hits")
+  let $facet-config := global:facet-definition-file($collection)
   return 
     (
     if($browse:view = 'map') then 
@@ -57,22 +60,26 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
     else
         <div class="{if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then 'col-md-8 col-md-push-4' else 'col-md-12'}" xmlns="http://www.w3.org/1999/xhtml">
            {( if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-                <div class="float-container">
-                    <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right paging"}">
-                         {page:pages($hits, $collection, $browse:start, $browse:perpage,'', $sort-options)}
+              <div class="float-container">
+                <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right paging"}">
+                    {page:pages($hits, $collection, $browse:start, $browse:perpage,'', $sort-options)}
+                </div>
+                {if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then ()
+                 else browse:browse-abc-menu()}
+                </div>,                
+                <div class="row">
+                    <div class="col-md-8 col-md-push-4">
+
+                        <h3>{(
+                            if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
+                            else attribute class {"label"},
+                            if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
+                        <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
+                            {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
+                            {browse:display-hits($hits)}
+                        </div>
                     </div>
-                    {
-                    if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then ()
-                    else browse:browse-abc-menu()
-                    }
-                </div>,
-                <h3>{(
-                    if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
-                    else attribute class {"label"},
-                    if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>,
-                <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
-                    {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
-                    {browse:display-hits($hits)}
+                    <div class="col-md-4 col-md-pull-8">{facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition)}</div>
                 </div>
             )}
         </div>
