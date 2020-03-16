@@ -630,6 +630,27 @@
     </xsl:template>
     
     <!-- P -->
+    <!-- Caesrea customization -->
+    <!-- ?fq=%3Bfq-Place%20Composed%3AConstantinople -->
+    <xsl:template match="t:profileDesc">
+        <ul class="list-unstyled">
+            <li><span class="label">Date Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Date Composed:{t:creation/t:origDate}"><xsl:value-of select="t:creation/t:origDate"/></a></li>            
+            <li><span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}"><xsl:value-of select="t:creation/t:origPlace"/></a></li>
+            <li><span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}"><xsl:value-of select="t:langUsage/t:language"/></a></li>
+            <li><span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}"><xsl:value-of select="t:creation/t:persName[@role='author']"/></a></li>
+            <li><span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Title:{t:creation/t:title[@type='uniform']/@ref}"><xsl:value-of select="t:creation/t:title[@type='uniform']"/></a></li>
+            <li><span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/></li>
+            <li><span class="label">URN:</span> 
+                <xsl:choose>
+                    <xsl:when test="t:textClass/t:classCode/t:idno/@xml:base != ''">
+                        <a href="{string(t:textClass/t:classCode/t:idno/@xml:base)}{t:textClass/t:classCode/t:idno}"><xsl:value-of select="t:textClass/t:classCode/t:idno"/></a>            
+                    </xsl:when>
+                    <xsl:otherwise><xsl:value-of select="t:textClass/t:classCode/t:idno"/></xsl:otherwise>
+                </xsl:choose>
+            </li>
+        </ul>
+    </xsl:template>
+    
     <!-- Main page modules for syriaca.org display -->
     <xsl:template match="t:note" mode="footnote">
         <p class="footnote-text">

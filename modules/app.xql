@@ -70,7 +70,7 @@ declare %templates:wrap function app:record-title($node as node(), $model as map
     if(request:get-parameter('id', '')) then
        if(contains($model("hits")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
             substring-before($model("hits")/descendant::tei:titleStmt[1]/tei:title[1],' — ')
-       else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1]/text()
+       else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1]//text()
     else if($collection != '') then
         string(config:collection-vars($collection)/@title)
     else $config:app-title
@@ -139,7 +139,7 @@ declare function app:h1($node as node(), $model as map(*)){
     if($model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']) then
         $model("hits")/descendant::*[@syriaca-tags='#syriaca-headword']
     else $model("hits")/descendant::tei:titleStmt[1]/tei:title[1], 
-    $model("hits")/descendant::tei:publicationStmt/tei:idno[@type="URI"][1]
+    $model("hits")/descendant::tei:publicationStmt/tei:idno[@type="URI"][starts-with(.,$config:base-uri)]
     )}
  </srophe-title>)
 }; 
