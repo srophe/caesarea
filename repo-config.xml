@@ -61,7 +61,7 @@
             <option id="ms-Spanish">Spanish</option>
             <option id="syriac-phonetic">Syriac Phonetic</option>
             <option id="syriac-standard">Syriac Standard</option>
-
+            
         </keyboard-options>
         
         <!-- Configure Collections. Optional -->
@@ -76,7 +76,7 @@
             <!--
             <collection name="persons" title="SBD" app-root="/" data-root="persons" record-URI-pattern="http://syriaca.org/person/"/>
             <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>
-            <collection name="bibl" title="Caesarea Maritima: A Bibliography" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
+            <collection name="bibl" title="Caesarea Maritima: A Bibliography" app-root="/bibl/" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>-->
         </collections>
     </config>
 </meta>
