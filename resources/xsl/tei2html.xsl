@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -162,6 +162,28 @@
         </div>
     </xsl:template>
     
+    <xsl:template match="t:ab" mode="translation">
+        <xsl:for-each select="descendant::t:anchor">
+            <xsl:variable name="anchorID" select="@xml:id"/>
+            <xsl:variable name="columns" select="count(//t:anchor[@corresp = $anchorID])"/>
+            <xsl:variable name="width" select="12 div (count(//t:anchor[@corresp = $anchorID]) + 1)"/>
+            <div class="row">
+                <div class="col-md-{$width}">
+                    <xsl:for-each select="parent::*[1]">
+                        <xsl:apply-templates select="."/>
+                    </xsl:for-each>
+                </div>
+                <xsl:for-each select="//t:anchor[@corresp = $anchorID]">
+                    <div class="col-md-{$width}">
+                        <xsl:for-each select="parent::*[1]">
+                            <xsl:apply-templates select="."/>
+                        </xsl:for-each>
+                    </div>
+                </xsl:for-each>
+            </div>
+        </xsl:for-each>
+    </xsl:template>
+        
     <!-- B -->
     <!-- suppress bibl in title mode -->
     <xsl:template match="t:bibl" mode="title"/>
@@ -320,16 +342,23 @@
         </xsl:choose>
     </xsl:template>
     
-    <!-- C -->
     <xsl:template match="t:body">
         <bdi>
             <div class="body">
                 <xsl:sequence select="local:attributes(.)"/>
-                <div class="section" style="display:block;">
-                    <!-- Caesarea customization:  -->
-                    <!-- <xsl:apply-templates/> -->
-                    <xsl:apply-templates select="*[not(self::t:ab[@type='identifier']) and not(self::t:desc[@type='abstract'])]"/>
-                </div>
+                <!-- Caesarea customiztion for parallel views -->
+                <xsl:choose>
+                    <xsl:when test="descendant-or-self::t:ab[@type='translation']">
+                        <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="translation"/>                                
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <div class="section" style="display:block;">
+                            <!-- Caesarea customization:  -->
+                            <!-- <xsl:apply-templates/> -->
+                            <xsl:apply-templates select="*[not(self::t:ab[@type='identifier']) and not(self::t:desc[@type='abstract'])]"/>
+                        </div>                         
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:if test="//t:note[@place='foot']">
                     <div class="footnotes" lang="en">
                         <h2>Footnotes</h2>
@@ -633,9 +662,22 @@
     <!-- Caesrea customization -->
     <xsl:template match="t:profileDesc">
         <ul class="list-unstyled">
+            <xsl:variable name="start">
+                <xsl:choose>
+                    <xsl:when test="t:creation/t:origDate/@when"><xsl:value-of select="t:creation/t:origDate/@when"/></xsl:when>
+                    <xsl:when test="t:creation/t:origDate/@notBefore"><xsl:value-of select="t:creation/t:origDate/@notBefore"/></xsl:when>
+                    <xsl:when test="t:creation/t:origDate/@from"><xsl:value-of select="t:creation/t:origDate/@from"/></xsl:when>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="end">
+                <xsl:choose>
+                    <xsl:when test="t:creation/t:origDate/@when"><xsl:value-of select="t:creation/t:origDate/@when"/></xsl:when>
+                    <xsl:when test="t:creation/t:origDate/@notAfter"><xsl:value-of select="t:creation/t:origDate/@notafter"/></xsl:when>
+                    <xsl:when test="t:creation/t:origDate/@to"><xsl:value-of select="t:creation/t:origDate/@to"/></xsl:when>
+                </xsl:choose>
+            </xsl:variable>
             <li><span class="label">Date Composed:</span> 
-                <!-- fq=;fq-Date Composed:{t:creation/t:origDate} -->
-                <a href="{$nav-base}/browse.html?view=timeline"><xsl:value-of select="t:creation/t:origDate"/></a>
+                <a href="{$nav-base}/browse.html?view=timeline&amp;startDate={$start}&amp;endDate={$end}"><xsl:value-of select="t:creation/t:origDate"/></a>
             </li>            
             <li><span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}"><xsl:value-of select="t:creation/t:origPlace"/></a></li>
             <li><span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}"><xsl:value-of select="t:langUsage/t:language"/></a></li>
