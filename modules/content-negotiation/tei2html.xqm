@@ -232,7 +232,7 @@ declare function tei2html:summary-view-persons($nodes as node()*, $id as xs:stri
             else ()}
             {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 
                 for $abstract in $nodes/descendant::*[starts-with(@xml:id,'abstract')]
-                let $string := string-join(tei2html:tei2html($abstract)//text(),' ')
+                let $string := string-join(tei2html:tei2html($abstract)//text(),'')
                 let $blurb := 
                     if(count(tokenize($string, '\W+')[. != '']) gt 25) then  
                         concat(string-join(for $w in tokenize($string, '\W+')[position() lt 25]
@@ -240,8 +240,7 @@ declare function tei2html:summary-view-persons($nodes as node()*, $id as xs:stri
                      else $string 
                 return 
                     <span class="results-list-desc desc" dir="ltr" lang="en">{
-                        if($abstract/descendant-or-self::tei:quote) then concat('"',normalize-space($blurb),'"')
-                        else $blurb
+                        $string
                     }</span>
             else()}
             {
@@ -286,7 +285,7 @@ declare function tei2html:summary-view-places($nodes as node()*, $id as xs:strin
              else ()}
             {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 
                 for $abstract in $nodes/descendant::*[starts-with(@xml:id,'abstract')]
-                let $string := normalize-space(string-join(tei2html:tei2html($abstract),' '))
+                let $string := string-join(tei2html:tei2html($abstract)//text(),'')
                 let $blurb := 
                     if(count(tokenize($string, '\W+')[. != '']) gt 25) then  
                         concat(string-join(for $w in tokenize($string, '\W+')[position() lt 25]
@@ -320,9 +319,9 @@ declare function tei2html:summary-view-keyword($nodes as node()*, $id as xs:stri
                 data-clipboard-action="copy" data-clipboard-text="{normalize-space($title)} - {normalize-space($id)}">
                     <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
             </button>
-            {if($nodes/descendant::*[starts-with(@xml:id,'abstract')]) then 
+            {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 
                 for $abstract in $nodes/descendant::*[starts-with(@xml:id,'abstract')]
-                let $string := normalize-space(string-join(tei2html:tei2html($abstract),' '))
+                let $string := string-join(tei2html:tei2html($abstract)//text(),'')
                 let $blurb := 
                     if(count(tokenize($string, '\W+')[. != '']) gt 25) then  
                         concat(string-join(for $w in tokenize($string, '\W+')[position() lt 25]
@@ -369,7 +368,7 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
                      else $string 
                 return 
                     <span class="results-list-desc desc" dir="ltr" lang="en">{
-                        $string
+                        tei2html:tei2html($abstract)
                     }</span>
             else()}
             {

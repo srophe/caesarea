@@ -454,7 +454,7 @@ pre {
     }
     
 /* TEI styles */
-.tei-desc {display:block;margin:1em;}
+.tei-desc {display:block;/* margin:1em;*/}
 .tei-event {display:block;}
 .tei-footnote-refs, .tei-footnote-tgt {
     font-size: .7em;
