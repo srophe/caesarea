@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -662,22 +662,9 @@
     <!-- Caesrea customization -->
     <xsl:template match="t:profileDesc">
         <ul class="list-unstyled">
-            <xsl:variable name="start">
-                <xsl:choose>
-                    <xsl:when test="t:creation/t:origDate/@when"><xsl:value-of select="t:creation/t:origDate/@when"/></xsl:when>
-                    <xsl:when test="t:creation/t:origDate/@notBefore"><xsl:value-of select="t:creation/t:origDate/@notBefore"/></xsl:when>
-                    <xsl:when test="t:creation/t:origDate/@from"><xsl:value-of select="t:creation/t:origDate/@from"/></xsl:when>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:variable name="end">
-                <xsl:choose>
-                    <xsl:when test="t:creation/t:origDate/@when"><xsl:value-of select="t:creation/t:origDate/@when"/></xsl:when>
-                    <xsl:when test="t:creation/t:origDate/@notAfter"><xsl:value-of select="t:creation/t:origDate/@notafter"/></xsl:when>
-                    <xsl:when test="t:creation/t:origDate/@to"><xsl:value-of select="t:creation/t:origDate/@to"/></xsl:when>
-                </xsl:choose>
-            </xsl:variable>
+            <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li><span class="label">Date Composed:</span> 
-                <a href="{$nav-base}/browse.html?view=timeline&amp;startDate={$start}&amp;endDate={$end}"><xsl:value-of select="t:creation/t:origDate"/></a>
+                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}"><xsl:value-of select="t:creation/t:origDate"/></a>
             </li>            
             <li><span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}"><xsl:value-of select="t:creation/t:origPlace"/></a></li>
             <li><span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}"><xsl:value-of select="t:langUsage/t:language"/></a></li>

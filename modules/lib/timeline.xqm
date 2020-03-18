@@ -14,6 +14,13 @@ declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace json = "http://www.json.org";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
+declare variable $timeline:startDate {request:get-parameter('startDate', '')};
+declare variable $timeline:startDateFormated {
+    if(empty($timeline:startDate)) then ()
+    else if(starts-with($timeline:startDate,'-')) then concat('-',tokenize($timeline:startDate,'-')[2])
+    else replace($timeline:startDate,'-',',')
+};
+
 (:
  : Display Timeline. Uses http://timeline.knightlab.com/
 :)
@@ -54,13 +61,24 @@ if($data/descendant-or-self::*[@when or @to or @from or @notBefore or @notAfter]
         <script type="text/javascript">
         <![CDATA[
             $(document).ready(function() {
+                var dates = ]]>{if($xpath != '') then timeline:get-date-xpath($data, $title, $xpath) else timeline:get-all-dates($data, $title)}<![CDATA[;
+                //var start_index = 0;
+                var target_date = ']]>{if(request:get-parameter('startDate', '') != '') then $timeline:startDateFormated else 'start_at_end'}<![CDATA[';
+                var dateArray = dates.timeline.date
+                index = dateArray.findIndex(x => x.startDate === target_date);
+                
+                var target_id = ']]>{if(request:get-parameter('slideID', '') != '') then request:get-parameter('slideID', '') else 'start_at_end'}<![CDATA[';
+                var slideID =  dateArray.findIndex(x => x.id === target_id);
+                console.log('Index: ' + slideID + ' target-id ' + target_id);
+                
                 var parentWidth = $(".timeline").width();
                 createStoryJS({
-                    start:      'start_at_end',
+                    //start:      'start_at_end',
+                    start_at_slide: slideID,
                     type:       'timeline',
                     width:      "'" +parentWidth+"'",
                     height:     '450',
-                    source:     ]]>{if($xpath != '') then timeline:get-date-xpath($data, $title, $xpath) else timeline:get-all-dates($data, $title)}<![CDATA[,
+                    source:     dates,
                     embed_id:   'my-timeline'
                     });
                 });
@@ -90,7 +108,29 @@ let $dates :=
             <date>
                 {for $p in $xpath
                  for $date in util:eval(concat('$data/descendant-or-self::', $p))
-                 return timeline:get-dates($date)
+                 let $start :=  if($date/@when) then string($date/@when)
+                                else if($date/@from) then string($date/@from)
+                                else if($date/@notBefore) then string($date/@notBefore)
+                                else if($date/tei:date/@when) then string($date/tei:date[@when][1]/@when)
+                                else if($date/tei:date/@from) then string($date/tei:date[@from][1]/@from)
+                                else if($date/tei:date/@notBefore) then string($date/tei:date[@notBefore][1]/@notBefore)
+                                else ()
+                 let $end :=    if($date/@when) then string($date/@when)
+                                else if($date/@to) then string($date/@to)
+                                else if($date/@notAfter) then string($date/@notAfter)
+                                else if($date/tei:date[@when][2]) then string($date/tei:date[@when][2]/@when)
+                                else if($date/tei:date/@to) then string($date/tei:date[@to][2]/@to)
+                                else if($date/tei:date/@notAfter) then string($date/tei:date[@notAfter][2]/@notAfter)
+                                else ()  
+                let $root := root($date)
+                let $id := $root/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]                  
+                let $title := string-join($root//tei:titleStmt/tei:title[1]//text(),' ')
+                let $link := replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')
+                order by $start, $title
+                return                   
+                    if($start != '' or $end != '') then 
+                        timeline:format-dates($start, $end, $title, string-join($date/descendant-or-self::text(),' '), $link, $id)
+                    else () 
                  }</date>
         </timeline>
     </root>
@@ -168,7 +208,7 @@ declare function timeline:format-dates($start as xs:string*, $end as xs:string*,
 };
 
 (: Dates with link to resource :)
-declare function timeline:format-dates($start as xs:string*, $end as xs:string*, $headline as xs:string*, $text as xs:string*, $link as xs:string*){
+declare function timeline:format-dates($start as xs:string*, $end as xs:string*, $headline as xs:string*, $text as xs:string*, $link as xs:string*, $id as xs:string?){
     if($start != '' or $end != '') then 
         <json:value json:array="true">
             {(
@@ -194,40 +234,12 @@ declare function timeline:format-dates($start as xs:string*, $end as xs:string*,
                  else (),
                  if($text != '') then 
                     <text>{$text}<![CDATA[ <a href="]]>{$link}<![CDATA["><span class="glyphicon glyphicon-circle-arrow-right"></span></a>]]></text> 
-                else ()                 
+                else (),
+                <id>{$id}</id>
                 )}
         </json:value>
     else ()
 };
-
-(:~
- : Build birth date ranges
- : @param $data as node
-:)
-declare function timeline:get-dates($date as node()*) as node()?{
-    let $start := if($date/@when) then string($date/@when)
-                  else if($date/@from) then string($date/@from)
-                  else if($date/@notBefore) then string($date/@notBefore)
-                  else if($date/tei:date/@when) then string($date/tei:date[@when][1]/@when)
-                  else if($date/tei:date/@from) then string($date/tei:date[@from][1]/@from)
-                  else if($date/tei:date/@notBefore) then string($date/tei:date[@notBefore][1]/@notBefore)
-                  else ()
-    let $end :=   if($date/@when) then string($date/@when)
-                  else if($date/@to) then string($date/@to)
-                  else if($date/@notAfter) then string($date/@notAfter)
-                  else if($date/tei:date[@when][2]) then string($date/tei:date[@when][2]/@when)
-                  else if($date/tei:date/@to) then string($date/tei:date[@to][2]/@to)
-                  else if($date/tei:date/@notAfter) then string($date/tei:date[@notAfter][2]/@notAfter)
-                  else ()  
-    let $root := root($date)
-    let $id := $root/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]                  
-    let $title := string-join($root//tei:titleStmt/tei:title[1]//text(),' ')
-    let $link := replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')
-    return                   
-        if($start != '' or $end != '') then 
-            timeline:format-dates($start, $end, $title, string-join($date/descendant-or-self::text(),' '), $link)
-        else () 
-}; 
 
 (:~
  : Build birth date ranges
