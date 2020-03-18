@@ -681,6 +681,7 @@
             </li>
         </ul>
     </xsl:template>
+    <xsl:template match="t:publicationStmt"/>
     
     <!-- Main page modules for syriaca.org display -->
     <xsl:template match="t:note" mode="footnote">
