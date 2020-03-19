@@ -28,8 +28,8 @@ e. Place Composed (/TEI/teiHeader/profileDesc/creation/origPlace)
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="Historical Era Composed">
-        <group-by>
-            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate</sub-path>
+        <group-by function="facet:eraComposed">
+            <sub-path>descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate/@period</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>

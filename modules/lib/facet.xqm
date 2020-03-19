@@ -52,7 +52,7 @@ declare function facet:facet-filter($facet-definitions as node()*)  as item()*{
                         else if($facet/facet:range/facet:bucket[@name = $facet-value]/@eq and $facet/facet:range/facet:bucket[@name = $facet-value]/@eq != '') then
                             concat('[',$path,'[', $facet/facet:range/facet:bucket[@name = $facet-value]/@eq ,']]')
                         else concat('[',$path,'[string(.) >= "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" ]]')
-                    else if($facet/facet:group-by[@function="facet:group-by-array"]) then 
+                    else if($facet/facet:group-by[@function="facet:group-by-array"] or $facet/facet:group-by[@function="facet:eraComposed"]) then 
                         concat('[',$path,'[matches(., "',$facet-value,'(\W|$)")]',']')                     
                     else concat('[',$path,'[normalize-space(.) = "',replace($facet-value,'"','""'),'"]',']')
                 else()
@@ -316,3 +316,24 @@ declare function facet:url-params(){
 
 (: END :)
 
+(: Caesarea facets :)
+declare function facet:eraComposed($results as item()*, $facet-definition as element(facet:facet-definition)?){
+    let $path := concat('$results/',$facet-definition/facet:group-by/facet:sub-path/text()) 
+    let $sort := $facet-definition/facet:order-by
+    let $data := util:eval($path)
+    let $d := tokenize(string-join(util:eval($path),' '),' ')
+    let $facets := 
+        for $f in $d
+        group by $facet-grp := tokenize($f,' ')
+        order by 
+            if($sort/text() = 'value') then $f[1]
+            else count($f)
+            descending
+        return 
+            let $id := replace($facet-grp,'#','')
+            let $label := $results[//tei:category[@xml:id = $id]][1]
+            let $label-txt := $results[descendant::tei:category[@xml:id = $id]][1]//tei:category[@xml:id = $id]/tei:catDesc/text()
+            return facet:key($label-txt, $facet-grp, count($f), $facet-definition) 
+    let $count := count($facets)           
+    return facet:list-keys($facets, $count, $facet-definition)
+};

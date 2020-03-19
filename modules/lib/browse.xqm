@@ -80,7 +80,11 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                         </div>
                     </div>
                     <div class="col-md-4 col-md-pull-8">{facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition)}</div>
+                </div>,
+                <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right paging"}">
+                    {page:pages($hits, $collection, $browse:start, $browse:perpage,'', $sort-options)}
                 </div>
+                
             )}
         </div>
     )

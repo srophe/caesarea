@@ -663,8 +663,15 @@
     <xsl:template match="t:profileDesc">
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
-            <li><span class="label">Date Composed:</span> 
-                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}"><xsl:value-of select="t:creation/t:origDate"/></a>
+            <li><span class="label">Date Composed:</span><br/> 
+                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}" class="indent">
+                    <!--                    <xsl:value-of select="t:creation/t:origDate"/>-->
+                    <xsl:variable name="cat" select="//t:encodingDesc"/>
+                    <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
+                        <xsl:variable name="id" select="replace(.,'#','')"/>
+                        <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
+                    </xsl:for-each>
+                </a>
             </li>            
             <li><span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}"><xsl:value-of select="t:creation/t:origPlace"/></a></li>
             <li><span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}"><xsl:value-of select="t:langUsage/t:language"/></a></li>
@@ -681,7 +688,7 @@
             </li>
         </ul>
     </xsl:template>
-    <xsl:template match="t:publicationStmt"/>
+    <xsl:template match="t:publicationStmt | t:encodingDesc"/>
     
     <!-- Main page modules for syriaca.org display -->
     <xsl:template match="t:note" mode="footnote">
