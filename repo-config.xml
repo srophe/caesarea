@@ -73,7 +73,8 @@
                 record-URI-pattern="URI for building links to record views."
                 app-root="folder name in app" 
                 data-root="folder name in data"/>-->
-            <collection name="testimonia" title="testimonia" app-root="/" data-root="testimonia" record-URI-pattern="https://caesarea-maritima.org/testimonia/"/>
+            <collection name="testimonia" title="A Thesaurus of Testimonia" app-root="/testimonia/" data-root="testimonia" record-URI-pattern="https://caesarea-maritima.org/testimonia/"/>
+            <collection name="testimonia" title="A Comprehensive Bibliography" app-root="/bibl/" data-root="bibl" record-URI-pattern="https://caesarea-maritima.org/bibl/"/>
             <!--
             <collection name="persons" title="SBD" app-root="/" data-root="persons" record-URI-pattern="http://syriaca.org/person/"/>
             <collection name="works" title="NHSL" app-root="/" data-root="works" record-URI-pattern="http://syriaca.org/work/"/>

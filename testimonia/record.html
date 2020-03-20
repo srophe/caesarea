@@ -1,0 +1,39 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/testimonia.html" data-template-at="content">
+    <div data-template="app:fix-links" class="record">
+        <div class="interior-content">
+            <div data-template="app:h1"/>
+            <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,text"/>
+            <div class="row">
+                <div class="col-md-7 col-lg-9">
+                    <div data-template="app:display-nodes" data-template-paths="descendant::tei:text"/>
+                </div>
+                <div class="col-md-5 col-lg-3 right-menu">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#infoBox">About This Text </a></div>
+                        <div class="panel-body collapse in" id="infoBox">
+                            <div data-template="app:display-nodes" data-template-paths="(descendant::tei:profileDesc,descendant::tei:publicationStmt, descendant::tei:encodingDesc)"/>
+                        </div>                            
+                    </div>    
+                    <!--
+                    <div data-template="app:display-map"/>
+                    <br/>
+                    <div data-template="app:display-timeline"/>
+                    <br/>
+                    -->
+                    <!--<div data-template="app:internal-relationships" data-template-display="list-description"/>-->
+                    <div data-template="app:internal-relationships" data-template-display="sentence"/>
+                    <br/>
+                    <div data-template="app:external-relationships"/>
+                    <!-- Button trigger corrections email modal -->
+                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
+                </div>
+            </div>
+            <div>
+                <!-- Entry Citation information, pass TEI header to citation.xsl -->
+                <div data-template="app:display-nodes" data-template-paths="descendant::tei:teiHeader"/>
+            </div>
+        </div>
+    </div>
+    <!-- Modal email form-->
+    <div data-template="app:contact-form"/>
+</div>
