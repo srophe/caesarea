@@ -663,7 +663,12 @@
     <xsl:template match="t:profileDesc">
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
-            <li><span class="label">Date Composed:</span><br/> 
+            <li>
+                <span class="label">Date Composed:</span><a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}"><xsl:value-of select="normalize-space(t:creation/t:origDate)"/></a>
+            </li> 
+            <li>
+                <span class="label">Historical Era Composed:</span>
+                <br/> 
                 <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}" class="indent">
                     <!--                    <xsl:value-of select="t:creation/t:origDate"/>-->
                     <xsl:variable name="cat" select="//t:encodingDesc"/>
@@ -673,17 +678,40 @@
                     </xsl:for-each>
                 </a>
             </li>            
-            <li><span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}"><xsl:value-of select="t:creation/t:origPlace"/></a></li>
-            <li><span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}"><xsl:value-of select="t:langUsage/t:language"/></a></li>
-            <li><span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}"><xsl:value-of select="t:creation/t:persName[@role='author']"/></a></li>
-            <li><span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}"><xsl:value-of select="t:creation/t:title[@type='uniform']"/></a></li>
-            <li><span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/></li>
-            <li><span class="label">URN:</span> 
+            <li>
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}">
+                    <xsl:value-of select="t:creation/t:origPlace"/>
+                </a>
+            </li>
+            <li>
+                <span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}">
+                    <xsl:value-of select="t:langUsage/t:language"/>
+                </a>
+            </li>
+            <li>
+                <span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}">
+                    <xsl:value-of select="t:creation/t:persName[@role='author']"/>
+                </a>
+            </li>
+            <li>
+                <span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}">
+                    <xsl:value-of select="t:creation/t:title[@type='uniform']"/>
+                </a>
+            </li>
+            <li>
+                <span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/>
+            </li>
+            <li>
+                <span class="label">URN:</span> 
                 <xsl:choose>
                     <xsl:when test="t:textClass/t:classCode/t:idno/@xml:base != ''">
-                        <a href="{string(t:textClass/t:classCode/t:idno/@xml:base)}{t:textClass/t:classCode/t:idno}"><xsl:value-of select="t:textClass/t:classCode/t:idno"/></a>            
+                        <a href="{string(t:textClass/t:classCode/t:idno/@xml:base)}{t:textClass/t:classCode/t:idno}">
+                            <xsl:value-of select="t:textClass/t:classCode/t:idno"/>
+                        </a>            
                     </xsl:when>
-                    <xsl:otherwise><xsl:value-of select="t:textClass/t:classCode/t:idno"/></xsl:otherwise>
+                    <xsl:otherwise>
+                        <xsl:value-of select="t:textClass/t:classCode/t:idno"/>
+                    </xsl:otherwise>
                 </xsl:choose>
             </li>
         </ul>
@@ -695,7 +723,9 @@
         <p class="footnote-text">
             <xsl:if test="@n">
                 <xsl:attribute name="id" select="concat('note',@n)"/>
-                <span class="notes footnote-refs"><span class="footnote-ref">‎<xsl:value-of select="@n"/></span> </span>
+                <span class="notes footnote-refs">
+                    <span class="footnote-ref">‎<xsl:value-of select="@n"/>
+                    </span> </span>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="t:quote">
