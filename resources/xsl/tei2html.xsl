@@ -669,14 +669,13 @@
             <li>
                 <span class="label">Historical Era Composed:</span>
                 <br/> 
-                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}" class="indent">
-                    <!--                    <xsl:value-of select="t:creation/t:origDate"/>-->
-                    <xsl:variable name="cat" select="//t:encodingDesc"/>
-                    <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
-                        <xsl:variable name="id" select="replace(.,'#','')"/>
+                <xsl:variable name="cat" select="//t:encodingDesc"/>
+                <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
+                    <xsl:variable name="id" select="replace(.,'#','')"/>
+                    <a href="{$nav-base}/browse.html?view=timeline&amp;fq=;fq-Historical Era Composed:{encode-for-uri(.)}" class="indent">
                         <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
-                    </xsl:for-each>
-                </a>
+                    </a>
+                </xsl:for-each>
             </li>            
             <li>
                 <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}">

@@ -54,7 +54,9 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
             {browse:get-map($hits)}
         </div>
     else if($browse:view = 'timeline') then 
+        
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="horizontal-facets">{facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition[@name='Historical Era Composed'])}</div>
             {timeline:timeline($hits, 'Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')}
         </div>
     else
@@ -69,7 +71,6 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 </div>,                
                 <div class="row">
                     <div class="col-md-8 col-md-push-4">
-
                         <h3>{(
                             if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
                             else attribute class {"label"},

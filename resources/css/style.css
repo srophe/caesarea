@@ -495,3 +495,6 @@ pre {
 
 /* Caesarea customizations */
 .tei-ab > .tei-quote {display: list-item; margin: 1em 2em; font-size: 1.15em;}
+.horizontal-facets {display:block;}
+.horizontal-facets .facet-label {display:inline-block; margin:.2em; padding:.25em; font-size: .90em;}
+.horizontal-facets .facet-label .count{display:none;}
