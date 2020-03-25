@@ -13,6 +13,7 @@ declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare namespace json = "http://www.json.org";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
+declare namespace srophe="https://srophe.app";
 
 (:~
  : Serialize XML as JSON
@@ -33,10 +34,16 @@ declare function geojson:json-wrapper($nodes as node()*) as element()*{
         <type>FeatureCollection</type>
         <features>
             {
-            let $nodes := $nodes[descendant-or-self::tei:geo]
-            let $count := count($nodes)
-            for $n in $nodes
-            return geojson:geojson-object($n, $count)}
+            if($nodes/descendant-or-self::tei:place[descendant::tei:geo][descendant::tei:relation]) then 
+                let $nodes := $nodes/descendant-or-self::tei:place[descendant::tei:geo]
+                let $count := count($nodes)
+                for $n in $nodes
+                return geojson:geojson-object-relation($n, $count)
+            else 
+                let $nodes := $nodes[descendant-or-self::tei:geo]
+                let $count := count($nodes)
+                for $n in $nodes
+                return geojson:geojson-object($n, $count)}
         </features>
     </root>
 };
@@ -54,7 +61,8 @@ declare function geojson:json-wrapper($nodes as node()*) as element()*{
 declare function geojson:geojson-object($node as node()*, $count as xs:integer?) as element()*{
 let $id := if($node/descendant::tei:idno[@type='URI']) then $node/descendant::tei:idno[@type='URI'][1]
            else $node/descendant::tei:idno[1]
-let $title := if($node/descendant::*[@syriaca-tags="#syriaca-headword"]) then $node/descendant::*[@syriaca-tags="#syriaca-headword"][1] 
+let $title := if($node/descendant-or-self::*[@srophe:tags="#headword"]) then $node/descendant-or-self::*[@srophe:tags="#headword"][1] 
+              else if($node/descendant::*[@syriaca-tags="#syriaca-headword"]) then $node/descendant::*[@syriaca-tags="#syriaca-headword"][1] 
               else $node/descendant::tei:title[1]
 let $desc := if($node/descendant::tei:desc[1]/tei:quote) then 
                 concat('"',$node/descendant::tei:desc[1]/tei:quote,'"')
@@ -84,6 +92,36 @@ return
                 <type>{$type}</type> 
             else ()
             }
+        </properties>
+    </json:value>
+};
+
+declare function geojson:geojson-object-relation($node as node()*, $count as xs:integer?) as element()*{
+for $r in $node/descendant::tei:relation
+let $id := $node/descendant::tei:idno[1]
+let $title := $node/descendant::tei:placeName[1]
+let $coords := $node/descendant::tei:geo[1]
+let $workID := string($r/@active)
+let $link := replace(replace($workID,$config:base-uri,$config:nav-base),'/tei','')
+let $lat := tokenize($coords,' ')[2]
+let $long := tokenize($coords,' ')[1] 
+return 
+    <json:value>
+        {(if(count($count) = 1) then attribute {xs:QName("json:array")} {'true'} else())}
+        <type>Feature</type>
+        <geometry>
+            <type>Point</type>
+            <coordinates json:literal="true">{$long}</coordinates>
+            <coordinates json:literal="true">{$lat}</coordinates>
+        </geometry>
+        <properties>
+            <uri>{$id/text()}</uri>
+            <name>{$title/text()}</name>
+            <type>{string($r/@type)}</type>
+            <relation>
+                <id>{$link}</id>
+                <title>{$r/tei:desc/tei:title/text()}</title>
+            </relation> 
         </properties>
     </json:value>
 };

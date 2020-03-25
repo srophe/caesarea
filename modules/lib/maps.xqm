@@ -27,12 +27,9 @@ else maps:build-leaflet-map($nodes,$total-count)
 :)
 declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:integer?){
     <div id="map-data" style="margin-bottom:3em;">
-        <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.js"/>
+                <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.js"/>
         <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.awesome-markers.min.js"/>
-        <!--
-        <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
-        <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
-        -->
+        <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.markercluster-src.js"/>
         <div id="map"/>
         {
             if($total-count gt 0) then 
@@ -142,6 +139,58 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
          </script>
     </div> 
 };
+
+(: Leaflet maps with clusters, uses relationship data to cluster realted items on a specific location :)
+declare function maps:build-leaflet-map-cluster($nodes as node()*){
+    <div id="map-data" style="margin-bottom:3em;">
+        <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.js"/>
+        <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.awesome-markers.min.js"/>
+        <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.markercluster-src.js"/>
+        <div id="map"/>
+        <script type="text/javascript">
+           <![CDATA[
+                  var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
+                  var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+                  var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+                  var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC', maxZoom: 11 });
+                  
+                  /*
+          		var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          			maxZoom: 18,
+          			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          		});
+                    */
+                    
+          		var map = L.map('map').addLayer(terrain);
+          
+          		var markers = L.markerClusterGroup();
+          
+          		var geoJsonLayer = L.geoJson(geoJsonData, {
+          			onEachFeature: function (feature, layer) {
+          				  var typeText = feature.properties.type
+                            var popupContent = 
+                                "<a href='" + feature.properties.relation.id + "' class='map-pop-title'>" +
+                                feature.properties.relation.title + "</a>" + 
+                                "<br/>Location: <a href='" + feature.properties.uri + "' class='map-pop-title'>" +
+                                feature.properties.name + "</a>"  +
+                                "<br/>Relationship: " + typeText + 
+                                (feature.properties.desc ? "<span class='map-pop-desc'>"+ feature.properties.desc +"</span>" : "");
+          				layer.bindPopup(popupContent);
+          			}
+          		});
+          		L.control.layers({
+                        "Terrain (default)": terrain,
+                        "Streets": streets }).addTo(map);
+                        
+          		markers.addLayer(geoJsonLayer);
+          
+          		map.addLayer(markers);
+          		map.fitBounds(markers.getBounds(), {padding: [50,50]});
+            ]]>
+        </script>
+    </div> 
+};
+
 
 (:~
  : Build Google maps

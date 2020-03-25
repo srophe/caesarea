@@ -268,8 +268,13 @@ img{ margin:0px }
 .map-md #map {height:300px !important;}
 .map-sm #map {height:250px !important;}
 #map {height:325px !important;}
+/* 
 .map-pop-title {display:block;font-weight:600; font-size:1.2em; margin-bottom:0; padding-bottom:0;}
 .map-pop-desc {display:block; padding:.5em;}
+ * */
+.map-pop-desc {display:block;margin-left:.5em;}
+.map-related-title, .map-pop-relation {display:block; margin-left:1em; border-bottom:1px solid #eee;}
+
 
 /* N */
 /* Navbar styles*/
