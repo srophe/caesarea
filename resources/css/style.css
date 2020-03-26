@@ -274,7 +274,7 @@ img{ margin:0px }
  * */
 .map-pop-desc {display:block;margin-left:.5em;}
 .map-related-title, .map-pop-relation {display:block; margin-left:1em; border-bottom:1px solid #eee;}
-
+.main-content {margin:2em; padding:1em;}
 
 /* N */
 /* Navbar styles*/
@@ -511,7 +511,15 @@ pre {
 }
 
 /* Caesarea customizations */
-.tei-ab > .tei-quote {display: list-item; margin: 1em 2em; font-size: 1.15em;}
-.horizontal-facets {display:block;}
-.horizontal-facets .facet-label {display:inline-block; margin:.2em; padding:.25em; font-size: .90em;}
-.horizontal-facets .facet-label .count{display:none;}
+/*.tei-ab > .tei-quote {display: list-item; margin: 1em 2em; font-size: 1.15em;}*/
+.historical-era-label {
+  display:inline-block; 
+  text-align:center; 
+  margin:.2em; 
+  padding:.5em; 
+  font-size: .90em;
+  border-radius: 6px;
+  border:1px solid #ccc;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+.historical-era-label.selected{background:#ddd;}
