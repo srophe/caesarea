@@ -40,7 +40,7 @@ return
                 <location type="gps">
                     <geo>{
                         let $points := $json?reprPoint
-                        return concat($points?2,' ', $points?1)
+                        return concat($points?1,' ', $points?2)
                     }</geo>
                 </location>
                 <listRelation>{
