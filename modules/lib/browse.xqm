@@ -51,12 +51,31 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
     (
     if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
-            {browse:get-map($hits)}
-        </div>
+        {
+            let $mapData := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:place
+            return maps:build-leaflet-map-cluster($mapData)
+            (:browse:get-map($hits):)}</div>
     else if($browse:view = 'timeline') then 
         
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="horizontal-facets">{facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition[@name='Historical Era Composed'])}</div>
+            <div class="horizontal-facets">
+            {
+             let $dates := doc($config:app-root || '/documentation/caesarea-maritima-historical-era-taxonomy.xml')//*:record
+             let $d := tokenize(string-join(collection($config:data-root)//tei:origDate/@period,' '),' ')
+             let $selected := substring-after(request:get-parameter('fq', ''),':')
+             for $f in $d
+             group by $facet-grp := tokenize($f,' ')
+             let $controlled-vocab := $dates[*:catId = replace($facet-grp,'#','')]
+             let $date := $controlled-vocab/*:notBefore
+             order by $date
+             return 
+                <a href="?view=timeline&amp;fq=;fq-Historical%20Era%20Composed:{encode-for-uri($facet-grp)}" 
+                class="historical-era-label {if($selected = $facet-grp) then 'selected' else ()}">
+                    {$controlled-vocab/*:catDesc/text()}
+                    <br/><span class="dateLabel">{$controlled-vocab/*:dateRangeLabel}</span>
+                </a>
+            }
+            </div>
             {timeline:timeline($hits, 'Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')}
         </div>
     else

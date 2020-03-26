@@ -5,28 +5,24 @@
     <catDesc>Lower Paleolithic</catDesc>
     <notBefore>-999999</notBefore>
     <notAfter>-119999</notAfter>
-    <calendar>BP</calendar>
+    <calendar>Gregorian</calendar>
+    <dateRangeLabel>999999-119999 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>upperAcheulean</catId>
     <catDesc>Upper Acheulean</catDesc>
     <notBefore>-498050</notBefore>
     <notAfter>-148050</notAfter>
-    <calendar>Gregorian</calendar>
+    <calendar>BP</calendar>
+    <dateRangeLabel>498050-148050 BP</dateRangeLabel>
   </record>
   <record>
     <catId>acheulean</catId>
     <catDesc>Acheulean  </catDesc>
     <notBefore>-298050</notBefore>
     <notAfter>-148050</notAfter>
-    <calendar>Gregorian</calendar>
-  </record>
-  <record>
-    <catId>mousterian</catId>
-    <catDesc>Mousterian</catDesc>
-    <notBefore>-138050</notBefore>
-    <notAfter>-38050</notAfter>
-    <calendar>Gregorian</calendar>
+    <calendar>BP</calendar>
+    <dateRangeLabel>298050-148050 BP</dateRangeLabel>
   </record>
   <record>
     <catId>middlePaleolithic</catId>
@@ -34,6 +30,7 @@
     <notBefore>-119999</notBefore>
     <notAfter>-44999</notAfter>
     <calendar>BP</calendar>
+    <dateRangeLabel>119999-44999 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>mousterian</catId>
@@ -41,6 +38,7 @@
     <notBefore>-118050</notBefore>
     <notAfter>-38050</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>118050-38050 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>upperPaleolithic</catId>
@@ -48,6 +46,7 @@
     <notBefore>-44999</notBefore>
     <notAfter>-17999</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>44999-17999 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>kebaran</catId>
@@ -55,6 +54,7 @@
     <notBefore>-18050</notBefore>
     <notAfter>-13050</notAfter>
     <calendar>BP</calendar>
+    <dateRangeLabel>18050-13050 BP</dateRangeLabel>
   </record>
   <record>
     <catId>epipaleolithic</catId>
@@ -62,13 +62,7 @@
     <notBefore>-17999</notBefore>
     <notAfter>-8299</notAfter>
     <calendar>Gregorian</calendar>
-  </record>
-  <record>
-    <catId>geometricKebaran</catId>
-    <catDesc>Geometric Kebaran</catDesc>
-    <notBefore>-13050</notBefore>
-    <notAfter>-10050</notAfter>
-    <calendar>Gregorian</calendar>
+    <dateRangeLabel>17999-8299 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>geometricKebaran</catId>
@@ -76,6 +70,7 @@
     <notBefore>-12499</notBefore>
     <notAfter>-10899</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>12499-10899 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>natufianCulture</catId>
@@ -83,13 +78,15 @@
     <notBefore>-10799</notBefore>
     <notAfter>-8499</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>10799-8499 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>pre-potteryNeolithic</catId>
     <catDesc>Pre-Pottery Neolithic</catDesc>
     <notBefore>-8299</notBefore>
     <notAfter>-5499</notAfter>
-    <calendar>BP</calendar>
+    <calendar>Gregorian</calendar>
+    <dateRangeLabel>8299-5499 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>potteryNeolithic</catId>
@@ -97,13 +94,15 @@
     <notBefore>-5499</notBefore>
     <notAfter>-4499</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>5499-4499 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>chalcolithic</catId>
     <catDesc>Chalcolithic</catDesc>
     <notBefore>-4499</notBefore>
     <notAfter>-3299</notAfter>
-    <calendar>BP</calendar>
+    <calendar>Gregorian</calendar>
+    <dateRangeLabel>4499-3299 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyBronzeAge</catId>
@@ -111,6 +110,7 @@
     <notBefore>-3299</notBefore>
     <notAfter>-2199</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>3299-2199 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>bronzeAge</catId>
@@ -118,6 +118,7 @@
     <notBefore>-3299</notBefore>
     <notAfter>-1199</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>3299-1199 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyBronzeAgeIa-b</catId>
@@ -125,6 +126,7 @@
     <notBefore>-3299</notBefore>
     <notAfter>-2999</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>3299-2999 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyBronzeAgeIi</catId>
@@ -132,6 +134,7 @@
     <notBefore>-2999</notBefore>
     <notAfter>-2699</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>2999-2699 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyBronzeAgeIii</catId>
@@ -139,13 +142,15 @@
     <notBefore>-2699</notBefore>
     <notAfter>-2199</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>2699-2199 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>middleBronzeAge</catId>
     <catDesc>Middle Bronze Age</catDesc>
     <notBefore>-2199</notBefore>
     <notAfter>-1549</notAfter>
-    <calendar>BP</calendar>
+    <calendar>Gregorian</calendar>
+    <dateRangeLabel>2199-1549 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>middleBronzeAgeI</catId>
@@ -153,6 +158,7 @@
     <notBefore>-2199</notBefore>
     <notAfter>-1999</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>2199-1999 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>middleBronzeAgeIia</catId>
@@ -160,6 +166,7 @@
     <notBefore>-1999</notBefore>
     <notAfter>-1749</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1999-1749 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>middleBronzeAgeIib</catId>
@@ -167,6 +174,7 @@
     <notBefore>-1749</notBefore>
     <notAfter>-1549</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1749-1549 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>lateBronzeAge</catId>
@@ -174,13 +182,7 @@
     <notBefore>-1599</notBefore>
     <notAfter>-1200</notAfter>
     <calendar>Gregorian</calendar>
-  </record>
-  <record>
-    <catId>lateBronzeAge</catId>
-    <catDesc>Late Bronze Age</catDesc>
-    <notBefore>-1549</notBefore>
-    <notAfter>-1199</notAfter>
-    <calendar>Gregorian</calendar>
+    <dateRangeLabel>1599-1200 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>lateBronzeAgeI</catId>
@@ -188,6 +190,7 @@
     <notBefore>-1549</notBefore>
     <notAfter>-1399</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1549-1399 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>lateBronzeAgeIia</catId>
@@ -195,6 +198,7 @@
     <notBefore>-1399</notBefore>
     <notAfter>-1299</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1399-1299 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>lateBronzeAgeIib</catId>
@@ -202,6 +206,7 @@
     <notBefore>-1299</notBefore>
     <notAfter>-1199</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1299-1199 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>ironAge</catId>
@@ -209,6 +214,7 @@
     <notBefore>-1199</notBefore>
     <notAfter>-0585</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1199-585 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>ironAgeIa</catId>
@@ -216,6 +222,7 @@
     <notBefore>-1199</notBefore>
     <notAfter>-1149</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1199-1149 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>ironAgeIb</catId>
@@ -223,6 +230,7 @@
     <notBefore>-1149</notBefore>
     <notAfter>-0999</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1149-999 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>ironAgeIia</catId>
@@ -230,6 +238,7 @@
     <notBefore>-0999</notBefore>
     <notAfter>-0899</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>999-899 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>ironAgeIib</catId>
@@ -237,6 +246,7 @@
     <notBefore>-0899</notBefore>
     <notAfter>-0699</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>899-699 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>ironIic</catId>
@@ -244,6 +254,7 @@
     <notBefore>-0799</notBefore>
     <notAfter>-0731</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>799-731 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>ironAgeIic</catId>
@@ -251,6 +262,7 @@
     <notBefore>-0699</notBefore>
     <notAfter>-0585</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>699-585 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>babylonianAndPersian</catId>
@@ -258,6 +270,7 @@
     <notBefore>-0585</notBefore>
     <notAfter>-0331</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>585-331 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyHellenistic</catId>
@@ -265,6 +278,7 @@
     <notBefore>-0331</notBefore>
     <notAfter>-0166</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>331-166 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>hellenistic</catId>
@@ -272,6 +286,7 @@
     <notBefore>-0331</notBefore>
     <notAfter>-0036</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>331-36 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyNabatean</catId>
@@ -279,6 +294,7 @@
     <notBefore>-0331</notBefore>
     <notAfter>-0036</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>331-36 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>nabateanKingdom</catId>
@@ -286,6 +302,7 @@
     <notBefore>-0167</notBefore>
     <notAfter>0106</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>167 BCE-106 CE</dateRangeLabel>
   </record>
   <record>
     <catId>lateHellenistic</catId>
@@ -293,6 +310,7 @@
     <notBefore>-0166</notBefore>
     <notAfter>-0036</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>166-36 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyRoman</catId>
@@ -300,6 +318,7 @@
     <notBefore>-0036</notBefore>
     <notAfter>0132</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>36 BCE-132 CE</dateRangeLabel>
   </record>
   <record>
     <catId>herodian</catId>
@@ -307,6 +326,7 @@
     <notBefore>-0036</notBefore>
     <notAfter>0070</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>36 BCE-70 CE</dateRangeLabel>
   </record>
   <record>
     <catId>middleNabatean</catId>
@@ -314,6 +334,7 @@
     <notBefore>-0024</notBefore>
     <notAfter>0050</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>24 BCE-50 CE</dateRangeLabel>
   </record>
   <record>
     <catId>lateRoman</catId>
@@ -321,6 +342,7 @@
     <notBefore>0132</notBefore>
     <notAfter>0324</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>132-324 CE</dateRangeLabel>
   </record>
   <record>
     <catId>byzantine</catId>
@@ -328,6 +350,7 @@
     <notBefore>0324</notBefore>
     <notAfter>0638</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>324-638 CE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyIslamic</catId>
@@ -335,6 +358,7 @@
     <notBefore>0638</notBefore>
     <notAfter>1099</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>638-1099 CE</dateRangeLabel>
   </record>
   <record>
     <catId>crusader</catId>
@@ -342,6 +366,7 @@
     <notBefore>1099</notBefore>
     <notAfter>1291</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1099-1291 CE</dateRangeLabel>
   </record>
   <record>
     <catId>lateIslamic</catId>
@@ -349,6 +374,7 @@
     <notBefore>1291</notBefore>
     <notAfter>1516</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1291-1516 CE</dateRangeLabel>
   </record>
   <record>
     <catId>ottoman</catId>
@@ -356,6 +382,7 @@
     <notBefore>1516</notBefore>
     <notAfter>1917</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1516-1917 CE</dateRangeLabel>
   </record>
   <record>
     <catId>britishTerritorialAdministration</catId>
@@ -363,6 +390,7 @@
     <notBefore>1917</notBefore>
     <notAfter>1920</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1970-1920 CE</dateRangeLabel>
   </record>
   <record>
     <catId>britishMandate</catId>
@@ -370,6 +398,7 @@
     <notBefore>1920</notBefore>
     <notAfter>1948</notAfter>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1920-1948 CE</dateRangeLabel>
   </record>
   <record>
     <catId>modernState</catId>
@@ -377,5 +406,6 @@
     <notBefore>1948</notBefore>
     <notAfter/>
     <calendar>Gregorian</calendar>
+    <dateRangeLabel>1948- CE</dateRangeLabel>
   </record>
 </csv>
