@@ -389,7 +389,7 @@ declare function tei2html:summary-view-bibl($nodes as node()*, $id as xs:string?
                    return tei2html:translate-series($a)
     return 
         <div class="short-rec-view">
-            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{$title}</a>
+            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{tei2html:tei2html($title)}</a>
             <button type="button" class="btn btn-sm btn-default copy-sm clipboard"  
                 data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." 
                 data-clipboard-action="copy" data-clipboard-text="{normalize-space($title[1])} - {normalize-space($id[1])}">
