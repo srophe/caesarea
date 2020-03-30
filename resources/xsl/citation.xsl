@@ -38,7 +38,7 @@
         
         <!-- monographic title -->
         <xsl:text> in </xsl:text>
-        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/><xsl:text>, </xsl:text>
+        <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/><xsl:text>, </xsl:text>
         
         <!-- publication date statement -->
         <xsl:text> last modified </xsl:text>
@@ -77,7 +77,7 @@
         
         <!-- monographic title -->
         <xsl:text> In </xsl:text>
-        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
+        <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
         
         <!-- general editors -->
         <xsl:text>, edited by </xsl:text>
@@ -175,7 +175,7 @@
                         <xsl:text>, editor</xsl:text>
                         <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
                         <xsl:text>, </xsl:text>
-                        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
+                        <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
                     </li>
                     <li>
                         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
