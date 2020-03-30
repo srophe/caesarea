@@ -538,3 +538,37 @@ pre {
 }
 .historical-era-label.selected{background:#ddd;}
 .historical-era-label .dateLabel{color:#666;}
+
+.feature {
+    text-align:center;
+    position:relative;
+    margin:0;
+    padding:0;
+    border: 1px solid grey;
+	border-radius: 25px !important;
+	min-height:250px;  
+}
+.featureTestemonia .featureBanner{
+    min-height:75px; 
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-size:cover;
+	background-position:top;
+    background-image:url('../images/featureTestimonia.jpg');
+    border-bottom:4px solid grey;
+}
+.featureBibl .featureBanner{
+    min-height:75px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-size:cover;
+	background-position:top;    
+    background-image:url('../images/featureBibl.jpg');
+    border-bottom:4px solid grey;
+}
+
+.feature-text {
+    padding: 1em;
+    margin-top:0;
+    display:block;
+}
