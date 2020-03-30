@@ -382,21 +382,21 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
 declare function tei2html:summary-view-bibl($nodes as node()*, $id as xs:string?) as item()* {
     let $title := if($nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
                     $nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en'][1]/text()
-                  else if($nodes/descendant-or-self::tei:title[@level='a']) then
-                    $nodes/descendant-or-self::tei:title[1]
-                  else $nodes/descendant-or-self::tei:title[1]
+                  else $nodes/descendant-or-self::tei:title[1]/text()
     let $series := for $a in distinct-values($nodes/descendant::tei:seriesStmt/tei:biblScope/tei:title)
                    return tei2html:translate-series($a)
     return 
         <div class="short-rec-view">
-            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{tei2html:tei2html($title)}</a>
+            <a href="{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}" dir="ltr">{$title}</a>
             <button type="button" class="btn btn-sm btn-default copy-sm clipboard"  
                 data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." 
                 data-clipboard-action="copy" data-clipboard-text="{normalize-space($title[1])} - {normalize-space($id[1])}">
                     <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
             </button>
             <span class="results-list-desc desc" dir="ltr" lang="en">{
-                bibl2html:citation($nodes/descendant::tei:biblStruct)
+                if($nodes/descendant::tei:bibl[@type='formatted']) then 
+                    tei2html:tei2html($nodes/descendant::tei:bibl[@type='formatted'])
+                else bibl2html:citation($nodes/descendant::tei:biblStruct)
                 (:global:tei2html(<citation xmlns="http://www.tei-c.org/ns/1.0">{$nodes/descendant::tei:biblStruct}</citation>):)
             }</span>
             {
