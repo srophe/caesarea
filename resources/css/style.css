@@ -183,18 +183,6 @@ footer .poweredby img { width: 75px; }
     width:100%;
     position:relative
 }
-.testimonia-banner {
-    text-align:center;
-    position:relative;
-    margin:0;
-    padding:0;
-	background-image:url('../images/banner-testimonia.jpg');
-	background-size:cover;
-	background-position:top;
-    min-height:325px;
-    width:100%;
-    position:relative
-}
 
 .feature {
     padding:1em;
@@ -512,6 +500,32 @@ pre {
 
 /* Caesarea customizations */
 /*.tei-ab > .tei-quote {display: list-item; margin: 1em 2em; font-size: 1.15em;}*/
+
+.testimonia-banner {
+    text-align:center;
+    position:relative;
+    margin:0;
+    padding:0;
+	background-image:url('../images/banner-testimonia.jpg');
+	background-size:cover;
+	background-position:top;
+    min-height:325px;
+    width:100%;
+    position:relative
+}
+
+.bibl-banner {
+    text-align:center;
+    position:relative;
+    margin:0;
+    padding:0;
+	background-image:url('../images/banner-bibl.jpg');
+	background-size:cover;
+	background-position:top;
+    min-height:325px;
+    width:100%;
+    position:relative
+}
 .historical-era-label {
   display:inline-block; 
   text-align:center; 
