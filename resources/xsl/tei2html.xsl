@@ -189,6 +189,10 @@
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
+            <xsl:when test="@subtype='coins'">
+                <span class="Z3988" title="{string(t:ptr/@target)}"/>
+            </xsl:when>
+            <xsl:when test="parent::t:body"/>
             <xsl:when test="@type !=('lawd:ConceptualWork','lawd:Citation')">
                 <li>
                     <xsl:if test="descendant::t:lang/text()">
