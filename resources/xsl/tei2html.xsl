@@ -151,7 +151,7 @@
         <div id="about">
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
-                    <h3>About this Online Entry</h3>
+                    <h3>About this Online Bibliography</h3>
                     <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -1406,33 +1406,40 @@
     </xsl:template>
     <xsl:template match="t:teiHeader" mode="#all">
         <div class="citationinfo">
-            <h3>How to Cite This Entry</h3>
-            <div id="citation-note" class="well">
-                <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-foot"/>
-                <div class="collapse" id="showcit">
-                    <div id="citation-bibliography">
-                        <h4>Bibliography:</h4>
-                        <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-biblist"/>
-                    </div>
+            <xsl:choose>
+                <xsl:when test="//t:publicationStmt/t:idno[contains(.,'/bibl/')]">
                     <xsl:call-template name="aboutEntry"/>
-                    <div id="license">
-                        <h3>Copyright and License for Reuse</h3>
-                        <div>
-                            <xsl:text>Except otherwise noted, this page is © </xsl:text>
-                            <xsl:choose>
-                                <xsl:when test="t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
-                                    <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="t:fileDesc/t:publicationStmt/t:date[1]"/>
-                                </xsl:otherwise>
-                            </xsl:choose>.
+                </xsl:when>
+                <xsl:otherwise>
+                    <h3>How to Cite This Entry</h3>
+                    <div id="citation-note" class="well">
+                        <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                        <div class="collapse" id="showcit">
+                            <div id="citation-bibliography">
+                                <h4>Bibliography:</h4>
+                                <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                            </div>
+                            <xsl:call-template name="aboutEntry"/>
+                            <div id="license">
+                                <h3>Copyright and License for Reuse</h3>
+                                <div>
+                                    <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                                            <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="t:fileDesc/t:publicationStmt/t:date[1]"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>.
+                                </div>
+                                <xsl:apply-templates select="t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                            </div>
                         </div>
-                        <xsl:apply-templates select="t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                        <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
                     </div>
-                </div>
-                <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
-            </div>
+                </xsl:otherwise>
+            </xsl:choose>
         </div>
     </xsl:template>
     <xsl:template match="t:text | t:front | t:back">
