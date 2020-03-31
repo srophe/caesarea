@@ -163,7 +163,11 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
                     
           		var map = L.map('map').addLayer(terrain);
           
-          		var markers = L.markerClusterGroup();
+          		var markers = L.markerClusterGroup({
+                        maxClusterRadius: function (zoom) {
+                            return 1; // radius in pixels
+                        }
+                    });
           
           		var geoJsonLayer = L.geoJson(geoJsonData, {
           			onEachFeature: function (feature, layer) {
