@@ -50,11 +50,29 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
   return 
     (
     if($browse:view = 'map') then 
-        <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
-        {
-            let $mapData := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:place
+        <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">{
+            let $ids := $hits/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
+            let $mapData := for $id in distinct-values($ids)
+                            let $id-results := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:relation[@active = $id]
+                            return $id-results
             return maps:build-leaflet-map-cluster($mapData)
-            (:browse:get-map($hits):)}</div>
+            (:
+            let $uris := distinct-values($hits/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]) 
+            let $mapData := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:place[descendant::tei:relation[@active = ($uris)]]
+            return maps:build-leaflet-map-cluster($mapData)
+            :)
+          }
+          <!-- Note to self, map is not populated by 'hits' -->
+            <div id="map-filters" class="map-overlay">
+                <span class="filter-label">Filter Map 
+                    <a class="pull-right small togglelink text-info" 
+                    data-toggle="collapse" data-target="#filterMap" 
+                    href="#filterMap" data-text-swap="+ Show"> - Hide </a></span>
+                <div class="collapse in" id="filterMap">
+                      {facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition)}  
+                </div>
+            </div>
+          </div>
     else if($browse:view = 'timeline') then 
         
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
@@ -87,8 +105,9 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 </div>
                 {if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then ()
                  else browse:browse-abc-menu()}
-                </div>,                
-                <div class="row">
+                </div>, 
+                if($facet-config != '') then
+                   <div class="row">
                     <div class="col-md-8 col-md-push-4">
                         <h3>{(
                             if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
@@ -100,6 +119,19 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                         </div>
                     </div>
                     <div class="col-md-4 col-md-pull-8">{facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition)}</div>
+                </div> 
+                else 
+                 <div class="row">
+                    <div class="col-md-12">
+                        <h3>{(
+                            if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
+                            else attribute class {"label"},
+                            if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
+                        <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
+                            {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
+                            {browse:display-hits($hits)}
+                        </div>
+                    </div>
                 </div>,
                 <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right paging"}">
                     {page:pages($hits, $collection, $browse:start, $browse:perpage,'', $sort-options)}

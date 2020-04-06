@@ -150,16 +150,10 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
         <script type="text/javascript">
            <![CDATA[
                   var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
-                  var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+                  var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012",maxNativeZoom: 18, maxZoom: 11});
                   var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
-                  var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC', maxZoom: 11 });
+                  var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC'});
                   
-                  /*
-          		var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          			maxZoom: 18,
-          			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          		});
-                    */
                     
           		var map = L.map('map').addLayer(terrain);
           
@@ -189,7 +183,7 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
           		markers.addLayer(geoJsonLayer);
           
           		map.addLayer(markers);
-          		map.fitBounds(markers.getBounds(), {padding: [50,50]});
+          		map.fitBounds(markers.getBounds(), {padding: [50,50]}, {maxZoom: 10});
             ]]>
         </script>
     </div> 
