@@ -331,7 +331,14 @@
             <xsl:when test="parent::t:body">
                 <div class="well preferred-citation">
                     <h4>Preferred Citation</h4>
-                    <xsl:apply-templates select="self::*" mode="bibliography"/>.
+                    <xsl:choose>
+                        <xsl:when test="//t:bibl[@type='formatted'][@subtype='bibliography']">
+                            <xsl:apply-templates select="//t:bibl[@type='formatted'][@subtype='bibliography']" mode="bibliography"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="self::*" mode="bibliography"/>.                            
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </div>
                 <h3>Full Citation Information</h3>
                 <div class="section indent">
