@@ -1249,13 +1249,19 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <span class="footnote-icon">
-            <a href="{$ref}" title="{$title}" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                <xsl:call-template name="ref-icons">
-                    <xsl:with-param name="ref" select="$ref"/>
-                </xsl:call-template>
-            </a>
-        </span>
+        <xsl:choose>
+            <xsl:when test="ends-with(.,'/tei') or ends-with(.,'.tei')"></xsl:when>
+            <xsl:when test="starts-with(.,'https://www.zotero.org/groups/') and preceding-sibling::t:idno[starts-with(.,'https://www.zotero.org/groups/')]"></xsl:when>
+            <xsl:otherwise>
+                <span class="footnote-icon">
+                    <a href="{$ref}" title="{$title}" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                        <xsl:call-template name="ref-icons">
+                            <xsl:with-param name="ref" select="$ref"/>
+                        </xsl:call-template>
+                    </a>
+                </span>  
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template name="ref-icons">
         <xsl:param name="ref"/>
