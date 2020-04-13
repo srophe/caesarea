@@ -460,6 +460,8 @@ pre {
 .tab-content {padding-top:.25em;}
 .text {margin:0}
 .title {border-bottom:1px solid grey}
+.title-analytic::before  {content: '"';}
+.title-analytic::after  {content: '"';}
 .title-journal, .title-monographic{font-style:italic;}
 .tooltip {
       padding:.25em;
