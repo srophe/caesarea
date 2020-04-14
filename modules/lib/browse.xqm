@@ -56,13 +56,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                             let $id-results := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:relation[@active = $id]
                             return $id-results
             return maps:build-leaflet-map-cluster($mapData)
-            (:
-            let $uris := distinct-values($hits/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]) 
-            let $mapData := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:place[descendant::tei:relation[@active = ($uris)]]
-            return maps:build-leaflet-map-cluster($mapData)
-            :)
           }
-          <!-- Note to self, map is not populated by 'hits' -->
             <div id="map-filters" class="map-overlay">
                 <span class="filter-label">Filter Map 
                     <a class="pull-right small togglelink text-info" 
@@ -74,7 +68,6 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
             </div>
           </div>
     else if($browse:view = 'timeline') then 
-        
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             <div class="horizontal-facets">
             {
@@ -94,7 +87,11 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 </a>
             }
             </div>
-            {timeline:timeline($hits, 'Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')}
+            {
+            if($collection = 'bibl') then
+                timeline:timeline($hits, 'Timeline', 'tei:biblStruct/descendant::tei:imprint/tei:date')
+            else timeline:timeline($hits, 'Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')
+            }
         </div>
     else
         <div class="{if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then 'col-md-8 col-md-push-4' else 'col-md-12'}" xmlns="http://www.w3.org/1999/xhtml">

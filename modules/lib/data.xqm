@@ -117,13 +117,14 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             where $root[1]//tei:geo
             return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>
             
-        else:) if($collection = 'bibl' and not(request:get-parameter('view', ''))) then
+        else:) 
+        (:if($collection = 'bibl' and not(request:get-parameter('view', ''))) then
             for $hit in $hits[matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
             let $root := $hit/ancestor-or-self::tei:TEI
             where $hit[matches(substring(global:build-sort-string(.,''),1,1),global:get-alpha-filter(),'i')]
             order by global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'') 
             return $root
-        else if(request:get-parameter('view', '') = 'A-Z') then 
+        else:) if(request:get-parameter('view', '') = 'A-Z') then 
             for $hit in $hits[matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
             let $root := $hit/ancestor-or-self::tei:TEI
             let $sort := global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'')
@@ -238,7 +239,7 @@ declare function data:add-sort-options($hit, $sort-option as xs:string*){
             if($hit/descendant::tei:body/tei:biblStruct) then 
                 global:build-sort-string($hit/descendant::tei:body/tei:biblStruct/descendant::tei:title[1],request:get-parameter('lang', ''))
             else global:build-sort-string($hit/descendant::tei:titleStmt/tei:title[1],request:get-parameter('lang', ''))
-        else if($sort-option = 'author') then 
+        else if($sort-option = 'author' or $sort-option = 'creator') then 
             if($hit/descendant::tei:body/tei:biblStruct) then 
                 if($hit/descendant::tei:body/tei:biblStruct/descendant::tei:author) then 
                     if($hit/descendant::tei:body/tei:biblStruct/descendant::tei:author[1]/descendant-or-self::tei:surname) then 
