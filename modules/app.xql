@@ -590,3 +590,50 @@ declare
 function app:google-analytics($node as node(), $model as map(*)){
    $config:get-config//google_analytics/text() 
 };
+
+(:
+ : Linked Data Box, place holder
+:)
+declare %templates:wrap function app:linkedData($node as node(), $model as map(*)){
+    let $data := $model("hits")
+    let $placeComposed := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:origPlace[@ref]
+    let $author := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:persName[@role='author'][@ref]
+    let $history := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:title[@ref]
+    let $bibl := $data/descendant::tei:bibl[tei:ptr]
+    let $connections := count(($placeComposed,$author,$history,$bibl))
+    return 
+    <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
+        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to 
+            additional resources beyond this record. 
+            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
+            <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+        </div>
+        <div class="panel-body">
+        <p>This record has {$connections} connections.</p>
+        <ul>{(
+            for $p in $placeComposed
+            return 
+                <li><a href="#">{$p/text()}</a></li>,
+            for $a in $author
+            return 
+                <li><a href="#">{$a/text()}</a></li>,
+            for $h in $history
+            return 
+                <li><a href="#">{$h/text()}</a></li>,
+            for $b in $bibl
+            return 
+                <li><a href="#">{$b/tei:title/text()}</a></li>    
+        )}</ul>
+        
+        <!--
+        This record has 7 [calculated number based on URIs collected in the record] connections.
+Rome (from Place Composed URI)
+Ammianus Marcellinus (from Author URI)
+History (from Title URI if available)
+Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
+-->
+        
+        </div>
+    </div>
+};
