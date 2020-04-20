@@ -1229,7 +1229,7 @@
                     <xsl:text>Link to Zotero Bibliographic record</xsl:text>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,$base-uri)">
-                    <xsl:value-of select="concat('Link to ',$repository-title,' Bibliographic Record for', $title-string)"/>
+                    <xsl:value-of select="concat('Link to ',$repository-title,' Bibliographic Record for ', $title-string)"/>
                 </xsl:when>
                 <!-- glyphicon glyphicon-book -->
                 <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
@@ -1250,8 +1250,8 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="ends-with(.,'/tei') or ends-with(.,'.tei')"></xsl:when>
-            <xsl:when test="starts-with(.,'https://www.zotero.org/groups/') and preceding-sibling::t:idno[starts-with(.,'https://www.zotero.org/groups/')]"></xsl:when>
+            <xsl:when test="ends-with(.,'/tei') or ends-with(.,'.tei')"/>
+            <xsl:when test="starts-with(.,'https://www.zotero.org/groups/') and preceding-sibling::t:idno[starts-with(.,'https://www.zotero.org/groups/')]"/>
             <xsl:otherwise>
                 <span class="footnote-icon">
                     <a href="{$ref}" title="{$title}" data-toggle="tooltip" data-placement="top" class="bibl-links">
@@ -1292,28 +1292,34 @@
      handle bibliographic records, output full record
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:idno" mode="full">
-        <p>
-            <span class="tei-label">
-                <xsl:choose>
-                    <xsl:when test="@type='URI'">URI: </xsl:when>
-                    <xsl:when test="@type != ''">
-                        <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </xsl:when>
-                    <xsl:otherwise>Other ID Number: </xsl:otherwise>
-                </xsl:choose>
-            </span>
-            <xsl:choose>
-                <xsl:when test="@type='URI'">
-                    <a href="{text()}">
-                        <xsl:value-of select="text()"/>  <xsl:call-template name="ref-icons">
-                            <xsl:with-param name="ref" select="text()"/>
-                        </xsl:call-template>
-                    </a>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </p>
+        <xsl:choose>
+            <xsl:when test="starts-with(.,'https://www.zotero.org') and preceding-sibling::t:idno[starts-with(.,'https://www.zotero.org')]"/>
+            <xsl:otherwise>
+                <p>
+                    <span class="tei-label">
+                        <xsl:choose>
+                            <xsl:when test="@type='URI'">URI: </xsl:when>
+                            <xsl:when test="@type != ''">
+                                <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </xsl:when>
+                            <xsl:otherwise>Other ID Number: </xsl:otherwise>
+                        </xsl:choose>
+                    </span>
+                    <xsl:choose>
+                        
+                        <xsl:when test="@type='URI'">
+                            <a href="{text()}">
+                                <xsl:value-of select="text()"/>  <xsl:call-template name="ref-icons">
+                                    <xsl:with-param name="ref" select="text()"/>
+                                </xsl:call-template>
+                            </a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </p>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="t:ref" mode="full">
         <p>
