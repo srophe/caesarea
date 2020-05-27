@@ -7,7 +7,7 @@
                 <sponsor>Vanderbilt University</sponsor>
                 <principal>Joseph L. Rife</principal>
                 <editor role="general" ref="https://caesarea-maritima.org/documentation/editors.xml#jrife">Joseph L. Rife</editor>
-                <editor role="general" ref="https://caesarea-maritima.org/documentation/editors.xml#plieberman">Phillip Ackerman-Lieberman</editor>
+                <editor role="general" ref="https://caesarea-maritima.org/documentation/editors.xml#plieberman">Phillip I. Lieberman</editor>
                 <respStmt>
                     <resp>List compiled and expanded by</resp>
                     <name ref="https://caesarea-maritima.org/documentation/editors.xml#wpotter">William L. Potter</name>
@@ -52,6 +52,7 @@
                 <person xml:id="plieberman">
                     <persName>
                         <forename>Phillip</forename>
+                        <addName type="middle-initial">I.</addName>
                         <surname>Lieberman</surname>
                     </persName>
                 </person>
