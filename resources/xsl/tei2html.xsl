@@ -1753,7 +1753,7 @@
         <div class="well">
             <!-- Sources -->
             <div id="sources">
-                <h3>Works Cited</h3>
+                <h3>Bibliography</h3>
                 <p>
                     <small>Any information without attribution has been created following the Syriaca.org <a href="http://syriaca.org/documentation/">editorial guidelines</a>.</small>
                 </p>
