@@ -179,6 +179,16 @@
                     </li>
                     <li>
                         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
+                        <xsl:sequence select="local:emit-responsible-persons-all(t:editor[@role= 'technical'],'biblist')"/>
+                        <xsl:text>, technical editors</xsl:text>
+                        <xsl:if test="count(t:editor[@role='creator'])&gt; 1">s</xsl:if>
+                        <xsl:text>, </xsl:text>
+                        <xsl:text>“</xsl:text>
+                        <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
+                        <xsl:text>”</xsl:text>
+                    </li>
+                    <li>
+                        <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
                         <xsl:sequence select="local:emit-responsible-persons-all(t:editor[@role= ('creator','contributor')],'biblist')"/>
                         <xsl:text>, entry contributor</xsl:text>
                         <xsl:if test="count(t:editor[@role='creator'])&gt; 1">s</xsl:if>
