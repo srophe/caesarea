@@ -551,7 +551,13 @@
         </xsl:choose>
     </xsl:template>
     <!-- Suppress List Relations, Syriaca.org handles these with XQuery functions.  -->
-    <xsl:template match="t:listRelation[parent::*/parent::t:body] | t:listBibl[parent::t:body]"/>
+    <xsl:template match="t:listRelation">
+        <xsl:choose>
+            <xsl:when test="parent::t:body"></xsl:when>
+            <xsl:when test="parent::*[1]/parent::t:body"></xsl:when>
+            <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     
     <!-- N -->
     <xsl:template match="t:note">
