@@ -592,7 +592,7 @@ function app:google-analytics($node as node(), $model as map(*)){
 };
 
 (:
- : Linked Data Box, place holder
+ : Linked Data Box
 :)
 declare %templates:wrap function app:linkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
@@ -604,6 +604,10 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     return 
     <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to 
+            additional resources beyond this record. 
+            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
+            <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
         </div>
         <div class="panel-body">
         <p>This record has {$connections} connections.</p>
@@ -632,4 +636,57 @@ Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
         
         </div>
     </div>
+};
+
+(:
+URL
+Extra: CTS-URN
+Extra: OCLC
+-Note, could you investigate if there is a Linked Data or otherAPI that we might send a query to using the OCLC number and return a result if the user clicks on the link?
+Extra: DOI
+-Note, could you investigate if there is a Linked Data or other API that we might send a query to using the DOI number and return a result if the user clicks on the link?
+Extra: xmlFile
+:)
+declare %templates:wrap function app:biblLinkedData($node as node(), $model as map(*)){
+    let $data := $model("hits")
+    let $CTS-URN := $data/descendant::tei:idno[@subtype='CTS-URN']
+    let $OCLC := $data/descendant::tei:idno[@subtype='OCLC']
+    let $DOI := $data/descendant::tei:idno[@subtype='DOI']
+    let $xmlFile := $data/descendant::tei:ref[@subtype="xmlFile"]
+    let $connections := count(($CTS-URN,$OCLC,$DOI,$xmlFile))
+    let $count := count($connections)
+    return 
+    if($count gt 0) then
+        <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            </div>
+            <div class="panel-body">
+            <p>This record has {$connections} connection(s).</p>
+            <ul>{(
+                for $c in $CTS-URN
+                return 
+                    <li><a href="{string($c/@target)}">{string($c/@target)}</a></li>,
+                for $o in $OCLC
+                return 
+                    <li><a href="{string($o/@target)}">{string($o/@target)}</a></li>,
+                for $d in $DOI
+                return 
+                    <li><a href="{string($d/@target)}">{string($d/@target)}</a></li>,
+                for $x in $xmlFile
+                return 
+                    <li><a href="{string($x/@target)}">{string($x/@target)}</a></li>   
+            )}</ul>
+            
+            <!--
+            This record has 7 [calculated number based on URIs collected in the record] connections.
+    Rome (from Place Composed URI)
+    Ammianus Marcellinus (from Author URI)
+    History (from Title URI if available)
+    Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
+    -->
+            
+            </div>
+        </div>
+        
+    else ()
 };
