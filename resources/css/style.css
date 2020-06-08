@@ -157,7 +157,7 @@ footer .poweredby img { width: 75px; }
     margin-top: -0.25em;
     vertical-align: middle;
     }
-    
+ul.footnote-list {margin-bottom: 1.5em;}   
 /* facets */
 .facet-label {
     margin-left:.5em; 
@@ -460,8 +460,8 @@ pre {
 .tab-content {padding-top:.25em;}
 .text {margin:0}
 .title {border-bottom:1px solid grey}
-.tei-bibl .title-analytic::before  {content: '"';}
-.tei-bibl .title-analytic::after  {content: '"';}
+.preferred-citation .title-analytic::before, .tei-bibl .title-analytic::before  {content: '"';}
+.preferred-citation .title-analytic::after, .tei-bibl .title-analytic::after  {content: '"';}
 .title-journal, .title-monographic{font-style:italic;}
 .tooltip {
       padding:.25em;

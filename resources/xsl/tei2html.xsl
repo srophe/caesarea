@@ -553,8 +553,8 @@
     <!-- Suppress List Relations, Syriaca.org handles these with XQuery functions.  -->
     <xsl:template match="t:listRelation">
         <xsl:choose>
-            <xsl:when test="parent::t:body"></xsl:when>
-            <xsl:when test="parent::*[1]/parent::t:body"></xsl:when>
+            <xsl:when test="parent::t:body"/>
+            <xsl:when test="parent::*[1]/parent::t:body"/>
             <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1763,23 +1763,26 @@
                 <p>
                     <small>Any information without attribution has been created following the Syriaca.org <a href="http://syriaca.org/documentation/">editorial guidelines</a>.</small>
                 </p>
-                <ul>
-                    <!-- Bibliography elements are processed by bibliography.xsl -->
-                    <!-- Old works model 
-                    <xsl:choose>
-                        <xsl:when test="t:bibl[@type='lawd:Citation']">
-                            <xsl:apply-templates select="t:bibl[@type='lawd:Citation']" mode="footnote"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="t:bibl" mode="footnote"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    -->
-                    <xsl:for-each select="t:bibl | t:listBibl">
-                       <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
-                        <xsl:apply-templates select="." mode="footnote"/>
-                    </xsl:for-each>
-                </ul>
+                <xsl:choose>
+                    <xsl:when test="t:listBibl">
+                        <xsl:for-each select="t:listBibl">
+                            <ul class="footnote-list">
+                                <xsl:for-each select="t:bibl">
+                                    <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
+                                    <xsl:apply-templates select="." mode="footnote"/>
+                                </xsl:for-each>
+                            </ul>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ul class="footnote-list">
+                            <xsl:for-each select="t:bibl">
+                                <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
+                                <xsl:apply-templates select="." mode="footnote"/>
+                            </xsl:for-each>
+                        </ul>
+                    </xsl:otherwise>
+                </xsl:choose>
             </div>
         </div>
     </xsl:template>
