@@ -654,9 +654,8 @@ declare %templates:wrap function app:biblLinkedData($node as node(), $model as m
     let $DOI := $data/descendant::tei:idno[@subtype='DOI']
     let $xmlFile := $data/descendant::tei:ref[@subtype="xmlFile"]
     let $connections := count(($CTS-URN,$OCLC,$DOI,$xmlFile))
-    let $count := count($connections)
     return 
-    if($count gt 0) then
+    if($connections gt 0) then
         <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
             <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
             </div>
