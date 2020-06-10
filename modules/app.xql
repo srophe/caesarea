@@ -591,16 +591,17 @@ function app:google-analytics($node as node(), $model as map(*)){
    $config:get-config//google_analytics/text() 
 };
 
+
 (:
  : Linked Data Box
 :)
 declare %templates:wrap function app:linkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
-    let $placeComposed := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:origPlace[@ref]
-    let $author := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:persName[@role='author'][@ref]
+    let $places := $data/descendant::*[starts-with(@ref, 'https://pleiades.stoa.org/places')]
+    let $persons := $data/descendant::*[starts-with(@ref,'http://viaf.org/viaf/')]
     let $history := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:title[@ref]
     let $bibl := $data/descendant::tei:bibl[tei:ptr]
-    let $connections := count(($placeComposed,$author,$history,$bibl))
+    let $connections := count(($places,$persons,$history,$bibl))
     return 
     <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
@@ -611,32 +612,41 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
         </div>
         <div class="panel-body">
         <p>This record has {$connections} connections.</p>
-        <ul>{(
-            for $p in $placeComposed
+        <ul class="no-indent">{(
+            for $p in $places
+            group by $placeID := $p/@ref
+            return
+                <li>{$p[1]/text()}
+                    <ul>
+                        <li><a href="{$placeID}">Pleiades Gazetteer Entry</a></li>
+                        <li><a href="{concat('https://peripleo.pelagios.org/ui#selected=',$placeID)}">Search Peripleo Linked Data</a></li>
+                    </ul>
+                </li>,
+            for $a in $persons
+            group by $persID := $a/@ref
             return 
-                <li><a href="#">{$p/text()}</a></li>,
-            for $a in $author
-            return 
-                <li><a href="#">{$a/text()}</a></li>,
-            for $h in $history
-            return 
-                <li><a href="#">{$h/text()}</a></li>,
-            for $b in $bibl
-            return 
-                <li><a href="#">{$b/tei:title/text()}</a></li>    
+                <li>{$a[1]/text()}
+                    <ul>
+                        <li><a href="{$persID}">VIAF Entry</a></li>
+                        <li><a href="{concat('https://www.worldcat.org/identities/find?fullName=',$a[1]/text())}">Search WorldCat Identities</a></li>
+                    </ul>
+                </li>,
+            if($bibl) then
+                <li>Bibliography
+                    <ul>{
+                        for $b in $bibl
+                        group by $biblID := $b/tei:ptr/@target
+                        return 
+                            <li><a href="{$biblID}">{$b[1]/tei:title/text()}</a></li>
+                    }</ul>
+                </li>
+            else ()
+                
         )}</ul>
-        
-        <!--
-        This record has 7 [calculated number based on URIs collected in the record] connections.
-Rome (from Place Composed URI)
-Ammianus Marcellinus (from Author URI)
-History (from Title URI if available)
-Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
--->
-        
         </div>
     </div>
 };
+
 
 (:
 URL
