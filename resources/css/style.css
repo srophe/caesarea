@@ -339,6 +339,8 @@ img{ margin:0px }
 .navbar .icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle; font-weight:500;}
 .navbar .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
 
+.no-indent {padding-left:1.5em;}
+.no-indent ul{padding-left:1.5em;}
 /* O */
 .overlay {
     font-weight:200;
@@ -454,6 +456,18 @@ pre {
 
 .search-box .navbar-form {overflow:visible;}
 
+/* slider styles */
+h4.slider {
+  display: block;
+  margin: 0 0 1.5em;
+  padding: 0 0 1em;
+  background: transparent;
+}
+.slider-container {
+  display: block;
+  min-height: 20px;
+  padding: 1em 0;
+}
 
 
 /* T */
