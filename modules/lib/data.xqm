@@ -9,6 +9,7 @@ import module namespace config="http://syriaca.org/srophe/config" at "../config.
 import module namespace global="http://syriaca.org/srophe/global" at "global.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
 import module namespace functx="http://www.functx.com";
+import module namespace slider = "http://syriaca.org/srophe/slider" at "date-slider.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -105,6 +106,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         else ()     
     let $eval-string := concat(data:build-collection-path($collection),
                 facet:facet-filter(global:facet-definition-file($collection)),
+                slider:date-filter('tei:imprint/tei:date'),
                 data:element-filter($element))    
     let $hits := util:eval($eval-string)
     return 
@@ -189,7 +191,8 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
 :)
 declare function data:search($collection as xs:string*, $queryString as xs:string?, $sort-element as xs:string?) {                      
     let $eval-string := if($queryString != '') then $queryString 
-                        else concat(data:build-collection-path($collection), data:create-query($collection),facet:facet-filter(global:facet-definition-file($collection)))
+                        else concat(data:build-collection-path($collection), data:create-query($collection),
+                        facet:facet-filter(global:facet-definition-file($collection)),slider:date-filter('tei:imprint/tei:date'))
     return 
         if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') then 
             for $hit in util:eval($eval-string)

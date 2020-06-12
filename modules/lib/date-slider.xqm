@@ -37,10 +37,7 @@ let $endDate :=
 return   
     if(not(empty($startDate)) and not(empty($endDate))) then
         if($mode != '') then 
-            concat('[descendant::',$mode,'[
-            (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
-            (@to gt "', $startDate,'" and @to lt "', $endDate,'")
-            ]]')
+            concat('[descendant::',$mode,'[(. gt "', $startDate,'" and . lt "', $endDate,'")]]')
         else
            concat('[descendant::tei:state[@type="existence"][
             (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
@@ -61,6 +58,9 @@ let $year :=
         if(matches($date, '^\-')) then 
             if(matches($date, '^\-\d{6}')) then $date
             else replace($date,'^-','-00')
+        else if(matches($date, '\-')) then   
+            if(matches($date, '^\d{4}-\d{2}-\d{2}')) then $date
+            else substring-before($date,'-')
         else $date
 return       
     if($year castable as xs:date) then 
@@ -77,14 +77,20 @@ return
  : @param $mode selects which date element to use for filter. Current modes are 'inscription' and 'bibl'
 :)
 declare function slider:browse-date-slider($hits, $mode as xs:string?){                  
-let $startDate := request:get-parameter('startDate', '')
-let $endDate := request:get-parameter('endDate', '')
 (: Dates in current results set :)  
 let $d := 
-        for $dates in $hits/descendant::tei:state[@type="existence"]/@to | 
-        $hits/descendant::tei:state[@type="existence"]/@from
-        order by xs:date(slider:expand-dates($dates)) 
-        return $dates    
+        if($mode) then 
+            for $date in util:eval(concat('$hits/',$mode))
+            let $expanded := slider:expand-dates($date) 
+            order by xs:date($expanded)
+            return $expanded    
+        else 
+            for $date in $hits/descendant::tei:state[@type="existence"]/@to | $hits/descendant::tei:state[@type="existence"]/@from
+            let $expanded := slider:expand-dates($date) 
+            order by xs:date($expanded) 
+            return $expanded    
+let $startDate := if(request:get-parameter('startDate', '') != '') then request:get-parameter('startDate', '') else $d[1]
+let $endDate := if(request:get-parameter('endDate', '') != '') then request:get-parameter('endDate', '') else $d[last()]
 let $min := if($startDate) then 
                 slider:expand-dates($startDate) 
             else slider:expand-dates(xs:date(slider:expand-dates(string($d[1]))))
@@ -103,7 +109,7 @@ let $params :=
         else if(request:get-parameter($param, '') = ' ') then ()
         else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
 return 
-if(not(empty($min)) and not(empty($max))) then
+if(not(empty($d))) then
     <div>
         <h4 class="slider">Date range</h4>
         <div class="sliderContainer">
@@ -113,8 +119,8 @@ if(not(empty($min)) and not(empty($max))) then
         else()}
         <script type="text/javascript">
         <![CDATA[
-            var minPadding = "]]>{'0001-01-01'}<![CDATA["
-            var maxPadding = "]]>{'2020-01-01'}<![CDATA["
+            var minPadding = "]]>{$minPadding}<![CDATA["
+            var maxPadding = "]]>{$maxPadding}<![CDATA["
             var minValue = "]]>{$min}<![CDATA["
             var maxValue = "]]>{$max}<![CDATA["
             $("#slider").dateRangeSlider({  
