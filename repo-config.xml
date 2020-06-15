@@ -10,7 +10,7 @@
         <!-- Contact email -->
         <contact/>
         <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
-        <logo/>
+        <logo>cs-logo-large.png</logo>
         <!-- Web Site URL -->
         <url/>
         <!-- Root of app for building dynamic links. Default is eXist app root  /exist/apps/srophe -->
