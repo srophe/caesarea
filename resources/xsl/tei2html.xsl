@@ -135,6 +135,9 @@
         <xsl:apply-templates select="/descendant-or-self::t:titleStmt/t:title[1]"/>
     </xsl:variable>
  
+    <!-- t: Total number of characters in the set -->
+    <xsl:variable name="t" select="string-length(normalize-space(//body))"/>
+    
     <!-- =================================================================== -->
     <!-- Templates -->
     <!-- =================================================================== -->
@@ -167,23 +170,66 @@
             <xsl:variable name="anchorID" select="@xml:id"/>
             <xsl:variable name="columns" select="count(//t:anchor[@corresp = $anchorID])"/>
             <xsl:variable name="width" select="12 div (count(//t:anchor[@corresp = $anchorID]) + 1)"/>
+            <xsl:variable name="limit" select="3000"/>
             <div class="row">
                 <div class="col-md-{$width}">
                     <xsl:for-each select="parent::*[1]">
-                        <xsl:apply-templates select="."/>
+                        <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
+                        <xsl:choose>
+                            <xsl:when test="$wordCount gt $limit">
+                                <xsl:variable name="processed-text">
+                                    <xsl:apply-templates/>
+                                </xsl:variable>
+                                <xsl:variable name="text">
+                                    <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
+                                </xsl:variable>
+                                <xsl:variable name="aftertext">
+                                    <xsl:sequence select="local:truncate-after($processed-text,$limit)"/>    
+                                </xsl:variable>
+                                <xsl:copy-of select="$text"/>  
+                                <span id="show{@xml:id}" class="collapse">
+                                <xsl:copy-of select="$aftertext"/>
+                                </span>
+                                <button class="btn-link togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="."/>        
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:for-each>
                 </div>
                 <xsl:for-each select="//t:anchor[@corresp = $anchorID]">
                     <div class="col-md-{$width}">
                         <xsl:for-each select="parent::*[1]">
-                            <xsl:apply-templates select="."/>
+                            <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
+                            <xsl:choose>
+                                <xsl:when test="$wordCount gt $limit">
+                                    <xsl:variable name="processed-text">
+                                        <xsl:apply-templates/>
+                                    </xsl:variable>
+                                    <xsl:variable name="text">
+                                        <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
+                                    </xsl:variable>
+                                    <xsl:variable name="aftertext">
+                                        <xsl:sequence select="local:truncate-after($processed-text,$limit)"/>    
+                                    </xsl:variable>
+                                    <xsl:copy-of select="$text"/>  
+                                    <span id="show{@xml:id}" class="collapse">
+                                        <xsl:copy-of select="$aftertext"/>
+                                    </span>
+                                    <button class="btn-link togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates select="."/>        
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:for-each>
                     </div>
                 </xsl:for-each>
             </div>
         </xsl:for-each>
     </xsl:template>
-        
+      
     <!-- B -->
     <!-- suppress bibl in title mode -->
     <xsl:template match="t:bibl" mode="title"/>
