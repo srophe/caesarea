@@ -190,7 +190,7 @@
                                 <span id="show{@xml:id}" class="collapse">
                                 <xsl:copy-of select="$aftertext"/>
                                 </span>
-                                <button class="btn-link togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                                <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:apply-templates select="."/>        
@@ -217,7 +217,7 @@
                                     <span id="show{@xml:id}" class="collapse">
                                         <xsl:copy-of select="$aftertext"/>
                                     </span>
-                                    <button class="btn-link togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:apply-templates select="."/>        
@@ -227,6 +227,8 @@
                     </div>
                 </xsl:for-each>
             </div>
+            <br/>
+            
         </xsl:for-each>
     </xsl:template>
       
