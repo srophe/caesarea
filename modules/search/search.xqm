@@ -2,7 +2,7 @@ xquery version "3.1";
 (:~  
  : Builds HTML search forms and HTMl search results Srophe Collections and sub-collections   
  :) 
-module namespace search="http://syriaca.org/srophe/search";
+module namespace search="http://srophe.org/srophe/search";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -11,16 +11,17 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace kwic="http://exist-db.org/xquery/kwic";
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "../lib/global.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "../lib/data.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "../lib/global.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "../lib/paging.xqm";
-import module namespace slider = "http://syriaca.org/srophe/slider" at "../lib/date-slider.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
+import module namespace page="http://srophe.org/srophe/page" at "../lib/paging.xqm";
+import module namespace slider = "http://srophe.org/srophe/slider" at "../lib/date-slider.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 
 (: Syriaca.org search modules :)
-import module namespace bibls="http://syriaca.org/srophe/bibls" at "bibl-search.xqm";
+import module namespace bibls="http://srophe.org/srophe/bibls" at "bibl-search.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -45,9 +46,9 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
     return
         map {
                 "hits" :
-                    if(exists(request:get-parameter-names())) then $hits 
+                    if(exists(request:get-parameter-names())) then $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]] 
                     else if(ends-with(request:get-url(), 'search.html')) then ()
-                    else $hits,
+                    else $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]],
                 "query" : $queryExpr
         } 
 };

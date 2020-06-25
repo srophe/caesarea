@@ -3,11 +3,12 @@ xquery version "3.0";
  : Basic data interactions, returns raw data for use in other modules  
  : Used by ../app.xql and content-negotiation/content-negotiation.xql  
 :)
-module namespace data="http://syriaca.org/srophe/data";
+module namespace data="http://srophe.org/srophe/data";
 
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "global.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
 import module namespace functx="http://www.functx.com";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -103,9 +104,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else ()     
-    let $eval-string := concat(data:build-collection-path($collection),
-                facet:facet-filter(global:facet-definition-file($collection)),
-                data:element-filter($element))    
+    let $eval-string := concat(data:build-collection-path($collection),data:element-filter($element))    
     let $hits := util:eval($eval-string)
     return 
         (: Generic :)             
@@ -130,7 +129,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             let $sort := global:build-sort-string(data:add-sort-options-bibl($root, request:get-parameter('sort-element', '')),'')
             where $hit[matches(substring(global:build-sort-string($root,''),1,1),global:get-alpha-filter(),'i')]
             order by $sort 
-            return <browse xmlns="http://www.tei-c.org/ns/1.0">{$root}</browse>
+            return $root
         else if(request:get-parameter('view', '') = 'ܐ-ܬ') then
             for $hit in $hits[matches(.,'\p{IsSyriac}','i')]
             let $root := $hit/ancestor-or-self::tei:TEI
@@ -156,7 +155,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
             group by $facet-grp := $id
             order by $sort[1] 
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort[1]}">{$root[1]}</browse>              
+            return $root[1]              
         else if(request:get-parameter('alpha-filter', '') != '') then 
             for $hit in $hits
             let $root := $hit/ancestor::tei:TEI
@@ -168,7 +167,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
               group by $facet-grp := $id:)
             order by $sort 
             where matches($sort,global:get-alpha-filter())
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort}">{$root}</browse>             
+            return $root            
         else
             for $hit in $hits
             let $root := $hit/ancestor::tei:TEI
@@ -179,7 +178,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             (:let $id := $root/descendant::tei:publicationStmt/tei:idno[1]
               group by $facet-grp := $id:)
             order by $sort 
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort="{$sort}">{$root}</browse>              
+            return $root              
 };
 
 (:~

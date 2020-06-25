@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
@@ -97,7 +98,7 @@
             </xsl:choose>
         </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
-        <li class="tei-bibl footnote">
+        <li class="tei-bibl footnote {if($thisnum = '') then 'unnumbered' else()}">
             <span class="anchor" id="{@xml:id}"/>
             <!-- Display footnote number -->
             <span class="tei-footnote-tgt">
@@ -1438,7 +1439,9 @@
             <xsl:when test="contains(.,', http')">
                 <xsl:value-of select="substring-before(.,', http')"/>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
    

@@ -4,23 +4,23 @@ xquery version "3.1";
  : Output TEI to HTML via eXist-db templating system. 
  : Add your own custom modules at the end of the file. 
 :)
-module namespace app="http://syriaca.org/srophe/templates";
+module namespace app="http://srophe.org/srophe/templates";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "lib/data.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "lib/data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
-import module namespace maps="http://syriaca.org/srophe/maps" at "lib/maps.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "lib/paging.xqm";
-import module namespace rel="http://syriaca.org/srophe/related" at "lib/get-related.xqm";
-import module namespace slider = "http://syriaca.org/srophe/slider" at "lib/date-slider.xqm";
-import module namespace timeline = "http://syriaca.org/srophe/timeline" at "lib/timeline.xqm";
-import module namespace teiDocs="http://syriaca.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
+import module namespace maps="http://srophe.org/srophe/maps" at "lib/maps.xqm";
+import module namespace page="http://srophe.org/srophe/page" at "lib/paging.xqm";
+import module namespace rel="http://srophe.org/srophe/related" at "lib/get-related.xqm";
+import module namespace slider = "http://srophe.org/srophe/slider" at "lib/date-slider.xqm";
+import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace teiDocs="http://srophe.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
 
 
 (: Namespaces :)
@@ -422,9 +422,25 @@ declare function app:wiki-page-title($node, $model){
 :)
 declare function app:wiki-page-content($node, $model){
     let $wiki-data := $model("hits")
-    return $wiki-data//html:div[@id='wiki-body'] 
+    return 
+        app:wiki-data($wiki-data//html:div[@id='wiki-body']) 
 };
 
+(:~
+ : Typeswitch to processes wiki anchors links for use with Syriaca.org documentation pages. 
+ : @param $wiki pulls content from specified wiki or wiki page. 
+:)
+declare function app:wiki-data($nodes as node()*) {
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case element() return
+                element { node-name($node) } {
+                    if($node/@id) then attribute id { replace($node/@id,'user-content-','') } else (),
+                    $node/@*[name()!='id'], app:wiki-data($node/node())
+                }
+            default return $node               
+};
 (:~
  : Pull github wiki data into Syriaca.org documentation pages. 
  : Grabs wiki menus to add to Syraica.org pages
@@ -590,17 +606,16 @@ declare
 function app:google-analytics($node as node(), $model as map(*)){
    $config:get-config//google_analytics/text() 
 };
-
 (:
- : Linked Data Box, place holder
+ : Linked Data Box
 :)
 declare %templates:wrap function app:linkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
-    let $placeComposed := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:origPlace[@ref]
-    let $author := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:persName[@role='author'][@ref]
+    let $places := $data/descendant::*[starts-with(@ref, 'https://pleiades.stoa.org/places')]
+    let $persons := $data/descendant::*[starts-with(@ref,'http://viaf.org/viaf/')]
     let $history := $data/descendant::tei:teiHeader/tei:profileDesc/tei:creation/tei:title[@ref]
     let $bibl := $data/descendant::tei:bibl[tei:ptr]
-    let $connections := count(($placeComposed,$author,$history,$bibl))
+    let $connections := count(distinct-values(($places/@ref,$persons/@ref,$bibl/tei:ptr/@target)))
     return 
     <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
@@ -611,29 +626,81 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
         </div>
         <div class="panel-body">
         <p>This record has {$connections} connections.</p>
-        <ul>{(
-            for $p in $placeComposed
+        <ul class="no-indent">{(
+            for $p in $places
+            group by $placeID := $p/@ref
+            return
+                <li>{$p[1]/text()}
+                    <ul>
+                        <li><a href="{$placeID}">Pleiades Gazetteer Entry</a></li>
+                        <li><a href="{concat('https://peripleo.pelagios.org/ui#selected=',$placeID)}">Search Peripleo Linked Data</a></li>
+                    </ul>
+                </li>,
+            for $a in $persons
+            group by $persID := $a/@ref
             return 
-                <li><a href="#">{$p/text()}</a></li>,
-            for $a in $author
-            return 
-                <li><a href="#">{$a/text()}</a></li>,
-            for $h in $history
-            return 
-                <li><a href="#">{$h/text()}</a></li>,
-            for $b in $bibl
-            return 
-                <li><a href="#">{$b/tei:title/text()}</a></li>    
+                <li>{$a[1]/text()}
+                    <ul>
+                        <li><a href="{$persID}">VIAF Entry</a></li>
+                        <li><a href="{concat('https://www.worldcat.org/identities/find?fullName=',$a[1]/text())}">Search WorldCat Identities</a></li>
+                    </ul>
+                </li>,
+            if($bibl) then
+                <li>Bibliography
+                    <ul>{
+                        for $b in $bibl
+                        group by $biblID := $b/tei:ptr/@target
+                        return 
+                            <li><a href="{$biblID}">{$b[1]/tei:title/text()}</a></li>
+                    }</ul>
+                </li>
+            else ()
+                
         )}</ul>
-        
-        <!--
-        This record has 7 [calculated number based on URIs collected in the record] connections.
-Rome (from Place Composed URI)
-Ammianus Marcellinus (from Author URI)
-History (from Title URI if available)
-Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
--->
-        
         </div>
     </div>
+};
+
+
+declare %templates:wrap function app:biblLinkedData($node as node(), $model as map(*)){
+    let $data := $model("hits")
+    let $CTS-URN := $data/descendant::tei:idno[@subtype='CTS-URN']
+    let $OCLC := $data/descendant::tei:idno[@subtype='OCLC']
+    let $DOI := $data/descendant::tei:idno[@subtype='DOI']
+    let $xmlFile := $data/descendant::tei:ref[@subtype="xmlFile"]
+    let $connections := count(($CTS-URN,$OCLC,$DOI,$xmlFile))
+    return 
+    if($connections gt 0) then
+        <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            </div>
+            <div class="panel-body">
+            <p>This record has {$connections} connection(s).</p>
+            <ul>{(
+                for $c in $CTS-URN
+                return 
+                    <li><a href="{string($c/@target)}">{string($c/@target)}</a></li>,
+                for $o in $OCLC
+                return 
+                    <li><a href="{string($o/@target)}">{string($o/@target)}</a></li>,
+                for $d in $DOI
+                return 
+                    <li><a href="{string($d/@target)}">{string($d/@target)}</a></li>,
+                for $x in $xmlFile
+                return 
+                    <li><a href="{string($x/@target)}">{string($x/@target)}</a></li>   
+            )}</ul>
+            
+            <!--
+            This record has 7 [calculated number based on URIs collected in the record] connections.
+    Rome (from Place Composed URI)
+    Ammianus Marcellinus (from Author URI)
+    History (from Title URI if available)
+    Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
+    -->
+            
+            </div>
+        </div>
+        
+    else ()
 };

@@ -22,40 +22,42 @@ for $place in $places
 group by $place-grp := $place/@ref
 return 
     if($place-grp != '' and starts-with($place-grp, 'https://pleiades.stoa.org')) then 
-        let $url := concat($place-grp,'/json')        	
+        let $url := concat(normalize-space($place-grp),'/json')     
+        let $request := hc:send-request(<hc:request http-version="1.1"  href="{xs:anyURI($url)}" method="get"/>)
         let $placeData :=
-            try{
-                util:base64-decode(hc:send-request(<http:request http-version="1.1"  href="{xs:anyURI($url)}" method="get"/>)[2])
-            } catch * {
-                <response status="fail">
-                    <message>{concat($err:code, ": ", $err:description)}</message>
-                </response>
-            }
-        let $json := if(xs:string($placeData)) then parse-json($placeData) else $placeData    
+            if($request[1]/@status = '200') then
+                util:base64-decode($request[2])
+            else () 
+        let $json := if($request[1]/@status = '200') then parse-json($placeData) else ()    
         return 
-            <place xmlns="http://www.tei-c.org/ns/1.0" xmlns:srophe="https://srophe.app">
-                <idno>{string($place-grp)}</idno>
-                <placeName srophe:tags="#headword">{$json?title}</placeName>
-                <desc>{$json?description}</desc>
-                <location type="gps">
-                    <geo>{
-                        let $points := $json?reprPoint
-                        return concat($points?1,' ', $points?2)
-                    }</geo>
-                </location>
-                <listRelation>{
-                    for $recs in $place
-                    let $id := root($recs)/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
-                    group by $facet-grp := $id
-                    let $relationType := 
-                        if($recs/ancestor-or-self::tei:origPlace) then 'Place of Origin'
-                        else 'Mention'
-                    return 
-                        <relation type="{$relationType}" ana="{$relationType}" active="{$facet-grp}" passive="{$place-grp}">
-                          <desc>{root($recs[1])//tei:titleStmt/tei:title}</desc>
-                        </relation>
-          }</listRelation>
-            </place>
+            if($request[1]/@status='fail') then 
+                <response status="fail">
+                    <message>Response error: {string($request[1]/@message)}</message>
+                </response>
+            else 
+                <place xmlns="http://www.tei-c.org/ns/1.0" xmlns:srophe="https://srophe.app">
+                    <idno>{string($place-grp)}</idno>
+                    <placeName srophe:tags="#headword">{$json?title}</placeName>
+                    <desc>{$json?description}</desc>
+                    <location type="gps">
+                        <geo>{
+                            let $points := $json?reprPoint
+                            return concat($points?1,' ', $points?2)
+                        }</geo>
+                    </location>
+                    <listRelation>{
+                        for $recs in $place
+                        let $id := root($recs)/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
+                        group by $facet-grp := $id
+                        let $relationType := 
+                            if($recs/ancestor-or-self::tei:origPlace) then 'Place of Origin'
+                            else 'Mention'
+                        return 
+                            <relation type="{$relationType}" ana="{$relationType}" active="{$facet-grp}" passive="{$place-grp}">
+                              <desc>{root($recs[1])//tei:titleStmt/tei:title}</desc>
+                            </relation>
+                 }</listRelation>
+                </place>      
     else () 
 };
 
@@ -91,7 +93,7 @@ if(request:get-parameter('action', '') = 'create') then
         else ()
     } catch *{
         <response status="fail">
-            <message>{concat($err:code, ": ", $err:description)}</message>
+            <message>Save file error: {concat($err:code, ": ", $err:description)}</message>
         </response>
     } 
     
@@ -100,7 +102,7 @@ else if(request:get-parameter('action', '') = 'update') then
         'what do we do here?'
     } catch *{
         <response status="fail">
-            <message>{concat($err:code, ": ", $err:description)}</message>
+            <message>Request error: {concat($err:code, ": ", $err:description)}</message>
         </response>
     } 
 else <div>In progress</div>

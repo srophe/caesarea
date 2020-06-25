@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
@@ -34,11 +35,12 @@
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
         <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
-        <xsl:text>”</xsl:text>
+        <xsl:text>,”</xsl:text>
         
         <!-- monographic title -->
         <xsl:text> in </xsl:text>
-        <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/><xsl:text>, </xsl:text>
+        <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
+        <xsl:text>, </xsl:text>
         
         <!-- publication date statement -->
         <xsl:text> last modified </xsl:text>
@@ -176,6 +178,16 @@
                         <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
                         <xsl:text>, </xsl:text>
                         <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
+                    </li>
+                    <li>
+                        <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
+                        <xsl:sequence select="local:emit-responsible-persons-all(t:editor[@role= 'technical'],'biblist')"/>
+                        <xsl:text>, technical editor</xsl:text>
+                        <xsl:if test="count(t:editor[@role='creator'])&gt; 1">s</xsl:if>
+                        <xsl:text>, </xsl:text>
+                        <xsl:text>“</xsl:text>
+                        <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
+                        <xsl:text>”</xsl:text>
                     </li>
                     <li>
                         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->

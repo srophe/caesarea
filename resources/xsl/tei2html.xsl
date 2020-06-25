@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
@@ -135,6 +136,9 @@
         <xsl:apply-templates select="/descendant-or-self::t:titleStmt/t:title[1]"/>
     </xsl:variable>
  
+    <!-- t: Total number of characters in the set -->
+    <xsl:variable name="t" select="string-length(normalize-space(//body))"/>
+    
     <!-- =================================================================== -->
     <!-- Templates -->
     <!-- =================================================================== -->
@@ -167,23 +171,68 @@
             <xsl:variable name="anchorID" select="@xml:id"/>
             <xsl:variable name="columns" select="count(//t:anchor[@corresp = $anchorID])"/>
             <xsl:variable name="width" select="12 div (count(//t:anchor[@corresp = $anchorID]) + 1)"/>
+            <xsl:variable name="limit" select="3000"/>
             <div class="row">
                 <div class="col-md-{$width}">
                     <xsl:for-each select="parent::*[1]">
-                        <xsl:apply-templates select="."/>
+                        <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
+                        <xsl:choose>
+                            <xsl:when test="$wordCount gt $limit">
+                                <xsl:variable name="processed-text">
+                                    <xsl:apply-templates/>
+                                </xsl:variable>
+                                <xsl:variable name="text">
+                                    <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
+                                </xsl:variable>
+                                <xsl:variable name="aftertext">
+                                    <xsl:sequence select="local:truncate-after($processed-text,$limit)"/>    
+                                </xsl:variable>
+                                <xsl:copy-of select="$text"/>  
+                                <span id="show{@xml:id}" class="collapse">
+                                <xsl:copy-of select="$aftertext"/>
+                                </span>
+                                <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates select="."/>        
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:for-each>
                 </div>
                 <xsl:for-each select="//t:anchor[@corresp = $anchorID]">
                     <div class="col-md-{$width}">
                         <xsl:for-each select="parent::*[1]">
-                            <xsl:apply-templates select="."/>
+                            <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
+                            <xsl:choose>
+                                <xsl:when test="$wordCount gt $limit">
+                                    <xsl:variable name="processed-text">
+                                        <xsl:apply-templates/>
+                                    </xsl:variable>
+                                    <xsl:variable name="text">
+                                        <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
+                                    </xsl:variable>
+                                    <xsl:variable name="aftertext">
+                                        <xsl:sequence select="local:truncate-after($processed-text,$limit)"/>    
+                                    </xsl:variable>
+                                    <xsl:copy-of select="$text"/>  
+                                    <span id="show{@xml:id}" class="collapse">
+                                        <xsl:copy-of select="$aftertext"/>
+                                    </span>
+                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates select="."/>        
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:for-each>
                     </div>
                 </xsl:for-each>
             </div>
+            <br/>
+            
         </xsl:for-each>
     </xsl:template>
-        
+      
     <!-- B -->
     <!-- suppress bibl in title mode -->
     <xsl:template match="t:bibl" mode="title"/>
@@ -551,7 +600,15 @@
         </xsl:choose>
     </xsl:template>
     <!-- Suppress List Relations, Syriaca.org handles these with XQuery functions.  -->
-    <xsl:template match="t:listRelation[parent::*/parent::t:body] | t:listBibl[parent::t:body]"/>
+    <xsl:template match="t:listRelation">
+        <xsl:choose>
+            <xsl:when test="parent::t:body"/>
+            <xsl:when test="parent::*[1]/parent::t:body"/>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     
     <!-- N -->
     <xsl:template match="t:note">
@@ -675,7 +732,10 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Date Composed:</span><a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}"><xsl:value-of select="normalize-space(t:creation/t:origDate)"/></a>
+                <span class="label">Date Composed:</span>
+                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}">
+                    <xsl:value-of select="normalize-space(t:creation/t:origDate)"/>
+                </a>
             </li> 
             <li>
                 <span class="label">Historical Era Composed:</span>
@@ -1753,27 +1813,30 @@
         <div class="well">
             <!-- Sources -->
             <div id="sources">
-                <h3>Works Cited</h3>
+                <h3>Bibliography</h3>
                 <p>
                     <small>Any information without attribution has been created following the Syriaca.org <a href="http://syriaca.org/documentation/">editorial guidelines</a>.</small>
                 </p>
-                <ul>
-                    <!-- Bibliography elements are processed by bibliography.xsl -->
-                    <!-- Old works model 
-                    <xsl:choose>
-                        <xsl:when test="t:bibl[@type='lawd:Citation']">
-                            <xsl:apply-templates select="t:bibl[@type='lawd:Citation']" mode="footnote"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="t:bibl" mode="footnote"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    -->
-                    <xsl:for-each select="t:bibl | t:listBibl">
-                       <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
-                        <xsl:apply-templates select="." mode="footnote"/>
-                    </xsl:for-each>
-                </ul>
+                <xsl:choose>
+                    <xsl:when test="t:listBibl">
+                        <xsl:for-each select="t:listBibl">
+                            <ul class="footnote-list">
+                                <xsl:for-each select="t:bibl">
+                                    <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
+                                    <xsl:apply-templates select="." mode="footnote"/>
+                                </xsl:for-each>
+                            </ul>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ul class="footnote-list">
+                            <xsl:for-each select="t:bibl">
+                                <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
+                                <xsl:apply-templates select="." mode="footnote"/>
+                            </xsl:for-each>
+                        </ul>
+                    </xsl:otherwise>
+                </xsl:choose>
             </div>
         </div>
     </xsl:template>
