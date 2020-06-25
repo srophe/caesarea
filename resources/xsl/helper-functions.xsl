@@ -5,8 +5,8 @@
     <!-- Helper Functions  -->
     <!-- =================================================================== -->
     <xsl:variable name="odd">
-        <xsl:if test="doc-available(concat('xmldb:exist://', $app-root, '/documentation/syriaca-tei-main.odd'))">
-            <xsl:sequence select="doc(concat('xmldb:exist://', $app-root, '/documentation/syriaca-tei-main.odd'))"/>
+        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))">
+            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
         </xsl:if>
     </xsl:variable>
 
@@ -229,25 +229,29 @@
     -->
     <xsl:function name="local:do-dates">
         <xsl:param name="element" as="node()"/>
-        <xsl:if test="$element/@when or $element/@notBefore or $element/@notAfter or $element/@from or $element/@to">
+        <xsl:if
+            test="$element/@when or $element/@notBefore or $element/@notAfter or $element/@from or $element/@to">
             <xsl:choose>
                 <!-- Formats to and from dates -->
                 <xsl:when test="$element/@from">
                     <xsl:choose>
                         <xsl:when test="$element/@to">
-                            <xsl:value-of select="local:trim-date($element/@from)"/>-<xsl:value-of select="local:trim-date($element/@to)"/>
+                            <xsl:value-of select="local:trim-date($element/@from)"/>-<xsl:value-of
+                                select="local:trim-date($element/@to)"/>
                         </xsl:when>
                         <xsl:otherwise>from <xsl:value-of select="local:trim-date($element/@from)"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:when test="$element/@to">to <xsl:value-of select="local:trim-date($element/@to)"/>
+                <xsl:when test="$element/@to">to <xsl:value-of
+                        select="local:trim-date($element/@to)"/>
                 </xsl:when>
             </xsl:choose>
             <!-- Formats notBefore and notAfter dates -->
             <xsl:if test="$element/@notBefore">
                 <!-- Adds comma if there are other dates -->
-                <xsl:if test="$element/@to or $element/@from">, </xsl:if>not before <xsl:value-of select="local:trim-date($element/@notBefore)"/>
+                <xsl:if test="$element/@to or $element/@from">, </xsl:if>not before <xsl:value-of
+                    select="local:trim-date($element/@notBefore)"/>
             </xsl:if>
             <xsl:if test="$element/@notAfter">
                 <!-- Adds comma if there are other dates -->
@@ -257,7 +261,9 @@
             <!-- Formats when, single date -->
             <xsl:if test="$element/@when">
                 <!-- Adds comma if there are other dates -->
-                <xsl:if test="$element/@to or $element/@from or $element/@notBefore or $element/@notAfter">, </xsl:if>
+                <xsl:if
+                    test="$element/@to or $element/@from or $element/@notBefore or $element/@notAfter"
+                    >, </xsl:if>
                 <xsl:value-of select="local:trim-date($element/@when)"/>
             </xsl:if>
         </xsl:if>
@@ -363,23 +369,23 @@
         <xsl:choose>
             <xsl:when test="$odd/descendant::t:valItem[@ident = $label]/t:gloss">
                 <xsl:choose>
-                    <xsl:when test="$count &gt; 1 and $odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl']">
-                        <xsl:value-of select="$odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl'][1]"/>
+                    <xsl:when test="$count &gt; 1 and $odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='pl']">
+                        <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='pl'][1]"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:choose>
-                            <xsl:when test="$odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg']">
-                                <xsl:value-of select="$odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg'][1]"/>
+                            <xsl:when test="$odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='sg']">
+                                <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='sg'][1]"/>                                
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$odd/descendant::t:valItem[@ident = $label]/t:gloss[1]"/>
+                                <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss[1]"/>                        
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"/>
+               <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -389,27 +395,36 @@
         <xsl:param name="element"/>
         <xsl:param name="label"/>
         <xsl:param name="count"/>
-        <xsl:variable name="element" select="$odd/descendant::t:elementSpec[@ident = name($element)]"/>
+        <xsl:variable name="element"
+            select="$odd/descendant::t:elementSpec[@ident = name($element)]"/>
         <xsl:choose>
             <xsl:when test="$element/descendant::t:valItem[@ident = $label]/t:gloss">
                 <xsl:choose>
-                    <xsl:when test="$count &gt; 1 and $element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl']">
-                        <xsl:value-of select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl'][1]"/>
+                    <xsl:when
+                        test="$count &gt; 1 and $element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl']">
+                        <xsl:value-of
+                            select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl'][1]"
+                        />
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:choose>
-                            <xsl:when test="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg']">
-                                <xsl:value-of select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg'][1]"/>
+                            <xsl:when
+                                test="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg']">
+                                <xsl:value-of
+                                    select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg'][1]"
+                                />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$element/descendant::t:valItem[@ident = $label]/t:gloss[1]"/>
+                                <xsl:value-of
+                                    select="$element/descendant::t:valItem[@ident = $label]/t:gloss[1]"
+                                />
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"/>
+                <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -432,8 +447,8 @@
         </xsl:variable>
         <xsl:variable name="file">
             <xsl:choose>
-                <xsl:when test="contains($file-name, $base-uri)">
-                    <xsl:value-of select="replace($file-name, $base-uri, concat('xmldb:exist://', $nav-base))"/>
+                <xsl:when test="contains($file-name,$base-uri)">
+                    <xsl:value-of select="replace($file-name,$base-uri,concat('xmldb:exist://',$nav-base))"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="doc($ref)"/>
@@ -445,7 +460,7 @@
                 <xsl:value-of select="$file/descendant::*[@xml:id = $label]/t:gloss[1]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"/>
+                <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
