@@ -44,6 +44,14 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
                      data:search($collection, $queryExpr, $sort-element)
                  else data:search($collection, '', $sort-element)
     return
+         map {
+                "hits" :
+                    if(exists(request:get-parameter-names())) then $hits 
+                    else if(ends-with(request:get-url(), 'search.html')) then ()
+                    else $hits,
+                "query" : $queryExpr
+        } 
+    (:
         map {
                 "hits" :
                     if(exists(request:get-parameter-names())) then $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]] 
@@ -51,6 +59,7 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
                     else $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]],
                 "query" : $queryExpr
         } 
+      :)  
 };
 
 (:~ 
@@ -59,28 +68,64 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
 declare 
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?, $kwic as xs:string?) {
-<div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
-    {
-            let $hits := $model("hits")
-            for $hit at $p in subsequence($hits, $search:start, $search:perpage)
-            let $id := replace($hit/descendant::tei:idno[1],'/tei','')
-            let $kwic := if($kwic = ('true','yes','true()','kwic')) then kwic:expand($hit) else () 
-            return 
-             <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-                 <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
-                     <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
-                 </div>
-                 <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
-                     {tei2html:summary-view($hit, '', $id)}
-                     {
-                        if($kwic//exist:match) then 
-                           tei2html:output-kwic($kwic, $id)
-                        else ()
-                     }
-                 </div>
-             </div>   
-  }  
-</div>
+    let $hits := $model("hits")
+    let $facet-config := global:facet-definition-file($collection)
+    return 
+        if(not(empty($facet-config))) then 
+            <div class="row" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
+                <div class="col-md-8 col-md-push-4">
+                    <div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">{
+                            let $hits := $model("hits")
+                            for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+                            let $id := replace($hit/descendant::tei:idno[1],'/tei','')
+                            let $kwic := if($kwic = ('true','yes','true()','kwic')) then kwic:expand($hit) else () 
+                            return 
+                             <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+                                 <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
+                                     <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
+                                 </div>
+                                 <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
+                                     {tei2html:summary-view($hit, '', $id)}
+                                     {
+                                        if($kwic//exist:match) then 
+                                           tei2html:output-kwic($kwic, $id)
+                                        else ()
+                                     }
+                                 </div>
+                             </div>   
+                    }</div>
+                </div>
+                <div class="col-md-4 col-md-pull-8">{
+                 let $hits := $model("hits")
+                 let $facet-config := global:facet-definition-file($collection)
+                 return 
+                     if(not(empty($facet-config))) then 
+                         sf:display($model("hits"),$facet-config)
+                     else ()  
+                }</div>
+            </div>
+        else 
+         <div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
+         {
+                 let $hits := $model("hits")
+                 for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+                 let $id := replace($hit/descendant::tei:idno[1],'/tei','')
+                 let $kwic := if($kwic = ('true','yes','true()','kwic')) then kwic:expand($hit) else () 
+                 return 
+                  <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+                      <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">        
+                          <span class="badge" style="margin-right:1em;">{$search:start + $p - 1}</span>
+                      </div>
+                      <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
+                          {tei2html:summary-view($hit, '', $id)}
+                          {
+                             if($kwic//exist:match) then 
+                                tei2html:output-kwic($kwic, $id)
+                             else ()
+                          }
+                      </div>
+                  </div>   
+         }</div>
 };
 
 (:~
