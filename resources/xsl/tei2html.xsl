@@ -196,6 +196,14 @@
                                 <xsl:apply-templates select="."/>        
                             </xsl:otherwise>
                         </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="t:idno[@xml:base]">
+                                <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                            </xsl:when>
+                            <xsl:when test="t:idno/t:ref[@target]">
+                                <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                            </xsl:when>
+                        </xsl:choose>
                     </xsl:for-each>
                 </div>
                 <xsl:for-each select="//t:anchor[@corresp = $anchorID]">
@@ -222,6 +230,14 @@
                                 <xsl:otherwise>
                                     <xsl:apply-templates select="."/>        
                                 </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:choose>
+                                <xsl:when test="t:idno[@xml:base]">
+                                    <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                </xsl:when> 
+                                <xsl:when test="t:idno/t:ref[@target]">
+                                    <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                </xsl:when>
                             </xsl:choose>
                         </xsl:for-each>
                     </div>
@@ -603,7 +619,9 @@
         <xsl:choose>
             <xsl:when test="parent::t:body"/>
             <xsl:when test="parent::*[1]/parent::t:body"/>
-            <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     
@@ -729,7 +747,10 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Date Composed:</span><a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}"><xsl:value-of select="normalize-space(t:creation/t:origDate)"/></a>
+                <span class="label">Date Composed:</span>
+                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}">
+                    <xsl:value-of select="normalize-space(t:creation/t:origDate)"/>
+                </a>
             </li> 
             <li>
                 <span class="label">Historical Era Composed:</span>
