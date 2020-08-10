@@ -14,7 +14,8 @@ declare variable $dir external;
 declare variable $target external;
 
 (
-(: Set UID for git-sync. :)
+    sm:chmod(xs:anyURI($target || '/modules/index.xql'), "rwsr-xr-x"),
    sm:chmod(xs:anyURI($target || '/modules/git-sync.xql'), "rwsr-xr-x"),
-   sm:chmod(xs:anyURI($target || '/sparql/update-rdf.xql'), "rwsr-xr-x")
+   sm:chmod(xs:anyURI($target || '/sparql/update-rdf.xql'), "rwsr-xr-x"),
+   sm:chmod(xs:anyURI($target || '/zotero2bibl/get-zotero-data.xql'), "rwsr-xr-x")
 )

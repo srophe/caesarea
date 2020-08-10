@@ -14,7 +14,6 @@ declare variable $dir external;
 (: the target collection into which the app is deployed :)
 declare variable $target external;
 
-(
-(: Set UID for git-sync. :)
+(:
 sm:chmod(xs:anyURI($target || 'get-zotero-data.xql'), "rwsr-xr-x")
-)
+:) ''

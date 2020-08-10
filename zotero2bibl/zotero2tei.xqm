@@ -509,6 +509,21 @@ return
                     {$zotero2tei:zotero-config//*:availability}
                     <date>{current-date()}</date>
                 </publicationStmt>
+                {
+                    for $tag in $rec?data?tags?*?tag
+                    return 
+                        if(matches($tag,'Comprehensive-Bibliography')) then
+                            <seriesStmt>
+                                <title level="s">Comprehensive Bibliography</title>
+                                <idno type="URI">{$zotero2tei:base-uri}/comprehensive</idno>
+                            </seriesStmt>
+                        else if(matches($tag,'Testimonia-Works-Cited')) then 
+                            <seriesStmt>
+                                <title level="s">Testimonia Works Cited</title>
+                                <idno type="URI">{$zotero2tei:base-uri}/testimonia</idno>
+                            </seriesStmt>
+                        else ()
+                }
                 <sourceDesc>
                     <p>Born digital.</p>
                 </sourceDesc>
