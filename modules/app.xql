@@ -601,7 +601,7 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     return 
     <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Linked Open Data to additional resources on the web beyond this record. We welcome your additions, please use the Corrections/Additions? button to contact Caesarea-Maritima.org about submitting additional links."></span>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Linked Open Data to additional resources on the web beyond this record. Although these links are to reliable sources, Caesarea-Maritima.org cannot guarantee the accuracy of the individual links. We welcome your suggestions for other databases related to the study of Caesarea Maritima, please use the Corrections/Additions? button to submit additional linked data."></span>
         </div>
         <div class="panel-body">
         <p>This record has {$connections} connections.</p>
