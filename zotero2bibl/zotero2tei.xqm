@@ -28,7 +28,8 @@ declare namespace functx = "http://www.functx.com";
 (: Access zotero-api configuration file :) 
 declare variable $zotero2tei:zotero-api := 'https://api.zotero.org';
 declare variable $zotero2tei:zotero-config := doc('zotero-config.xml');
-
+declare variable $zotero2tei:base-uri := $zotero2tei:zotero-config//*:base-uri/text();
+declare variable $zotero2tei:groupid := $zotero2tei:zotero-config//*:groupid/text();
 (:~ 
  : Simple typeswitch to transform specific Zotero elements into to Syriaca.org TEI elements
  : @param $node 
@@ -199,6 +200,9 @@ let $analytic-title := for $t in $rec?data?title
                              if($recordType = 'analytic') then attribute level { "a" }
                              else if($recordType = 'monograph') then attribute level { "m" } 
                              else (), $t}
+let $bookTitle :=        for $title in $rec?data?bookTitle[. != ''] 
+                         return 
+                            element { xs:QName("title") } {attribute level { "m" }, $title}
 let $series-titles :=  (for $series in $rec?data?series[. != ''] 
                         return 
                             element { xs:QName("title") } {
@@ -206,9 +210,7 @@ let $series-titles :=  (for $series in $rec?data?series[. != '']
                             else (), $series},
                         for $series in $rec?data?seriesTitle[. != ''] 
                         return 
-                            element { xs:QName("title") } {
-                            if($recordType = 'monograph') then attribute level { "s" }
-                            else (), $series})
+                            element { xs:QName("title") } {attribute level { "s" }, $series})
 let $journal-titles :=  for $journal in $rec?data?publicationTitle[. != '']
                         return <title level="j">{$journal}</title>                        
 let $titles-all := ($analytic-title,$series-titles,$journal-titles)
@@ -222,22 +224,30 @@ let $zotero-idno-uri := <idno type="URI">{replace($rec?links?self?href,'api.zote
 let $subject-uri := $rec?data?tags?*?tag[matches(.,'^\s*Subject:\s*')]
 (:  Not sure here if extra is always the worldcat-ID and if so, 
 if or how more than one ID are structured, however: converted to worldcat-URI :)
+let $oclcId := 
+                for $extra in tokenize($rec?data?extra,'\n')
+                return 
+                    if(matches($extra,'^OCLC:\s*')) then 
+                        <idno type="URI" subtype="OCLC">{concat("http://www.worldcat.org/oclc/",normalize-space(substring-after($extra,'OCLC: ')))}</idno>
+                    else ()
 let $extra := 
                 for $extra in tokenize($rec?data?extra,'\n')
                 return 
                     if(matches($extra,'^OCLC:\s*')) then 
-                        <idno type="URI">{concat("http://www.worldcat.org/oclc/",normalize-space(substring-after($extra,'OCLC: ')))}</idno>
+                        ()
+                    else if(matches($extra,'^CTS-URN:\s*')) then 
+                        (<idno type="CTS-URN">{normalize-space(substring-after($extra,'CTS-URN: '))}</idno>(:,
+                         <ref type="URL" target="{concat("https://scaife.perseus.org/library/",normalize-space(substring-after($extra,'CTS-URN: ')))}"/>:)
+                        )
+                    else if(matches($extra,'^xmlFile:\s*')) then 
+                        <ref type="URL" subtype="xmlFile" target="{normalize-space(substring-after($extra,'xmlFile: '))}"/>                        
+                    else if(matches($extra,'^DOI:\s*')) then
+                        let $doi := normalize-space(substring-after($extra,'DOI: '))
+                        let $doiLink := if(starts-with($doi,'http')) then $doi else concat('http://dx.doi.org/',$doi)
+                        return <idno type="URI" subtype="DOI">{$doiLink}</idno>
                     else if(matches($extra,'^([\d]\s*)')) then 
                         <idno type="URI">{"http://www.worldcat.org/oclc/" || $extra}</idno>
-                    else ()
-(:  @depreciated, use $extra to parse out all the key:value pairs in the extra field. Currently only processing the OCLC number                  
-let $worldcat-uri := 
-                    (
-                    for $oclc in $rec?data?extra[matches(.,'^OCLC:\s*')]
-                    return <idno type="URI">{concat("http://www.worldcat.org/oclc/",normalize-space(substring-after($oclc,'OCLC: ')))}</idno>,
-                    for $num in $rec?data?extra[matches(.,'^([\d]\s*)')]
-                    return <idno type="URI">{"http://www.worldcat.org/oclc/" || $num}</idno>)        
-:)                    
+                    else ()                    
 let $refs := for $ref in $rec?data?url[. != '']
              return <ref target="{$ref}"/>                
 let $all-idnos := ($local-uri,$zotero-idno,$zotero-idno-uri,$extra,$refs)
@@ -266,9 +276,10 @@ let $imprint := if (empty($rec?data?place) and empty($rec?data?publisher) and em
                     if ($rec?data?date) then (<date>{$rec?data?date}</date>) else ()
                 }</imprint>)
 (: Transforming tags to relation... if no subject or ms s present, still shows <listRelations\>, I have to fix that :)
-let $list-relations := if (empty($rec?data?tags)) then () else (<listRelation>{
+let $list-relations := if (empty($rec?data?tags) or empty($rec?data?relations)) then () else (<listRelation>{(
                         for $tag in $rec?data?tags?*?tag
-                            return if (matches($tag,'^\s*(MS|Subject|Part|Section|Book|Provenance|Source|Translator):\s*')) then (
+                        return 
+                            if (matches($tag,'^\s*(MS|Subject|Part|Section|Book|Provenance|Source|Translator):\s*')) then (
                                 element relation {
                                     attribute active {$local-uri},
                                     if (matches($tag,'^\s*(Subject|Part|Section|Book|Provenance|Source|Translator):\s*')) then (
@@ -296,33 +307,55 @@ let $list-relations := if (empty($rec?data?tags)) then () else (<listRelation>{
                                         }
                                     ) else ()
                                 }
-                            ) else ()
-                    }</listRelation>)
+                            ) else (),
+                        let $relations := $rec?data?relations
+                        let $rec := $local-uri
+                        let $zotero-url := concat('http://zotero.org/groups/',$zotero2tei:groupid,'/items')
+                        let $related := string-join(data($relations?*),' ')
+                        let $all := normalize-space(concat($local-uri,' ', replace($related,$zotero-url,$zotero2tei:base-uri)))
+                        where $related != '' and $related != ' '
+                        return  
+                            element relation {
+                                attribute name {'dc:relation'},
+                                attribute mutual {$all}
+                            }
+                    )}</listRelation>)
 (: Not sure if that is sufficient for an analytic check? following the TEI-guideline and the other script @github... :)
-let $tei-analytic := if($recordType = 'analytic') then
+let $tei-analytic := if($recordType = "analytic" or $recordType = "bookSection" or $recordType = "chapter") then
                          <analytic>{
-                             $creator,
-                             $analytic-title,
-                             $all-idnos
+                            if($itemType = "bookSection" or $itemType = "chapter") then $creator[self::tei:author]
+                            else $creator,
+                            $analytic-title,
+                            $all-idnos,
+                            if($recordType = "bookSection") then () else ($oclcId)
                          }</analytic>
                          else ()
-let $tei-monogr := if ($recordType = "analytic" or $recordType = "monograph") then
+let $tei-monogr := if($recordType = "analytic" or $recordType = "monograph") then
                     <monogr>{
-                        if($recordType = "analytic") then ()
+                        if($itemType = "bookSection" or $itemType = "chapter") then
+                            $creator[self::tei:editor]
+                        else if($recordType = "analytic") then ()
                         else $creator,
                         if($recordType = "monograph") then $analytic-title
+                        else if($itemType = "bookSection" or $itemType = "chapter") then $bookTitle
                         else ($series-titles,$journal-titles),
                         if ($tei-analytic) then () else ($all-idnos),
+                        if($recordType = "bookSection") then ($oclcId) else (),
                         if($lang) then ($lang) else (),
                         if ($imprint) then ($imprint) else (),
                         for $p in $rec?data?pages[. != '']
                         return <biblScope unit="pp">{$p}</biblScope>,
                         for $vol in $rec?data?volume[. != '']
                         return <biblScope unit="vol">{$vol}</biblScope>
-                    }</monogr> else ()
+                    }</monogr>
+                     else ()
 (: I haven't found an example file with series information to find the JSON equivalence to the tei structure, so have to continue on that :)
-let $tei-series := if($series-titles and $recordType = "monograph") then 
-                        <series>{$series-titles}</series>
+let $tei-series := if($series-titles) then 
+                        <series>
+                        {$series-titles}
+                        {for $vol in $rec?data?seriesNumber[. != '']
+                        return <biblScope>{$vol}</biblScope>}
+                        </series>
                     else()                        
 let $citedRange := for $p in $rec?data?tags?*?tag[matches(.,'^\s*PP:\s*')]
                    return <citedRange unit="page" xmlns="http://www.tei-c.org/ns/1.0">{substring-after($p,'PP: ')}</citedRange>
@@ -508,4 +541,3 @@ declare function zotero2tei:build-new-record($rec as item()*, $local-id as xs:st
         zotero2tei:build-new-record-json($rec, $local-id)
     else zotero2tei:build-new-record($rec, $local-id)
 };
-
