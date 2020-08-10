@@ -115,7 +115,7 @@ declare function bibls:mss() as xs:string?{
  : Build query string to pass to search.xqm 
 :)
 declare function bibls:query-string() as xs:string? { 
- concat("collection('",$config:data-root,"/bibl/tei')//tei:TEI",facet:facet-filter(global:facet-definition-file('bibl')),
+ concat("collection('",$config:data-root,"/bibl/tei')//tei:TEI[descendant::tei:idno[. = 'https://caesarea-maritima.org/bibl/comprehensive']]",facet:facet-filter(global:facet-definition-file('bibl')),
     data:keyword-search(),
     bibls:title(),
     bibls:author(),
