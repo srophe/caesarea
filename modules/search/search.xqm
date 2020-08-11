@@ -50,16 +50,7 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
                     else if(ends-with(request:get-url(), 'search.html')) then ()
                     else $hits,
                 "query" : $queryExpr
-        } 
-    (:
-        map {
-                "hits" :
-                    if(exists(request:get-parameter-names())) then $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]] 
-                    else if(ends-with(request:get-url(), 'search.html')) then ()
-                    else $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]],
-                "query" : $queryExpr
-        } 
-      :)  
+        }  
 };
 
 (:~ 

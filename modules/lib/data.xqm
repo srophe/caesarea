@@ -160,13 +160,13 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
  : Add sort options. 
 :)
 declare function data:search($collection as xs:string*, $queryString as xs:string?, $sort-element as xs:string?) {                      
-    let $eval-string := if($queryString != '') then $queryString 
-                        else concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter(()))
+    let $eval-string := if($queryString != '') then concat($queryString,slider:date-filter($collection)) 
+                        else concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter($collection))
     let $hits :=
             if(request:get-parameter-names() = '' or empty(request:get-parameter-names())) then 
                 collection($config:data-root || '/' || $collection)//tei:body[ft:query(., (),sf:facet-query())]
             else util:eval($eval-string)//tei:body[ft:query(., (),sf:facet-query())]              
-    return
+    return 
         if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') then 
                 for $hit in $hits/ancestor-or-self::tei:TEI
                 let $sort := 
@@ -186,7 +186,7 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
         else 
             for $hit in $hits
             order by ft:score($hit) descending
-            return $hit/ancestor-or-self::tei:TEI        
+            return $hit/ancestor-or-self::tei:TEI   
 };
 
 (:~   
