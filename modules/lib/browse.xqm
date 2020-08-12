@@ -144,6 +144,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
  : Page through browse results
 :)
 declare function browse:display-hits($hits, $collection){
+if(count($hits) gt 0) then 
     for $hit in subsequence($hits, $browse:start,$browse:perpage)
     let $sort-title := 
         if($browse:lang != 'en' and $browse:lang != 'syr' and $browse:lang != '') then 
@@ -162,6 +163,7 @@ declare function browse:display-hits($hits, $collection){
         <div xmlns="http://www.w3.org/1999/xhtml" class="result">
             {($sort-title, tei2html:summary-view($hit, $browse:lang, $uri))}
         </div>
+else <div class="blockquote">There are no results for authors beginning with this letter.</div>        
 };
 
 (:
