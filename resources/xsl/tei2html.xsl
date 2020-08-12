@@ -1829,9 +1829,6 @@
             <!-- Sources -->
             <div id="sources">
                 <h3>Bibliography</h3>
-                <p>
-                    <small>Any information without attribution has been created following the Syriaca.org <a href="http://syriaca.org/documentation/">editorial guidelines</a>.</small>
-                </p>
                 <xsl:choose>
                     <xsl:when test="t:listBibl">
                         <xsl:for-each select="t:listBibl">
