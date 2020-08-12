@@ -253,7 +253,7 @@ declare function bibls:search-form() {
                 <label for="pub-place" class="col-sm-2 col-md-3  control-label">Publication Place: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="pubPlace" name="pub-place" class="form-control keyboard" placeholder="First Last or Last, First"/>
+                        <input type="text" id="pubPlace" name="pub-place" class="form-control keyboard" placeholder="Place Name"/>
                         <div class="input-group-btn">{global:keyboard-select-menu('pubPlace')}</div>
                     </div>                
                 </div>
