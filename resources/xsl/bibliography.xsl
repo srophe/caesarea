@@ -97,7 +97,7 @@
             </xsl:choose>
         </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
-        <li class="tei-bibl footnote">
+        <li class="tei-bibl footnote {if($thisnum = '') then 'unnumbered' else()}">
             <span class="anchor" id="{@xml:id}"/>
             <!-- Display footnote number -->
             <span class="tei-footnote-tgt">
@@ -275,22 +275,10 @@
                     <xsl:choose>
                         <xsl:when test="doc-available($biblfilepath)">                            
                             <xsl:variable name="rec" select="document($biblfilepath)"/>
-                            <!--
-                            <xsl:for-each select="$rec/descendant::t:biblStruct">
-                                <xsl:apply-templates mode="footnote"/>
-                                <xsl:sequence select="$passThrough"/>
-                                <xsl:if test="descendant::t:idno[@type='URI']">
-                                    <span class="footnote-links">
-                                        <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
-                                        <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                    </span>
-                                </xsl:if>
-                            </xsl:for-each>
-                            -->
                             <!-- WS:current NOTE work in progress-->
                             <xsl:choose>
                                 <xsl:when test="$rec/descendant::t:bibl[@type='formatted'][@subtype='citation']">
-                                  <xsl:apply-templates select="$rec/descendant::t:bibl[@subtype='citation']" mode="citation"/>
+                                    <xsl:apply-templates select="$rec/descendant::t:bibl[@subtype='citation']" mode="citation"/>
                                     <xsl:sequence select="$passThrough"/>
                                     <xsl:if test="$rec/descendant::t:idno[@type='URI']">
                                         <span class="footnote-links">
@@ -1155,7 +1143,7 @@
             <xsl:text>) </xsl:text>
         </xsl:for-each>
         <xsl:choose>
-            <xsl:when test="following-sibling::*[not(self::t:ptr)]">, </xsl:when>
+            <xsl:when test="following-sibling::*[not(self::t:ptr) and not(self::t:title) and not(self::t:author) and not(self::t:editor)]">, </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="not(ends-with(.,'.'))">
                     <xsl:text>.</xsl:text>
@@ -1252,6 +1240,7 @@
         <xsl:choose>
             <xsl:when test="ends-with(.,'/tei') or ends-with(.,'.tei')"/>
             <xsl:when test="starts-with(.,'https://www.zotero.org/groups/') and preceding-sibling::t:idno[starts-with(.,'https://www.zotero.org/groups/')]"/>
+            <xsl:when test="starts-with($ref,$base-uri)"/>
             <xsl:otherwise>
                 <span class="footnote-icon">
                     <a href="{$ref}" title="{$title}" data-toggle="tooltip" data-placement="top" class="bibl-links">
@@ -1269,9 +1258,7 @@
             <xsl:when test="@type='zotero' or contains($ref,'zotero.org/')">
                 <img src="{$nav-base}/resources/images/zotero.png" alt="Link to Zotero Bibliographic Record" height="18px"/>
             </xsl:when>
-            <xsl:when test="starts-with($ref,$base-uri)">
-                <img src="{$nav-base}/resources/images/icons-syriaca-sm.png" alt="{concat('Link to ',$repository-title,' Bibliographic Record.')}" height="18px"/>
-            </xsl:when>
+            <xsl:when test="starts-with($ref,$base-uri)"/>
             <!-- glyphicon glyphicon-book -->
             <xsl:when test="contains($ref,'worldcat.org/')">
                 <img src="{$nav-base}/resources/images/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record" height="18px"/>
@@ -1438,7 +1425,9 @@
             <xsl:when test="contains(.,', http')">
                 <xsl:value-of select="substring-before(.,', http')"/>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
    
