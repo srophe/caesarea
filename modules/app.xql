@@ -344,20 +344,17 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
            <form action="{$config:nav-base}/modules/email.xql" method="post" id="email" role="form">
                <div class="modal-body" id="modal-body">
                    <!-- More information about submitting data from howtoadd.html -->
-                   <p><strong>Notify the editors of a mistake:</strong>
+                   <p><strong>Notify the editors of a comment, addition or correction:</strong>
                    <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
                    </p>
                    <div class="collapse" id="viewdetails">
-                       <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
-                       the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
-                       Please also include your email address, so that we can follow up with you regarding 
-                       anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
+                       <p>Thank you for your input. Using the following form, please inform us of the URI for the page related to your comment or suggested correction, for example https://caesarea-maritima.org/testimonia/44 or https://caesarea-maritima.org/bibl/SI84MXR2. To assist the editors, please include in your comments a citation for any new or corrected information (except in the case of obvious corrections, such as misspelled words). Please also include your email address, so that we can follow up with you regarding anything which is unclear. In the event of a correction, we woudl like to publish your name, but not your contact information, as the author of the  correction.</p>
                    </div>
                    <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
                    <br/>
-                   <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                   <input type="text" name="email" placeholder="e-mail address" class="form-control" style="max-width:300px"/>
                    <br/>
-                   <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                   <input type="text" name="subject" placeholder="URI" class="form-control" style="max-width:300px"/>
                    <br/>
                    <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
                    <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
@@ -619,10 +616,7 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     return 
     <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to 
-            additional resources beyond this record. 
-            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
-            <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Linked Open Data to additional resources on the web beyond this record. Although these links are to reliable sources, Caesarea-Maritima.org cannot guarantee the accuracy of the individual links. We welcome your suggestions for other databases related to the study of Caesarea Maritima, please use the Corrections/Additions? button to submit additional linked data."></span>
         </div>
         <div class="panel-body">
         <p>This record has {$connections} connections.</p>

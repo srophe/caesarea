@@ -197,6 +197,14 @@
                                 <xsl:apply-templates select="."/>        
                             </xsl:otherwise>
                         </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="t:idno[@xml:base]">
+                                <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                            </xsl:when>
+                            <xsl:when test="t:idno/t:ref[@target]">
+                                <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                            </xsl:when>
+                        </xsl:choose>
                     </xsl:for-each>
                 </div>
                 <xsl:for-each select="//t:anchor[@corresp = $anchorID]">
@@ -223,6 +231,14 @@
                                 <xsl:otherwise>
                                     <xsl:apply-templates select="."/>        
                                 </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:choose>
+                                <xsl:when test="t:idno[@xml:base]">
+                                    <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                </xsl:when> 
+                                <xsl:when test="t:idno/t:ref[@target]">
+                                    <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                </xsl:when>
                             </xsl:choose>
                         </xsl:for-each>
                     </div>

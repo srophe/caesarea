@@ -632,3 +632,7 @@ background-size:cover;
      }
 .map-overlay .filter-label {font-size: 14px !important; font-weight: 600; color:#333;}
 .map-overlay .facetDefinition h4 {font-size: 12px !important; font-weight: 600; color:#333; margin-bottom: .25em;}
+
+
+/* Caesarea specific styles */
+.linkOut {margin: 1em 0;}
