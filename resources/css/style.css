@@ -278,11 +278,12 @@ img{ margin:0px }
 }
 
 /* M */
-.mainContentArea {padding-top:115px;}
+/* .mainContentArea {padding-top:55px;}*/
 .map-lg #map {height:500px !important;}
 .map-md #map {height:300px !important;}
 .map-sm #map {height:250px !important;}
 #map {height:325px !important;}
+
 /* 
 .map-pop-title {display:block;font-weight:600; font-size:1.2em; margin-bottom:0; padding-bottom:0;}
 .map-pop-desc {display:block; padding:.5em;}
@@ -548,7 +549,6 @@ h4.slider {
     text-align:center;
     position:relative;
     margin:0;
-    margin-top: -115px;
     padding:0;
 	background-image:url('../images/banner-testimonia.jpg');
 	background-size:cover;
@@ -562,7 +562,6 @@ h4.slider {
     text-align:center;
     position:relative;
     margin:0;
-    margin-top: -115px;
     padding:0;
 	background-image:url('../images/banner-bibl.jpg');
 	background-size:cover;
