@@ -13,10 +13,13 @@
         title="Use this box to search only within titles." 
         placeholder="Search by keywords in titles..." keyboard="yes"/>
     <input type="text" label="Author" 
-        name="author" element="tei:titleStmt/tei:author" 
+        name="author" element="tei:persName[@role='author']" 
         title="Use this box to search only within author names." 
         placeholder="Search by author name..." keyboard="yes"/>
-    <input type="text" label="Place Name" name="placeName" element="tei:place/tei:placeName" title="Use this box to search only within place names." placeholder="Search by keywords in place names..." keyboard="yes"/>
+    <input type="text" label="Place Name" name="placeName" 
+        element="tei:placeName" 
+        title="Use this box to search only within place names." 
+        placeholder="Search by keywords in place names..." keyboard="yes"/>
     <!-- Removing person names since there are none in the data yet <input type="text" label="Person Name" name="persName" element="tei:person/tei:persName" search-tip="Search People" keyboard="yes"/> -->
     <search-tips>
         <h4>Wildcard Characters:</h4>
