@@ -146,7 +146,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
 (:
  : Page through browse results
 :)
-declare function browse:display-hits($hits, $collection){
+declare function browse:display-hits($hits){
     if(count($hits) gt 0) then
         for $hit in subsequence($hits, $browse:start,$browse:perpage)
         let $sort-title := 
