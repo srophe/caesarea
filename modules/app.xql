@@ -4,23 +4,23 @@ xquery version "3.1";
  : Output TEI to HTML via eXist-db templating system. 
  : Add your own custom modules at the end of the file. 
 :)
-module namespace app="http://syriaca.org/srophe/templates";
+module namespace app="http://srophe.org/srophe/templates";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "lib/data.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "lib/data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
-import module namespace maps="http://syriaca.org/srophe/maps" at "lib/maps.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "lib/paging.xqm";
-import module namespace rel="http://syriaca.org/srophe/related" at "lib/get-related.xqm";
-import module namespace slider = "http://syriaca.org/srophe/slider" at "lib/date-slider.xqm";
-import module namespace timeline = "http://syriaca.org/srophe/timeline" at "lib/timeline.xqm";
-import module namespace teiDocs="http://syriaca.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
+import module namespace maps="http://srophe.org/srophe/maps" at "lib/maps.xqm";
+import module namespace page="http://srophe.org/srophe/page" at "lib/paging.xqm";
+import module namespace rel="http://srophe.org/srophe/related" at "lib/get-related.xqm";
+import module namespace slider = "http://srophe.org/srophe/slider" at "lib/date-slider.xqm";
+import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace teiDocs="http://srophe.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
 
 
 (: Namespaces :)
@@ -344,17 +344,20 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
            <form action="{$config:nav-base}/modules/email.xql" method="post" id="email" role="form">
                <div class="modal-body" id="modal-body">
                    <!-- More information about submitting data from howtoadd.html -->
-                   <p><strong>Notify the editors of a comment, addition or correction:</strong>
+                   <p><strong>Notify the editors of a mistake:</strong>
                    <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
                    </p>
                    <div class="collapse" id="viewdetails">
-                       <p>Thank you for your input. Using the following form, please inform us of the URI for the page related to your comment or suggested correction, for example https://caesarea-maritima.org/testimonia/44 or https://caesarea-maritima.org/bibl/SI84MXR2. To assist the editors, please include in your comments a citation for any new or corrected information (except in the case of obvious corrections, such as misspelled words). Please also include your email address, so that we can follow up with you regarding anything which is unclear. In the event of a correction, we woudl like to publish your name, but not your contact information, as the author of the  correction.</p>
+                       <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
+                       the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
+                       Please also include your email address, so that we can follow up with you regarding 
+                       anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
                    </div>
                    <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
                    <br/>
-                   <input type="text" name="email" placeholder="e-mail address" class="form-control" style="max-width:300px"/>
+                   <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
                    <br/>
-                   <input type="text" name="subject" placeholder="URI" class="form-control" style="max-width:300px"/>
+                   <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
                    <br/>
                    <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
                    <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
@@ -419,7 +422,24 @@ declare function app:wiki-page-title($node, $model){
 :)
 declare function app:wiki-page-content($node, $model){
     let $wiki-data := $model("hits")
-    return $wiki-data//html:div[@id='wiki-body'] 
+    return 
+        app:wiki-data($wiki-data//html:div[@id='wiki-body']) 
+};
+
+(:~
+ : Typeswitch to processes wiki anchors links for use with Syriaca.org documentation pages. 
+ : @param $wiki pulls content from specified wiki or wiki page. 
+:)
+declare function app:wiki-data($nodes as node()*) {
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case element() return
+                element { node-name($node) } {
+                    if($node/@id) then attribute id { replace($node/@id,'user-content-','') } else (),
+                    $node/@*[name()!='id'], app:wiki-data($node/node())
+                }
+            default return $node               
 };
 
 (:~
@@ -429,30 +449,8 @@ declare function app:wiki-page-content($node, $model){
 :)
 declare function app:wiki-menu($node, $model, $wiki-uri){
     let $wiki-data := app:wiki-rest-request($wiki-uri)
-    let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::html:ul, $wiki-uri)
+    let $menu := app:wiki-links($wiki-data//html:div[@class='wiki-rightbar']/descendant::html:ul, $wiki-uri)
     return $menu
-};
-
-(:~
- : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
- : @param $wiki pulls content from specified wiki or wiki page. 
-:)
-declare function app:wiki-links($nodes as node()*, $wiki) {
-    for $node in $nodes
-    return 
-        typeswitch($node)
-            case element(html:a) return
-                let $wiki-path := substring-after($wiki,'https://github.com')
-                let $href := concat($config:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
-                return
-                    <a href="{$href}">
-                        {$node/@* except $node/@href, $node/node()}
-                    </a>
-            case element() return
-                element { node-name($node) } {
-                    $node/@*, app:wiki-links($node/node(), $wiki)
-                }
-            default return $node               
 };
 
 (:~
@@ -587,7 +585,6 @@ declare
 function app:google-analytics($node as node(), $model as map(*)){
    $config:get-config//google_analytics/text() 
 };
-
 (:
  : Linked Data Box
 :)
@@ -601,7 +598,10 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     return 
     <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Linked Open Data to additional resources on the web beyond this record. Although these links are to reliable sources, Caesarea-Maritima.org cannot guarantee the accuracy of the individual links. We welcome your suggestions for other databases related to the study of Caesarea Maritima, please use the Corrections/Additions? button to submit additional linked data."></span>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to 
+            additional resources beyond this record. 
+            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
+            <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
         </div>
         <div class="panel-body">
         <p>This record has {$connections} connections.</p>
@@ -612,7 +612,7 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
                 <li>{$p[1]/text()}
                     <ul>
                         <li><a href="{$placeID}">Pleiades Gazetteer Entry</a></li>
-                        <li><a href="https://peripleo.pelagios.org/ui#selected={$placeID}">Search Peripleo Linked Data</a></li>
+                        <li><a href="{concat('https://peripleo.pelagios.org/ui#selected=',$placeID)}">Search Peripleo Linked Data</a></li>
                     </ul>
                 </li>,
             for $a in $persons
@@ -621,7 +621,7 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
                 <li>{$a[1]/text()}
                     <ul>
                         <li><a href="{$persID}">VIAF Entry</a></li>
-                        <li><a href="https://www.worldcat.org/identities/find?fullName={$a[1]/text()}">Search WorldCat Identities</a></li>
+                        <li><a href="{concat('https://www.worldcat.org/identities/find?fullName=',$a[1]/text())}">Search WorldCat Identities</a></li>
                     </ul>
                 </li>,
             if($bibl) then
@@ -640,15 +640,7 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     </div>
 };
 
-(:
-URL
-Extra: CTS-URN
-Extra: OCLC
--Note, could you investigate if there is a Linked Data or otherAPI that we might send a query to using the OCLC number and return a result if the user clicks on the link?
-Extra: DOI
--Note, could you investigate if there is a Linked Data or other API that we might send a query to using the DOI number and return a result if the user clicks on the link?
-Extra: xmlFile
-:)
+
 declare %templates:wrap function app:biblLinkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
     let $CTS-URN := $data/descendant::tei:idno[@subtype='CTS-URN']
@@ -676,7 +668,16 @@ declare %templates:wrap function app:biblLinkedData($node as node(), $model as m
                 for $x in $xmlFile
                 return 
                     <li><a href="{string($x/@target)}">{string($x/@target)}</a></li>   
-            )}</ul> 
+            )}</ul>
+            
+            <!--
+            This record has 7 [calculated number based on URIs collected in the record] connections.
+    Rome (from Place Composed URI)
+    Ammianus Marcellinus (from Author URI)
+    History (from Title URI if available)
+    Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
+    -->
+            
             </div>
         </div>
         
