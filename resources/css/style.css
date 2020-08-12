@@ -166,6 +166,7 @@ ul.footnote-list {margin-bottom: 1.5em;}
     white-space: normal;
     }
 .facet-label.remove {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
+.facet-title {display:block; font-size:1.15em; font-weight:500; padding-top:1em; padding-bottom:.25em;}
 .facet-remove {padding-right:6px; margin-right:6px; border-right:1px solid #666; font-weight:normal; color:#666;}
 
 /* G */
@@ -266,6 +267,7 @@ img{ margin:0px }
 }
 
 /* M */
+.mainContentArea {padding-top:115px;}
 .map-lg #map {height:500px !important;}
 .map-md #map {height:300px !important;}
 .map-sm #map {height:250px !important;}
@@ -535,6 +537,7 @@ h4.slider {
     text-align:center;
     position:relative;
     margin:0;
+    margin-top: -115px;
     padding:0;
 	background-image:url('../images/banner-testimonia.jpg');
 	background-size:cover;
@@ -548,6 +551,7 @@ h4.slider {
     text-align:center;
     position:relative;
     margin:0;
+    margin-top: -115px;
     padding:0;
 	background-image:url('../images/banner-bibl.jpg');
 	background-size:cover;
@@ -631,7 +635,3 @@ background-size:cover;
      }
 .map-overlay .filter-label {font-size: 14px !important; font-weight: 600; color:#333;}
 .map-overlay .facetDefinition h4 {font-size: 12px !important; font-weight: 600; color:#333; margin-bottom: .25em;}
-
-
-/* Caesarea specific styles */
-.linkOut {margin: 1em 0;}
