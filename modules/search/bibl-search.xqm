@@ -227,8 +227,7 @@ declare function bibls:search-form() {
                         </div>
                     </div>                 
                 </div>
-            </div>
-            -->
+            </div>        
             <div class="form-group">            
                 <label for="subject-exact" class="col-sm-2 col-md-3  control-label">Select Subject: </label>
                 <div class="col-sm-10 col-md-6 ">
@@ -248,7 +247,8 @@ declare function bibls:search-form() {
                         <div class="input-group-btn">{global:keyboard-select-menu('mss')}</div>
                     </div>                 
                 </div>
-            </div>            
+            </div>        
+              -->
             <div class="form-group">            
                 <label for="pub-place" class="col-sm-2 col-md-3  control-label">Publication Place: </label>
                 <div class="col-sm-10 col-md-6 ">
