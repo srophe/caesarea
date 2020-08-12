@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <search-config>
-    <label>Advanced Search </label>
+    <label>Testimonia: Advanced Search</label>
     <desc>This advanaced function searches the TEI XML records for all testimonia.</desc>
     <!-- Uses Lucene full text search make sure any elements used in the search-config.xml 
         are added to the collection.xconf file in your data repository. -->                            
