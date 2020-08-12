@@ -280,7 +280,7 @@ declare function bibls:search-form() {
                 <div class="col-sm-10 col-md-6 form-inline">
                     <input type="text" id="start-date" name="start-date" placeholder="Start Date" class="form-control"/>&#160;
                     <input type="text" id="end-date" name="end-date" placeholder="End Date" class="form-control"/>&#160;
-                    <p class="hint">* Dates should be entered as YYYY or YYYY-MM-DD. Add a minus sign (-) in front of BC dates. <span><a href="http://syriaca.org/documentation/dates.html">more <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span></p>
+                    <p class="hint">* Dates should be entered as YYYY or YYYY-MM-DD. Add a minus sign (-) in front of BCE dates. <span><a href="http://syriaca.org/documentation/dates.html">more <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span></p>
                 </div>
             </div>  
             <hr/>
