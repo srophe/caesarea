@@ -142,21 +142,23 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
         </div>
     )
 };
-
+ 
 (:
  : Page through browse results
 :)
-declare function browse:display-hits($hits){
-    for $hit in subsequence($hits, $browse:start,$browse:perpage)
-    let $sort-title := 
+declare function browse:display-hits($hits, $collection){
+    if(count($hits) gt 0) then
+        for $hit in subsequence($hits, $browse:start,$browse:perpage)
+        let $sort-title := 
         if($browse:lang != 'en' and $browse:lang != 'syr') then 
             <span class="sort-title" lang="{$browse:lang}" xml:lang="{$browse:lang}">{(if($browse:lang='ar') then attribute dir { "rtl" } else (), string($hit/@sort-title))}</span> 
         else () 
-    let $uri := replace($hit/descendant::tei:publicationStmt/tei:idno[1],'/tei','')
-    return 
-        <div xmlns="http://www.w3.org/1999/xhtml" class="result">
-            {($sort-title, tei2html:summary-view($hit, $browse:lang, $uri))}
-        </div>
+        let $uri := replace($hit/descendant::tei:publicationStmt/tei:idno[1],'/tei','')
+        return 
+            <div xmlns="http://www.w3.org/1999/xhtml" class="result">
+                {($sort-title, tei2html:summary-view($hit, $browse:lang, $uri))}
+            </div>
+    else <div class="blockquote">There are no results for authors beginning with this letter.</div>
 };
 
 (:
