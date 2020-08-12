@@ -1505,7 +1505,7 @@
                             <div id="license">
                                 <h3>Copyright and License for Reuse</h3>
                                 <div>
-                                    <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                                    <xsl:text>Except where otherwise noted, this page is © Caesarea City and Port Exploration Project </xsl:text>
                                     <xsl:choose>
                                         <xsl:when test="t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
                                             <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
