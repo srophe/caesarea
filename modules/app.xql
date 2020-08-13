@@ -647,12 +647,12 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
                     <ul>{
                         for $b in $bibl
                         group by $biblID := $b/tei:ptr/@target
-                        let $title := if($b[1]/tei:title/text()) then 
-                                        $b[1]/tei:title/text()
-                                      else collection($config:data-root)//tei:idno[. = concat($biblID,'/tei')]/ancestor::tei:TEI/descendant::tei:title[1]/text()
+                        let $rec := collection($config:data-root)//tei:idno[. = concat($biblID,'/tei')]/ancestor::tei:TEI
+                        let $title := $rec/descendant::tei:title[1]/text()
+                        let $zoteroURI := $rec/descendant::tei:idno[@type='URI'][starts-with(.,'https://www.zotero.org/')][1]
                         return 
                             if($title != '') then
-                                <li><a href="{$biblID}">{$title}</a></li>    
+                                <li><a href="{$zoteroURI}">{$title}</a></li>    
                             else ()
                             
                     }</ul>
