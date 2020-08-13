@@ -23,72 +23,65 @@
     <!-- Removing person names since there are none in the data yet <input type="text" label="Person Name" name="persName" element="tei:person/tei:persName" search-tip="Search People" keyboard="yes"/> -->
     <search-tips>
         <h4>Wildcard Characters:</h4>
-        <p>Given the prevalence of variant spellings in names, using Wildcard Characters may help.</p>
+        <p>Given the prevalence of variant spellings in names, using Wildcard Characters may
+            help.</p>
         <p>
             <strong>"?"</strong> can be inserted as a variant for any single character.</p>
         <div class="indent">
-            <p>Thus a search for:
-                <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">Procopi?s</span>
-                    <a href="/search.html?q=Procopi?s" type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"/> 
-                    </a>
-                </div>
-                returns results which contain either "Procopius" or "Procopios".</p>
+            <p>Thus a search for: <div class="btn-group code-grp" role="group" style="width:100%;">
+                <span class="btn code">Procopi?s</span>
+                <a href="./search.html?q=Procopi?s" type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"/>  </a>
+            </div> returns results which contain either "Procopius" or "Procopios".</p>
         </div>
         <p>
-            <strong>"*"</strong> can be inserted as a variant for multiple characters or a truncated word.</p>
+            <strong>"*"</strong> can be inserted as a variant for multiple characters or a truncated
+            word.</p>
         <div class="indent">
-            <p>Thus a search for:
-                <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">Καισαρ*</span>
-                    <a href="/search.html?q=Καισαρ*" type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"/> 
-                    </a>
-                </div> 
-                returns results for "Καισαρείᾳ" and "Καισαρέων" and more.</p>
+            <p>Thus a search for: <div class="btn-group code-grp" role="group" style="width:100%;">
+                <span class="btn code">Καισαρ*</span>
+                <a href="./search.html?q=Καισαρ*" type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"/>  </a>
+            </div> returns results for "Καισαρείᾳ" and "Καισαρέων" and more.</p>
         </div>
         <p class="bg-info" style="padding:.5em;">
-            <small>Note: Because the sources we quote use a variety of transliteration formats, Caesarea-Maritima.org ignores diacritics and punctuation in searching; for example, use of "ʿ" is not required to find results with this diacritical mark.</small>
+            <small>Note: Because the sources we quote use a variety of transliteration formats,
+                Caesarea-Maritima.org ignores diacritics and punctuation in searching; for example,
+                use of "ʿ" is not required to find results with this diacritical mark.</small>
         </p>
         <h4>Fuzzy Search Character</h4>
-        <p>Appending the character <strong>"~"</strong> after a word returns results for words that are close but not exact matches.</p>
+        <p>Appending the character <strong>"~"</strong> after a word returns results for words that
+            are close but not exact matches. This type of search can be useful for ingoring differences in accent marks or vocalization.</p>
         <div class="indent">
-            <p>Thus a search for 
-                <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">Strato~</span>
-                    <a href="/search.html?q=Caesar~" type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"/> 
-                    </a>
-                </div>
-                returns results which contain "Strato" but also "Stratonis" and other words that are "fuzzy" matches for "Strato".</p>
+            <p>Thus a search for <div class="btn-group code-grp" role="group" style="width:100%;">
+                <span class="btn code">πόλεως~</span>
+                <a href="./search.html?q=πόλεως~ ~" type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"/>  </a>
+            </div> returns results which contain "πόλεως" but also " πόλεων", "πόλεις", and other words
+                that are "fuzzy" matches for "πόλεως".</p>
         </div>
         <h4>Exact Phrase Searches</h4>
         <p>To find an exact phrase, it should be enclosed in double quotes.</p>
         <div class="indent">
-            <p>Thus 
-                <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">"Constantius II"</span>
-                    <a href="/search.html?q=&#34;Constantius II&#34;" type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"/> 
-                    </a>
-                </div>
-                returns only results with that exact phrase, while several results are found for the words "Constantius" and "II".</p>
+            <p>Thus <div class="btn-group code-grp" role="group" style="width:100%;">
+                <span class="btn code">"Constantius II"</span>
+                <a href="./search.html?keyword=&#34;Constantius II&#34;" type="button" class="btn
+                    btn-primary">
+                    <span class="glyphicon glyphicon-search"/>  </a>
+            </div> returns only results with that exact phrase, while several results are found
+                for the words "Constantius" without "II".</p>
         </div>
-        <!--  Waiting to test this <h4>Proximity Characters</h4>
+        <h4>Proximity Characters</h4>
         <p>To find two or more words which occur within a specified range of each other, one can append the character "~" 
             followed by a number to an "Exact Phrase" search. This allows one to search for two or more words that occur within a 
             specified distance of each other as defined by number of words.</p>
         <p>Thus 
             <div class="btn-group code-grp" role="group" style="width:100%;">
-                <span class="btn code">"Srato+port"~2</span>
-                <a href="/search.html?q=&#34;Srato+Port&#34;~2" type="button" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search"/> 
+                <span class="btn code">"tower+strato"~2</span>
+                <a href="/search.html?keyword=&#34;tower%2Bstrato&#34;~2" type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"/> 
                 </a>
             </div>
-            finds three results in which the words "Strato" and "port" occur within two words of each other: "Jacob , 
-            bishop of Nisibin", "Jacob, bishop of Phesilta", and "Jacob , bishop of ‛Ānah" while a 
-            simple search for "Jacob Bishop" returns many more results.</p>
-            -->
+            finds results in which the words "tower" and "strato" occur within two words of each other such as in the phrase "Tower of Strato".</p>
     </search-tips>
 </search-config>
