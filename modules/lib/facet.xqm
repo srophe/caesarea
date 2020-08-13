@@ -337,3 +337,35 @@ declare function facet:eraComposed($results as item()*, $facet-definition as ele
     let $count := count($facets)           
     return facet:list-keys($facets, $count, $facet-definition)
 };
+
+declare function facet:bibl-author($results as item()*, $facet-definition as element(facet:facet-definition)?){
+    let $path := if($results/descendant::tei:biblStruct/descendant::tei:surname) then
+                    $results/descendant::tei:biblStruct/descendant::tei:surname
+                 else $results/descendant::tei:biblStruct/descendant::name
+    let $sort := $facet-definition/facet:order-by
+    return 
+        if($sort/@direction = 'ascending') then 
+            let $facets := 
+                for $f in $path
+                group by $facet-grp := $f
+                let $label := if($f[self::attribute()]) then $f[1]/parent::*[1]/text() else $facet-grp
+                order by 
+                    if($sort/text() = 'value') then $label
+                    else count($f)
+                    ascending
+                return facet:key($label, $facet-grp, count($f), $facet-definition)
+            let $count := count($facets)
+            return facet:list-keys($facets, $count, $facet-definition) 
+        else 
+            let $facets := 
+                for $f in $path
+                group by $facet-grp := $f
+                let $label := if($f[self::attribute()]) then $f[1]/parent::*[1]/text() else $facet-grp
+                order by 
+                    if($sort/text() = 'value') then $label
+                    else count($f)
+                    descending
+                return facet:key($label, $facet-grp, count($f), $facet-definition)
+            let $count := count($facets)   
+            return facet:list-keys($facets, $count, $facet-definition)
+};

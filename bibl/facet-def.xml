@@ -7,7 +7,7 @@
         <order-by direction="descending">value</order-by>
     </facet-definition>
     <facet-definition name="Authors">
-        <group-by>
+        <group-by function="facet:bibl-author">
             <sub-path>descendant::tei:biblStruct/descendant::tei:surname</sub-path>
         </group-by>
         <max-values show="5">100</max-values>

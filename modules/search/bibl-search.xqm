@@ -57,19 +57,19 @@ declare function bibls:idno() as xs:string? {
 
 declare function bibls:pub-place() as xs:string? {
     if($bibls:pub-place != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",data:clean-string($bibls:pub-place),"',data:search-options())]")
+        concat("[descendant::tei:imprint/tei:pubPlace[ft:query(.,'",data:clean-string($bibls:pub-place),"',data:search-options())]]")
     else ()  
 };
 
 declare function bibls:publisher() as xs:string? {
     if($bibls:publisher != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",data:clean-string($bibls:publisher),"',data:search-options())]")
+        concat("[descendant::tei:imprint/tei:publisher[ft:query(.,'",data:clean-string($bibls:publisher),"',data:search-options())]]")
     else ()  
 };
 
 declare function bibls:date() as xs:string? {
     if($bibls:date != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:date,'",data:clean-string($bibls:date),"',data:search-options())]")
+        concat("[descendant::tei:imprint/tei:date[ft:query(.,'",data:clean-string($bibls:date),"',data:search-options())]]")
     else ()  
 };
 
@@ -280,7 +280,7 @@ declare function bibls:search-form() {
                 <div class="col-sm-10 col-md-6 form-inline">
                     <input type="text" id="start-date" name="start-date" placeholder="Start Date" class="form-control"/>&#160;
                     <input type="text" id="end-date" name="end-date" placeholder="End Date" class="form-control"/>&#160;
-                    <p class="hint">* Dates should be entered as YYYY or YYYY-MM-DD. Add a minus sign (-) in front of BCE dates. <span><a href="$nav-base/documentation/wiki.html?wiki-page=/Encoding-Guidelines-for-Approximate-Dates&wiki-uri=https://github.com/srophe/caesarea-data/wiki">more <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span></p>
+                    <p class="hint">* Dates should be entered as YYYY or YYYY-MM-DD. Add a minus sign (-) in front of BCE dates. <span><a href="$nav-base/documentation/wiki.html?wiki-page=/Encoding-Guidelines-for-Approximate-Dates&amp;wiki-uri=https://github.com/srophe/caesarea-data/wiki">more <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span></p>
                 </div>
             </div>  
             <hr/>
