@@ -748,6 +748,29 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
+                <span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}">
+                    <xsl:value-of select="t:creation/t:persName[@role='author']"/>
+                </a>
+            </li>
+            <li>
+                <span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}">
+                    <xsl:value-of select="t:creation/t:title[@type='uniform']"/>
+                </a>
+            </li>
+            <li>
+                <span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/>
+            </li>
+            <li>
+                <span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}">
+                    <xsl:value-of select="t:langUsage/t:language"/>
+                </a>
+            </li>
+            <li>
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}">
+                    <xsl:value-of select="t:creation/t:origPlace"/>
+                </a>
+            </li>
+            <li>
                 <span class="label">Date Composed:</span>
                 <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}">
                     <xsl:value-of select="normalize-space(t:creation/t:origDate)"/>
@@ -763,30 +786,7 @@
                         <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                     </a>
                 </xsl:for-each>
-            </li>            
-            <li>
-                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}">
-                    <xsl:value-of select="t:creation/t:origPlace"/>
-                </a>
-            </li>
-            <li>
-                <span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}">
-                    <xsl:value-of select="t:langUsage/t:language"/>
-                </a>
-            </li>
-            <li>
-                <span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}">
-                    <xsl:value-of select="t:creation/t:persName[@role='author']"/>
-                </a>
-            </li>
-            <li>
-                <span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}">
-                    <xsl:value-of select="t:creation/t:title[@type='uniform']"/>
-                </a>
-            </li>
-            <li>
-                <span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/>
-            </li>
+            </li> 
             <li>
                 <span class="label">URN:</span> 
                 <xsl:choose>
@@ -1506,7 +1506,7 @@
                             <div id="license">
                                 <h3>Copyright and License for Reuse</h3>
                                 <div>
-                                    <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                                    <xsl:text>Except where otherwise noted, this page is © Caesarea City and Port Exploration Project </xsl:text>
                                     <xsl:choose>
                                         <xsl:when test="t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
                                             <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
@@ -1830,9 +1830,6 @@
             <!-- Sources -->
             <div id="sources">
                 <h3>Bibliography</h3>
-                <p>
-                    <small>Any information without attribution has been created following the Syriaca.org <a href="http://syriaca.org/documentation/">editorial guidelines</a>.</small>
-                </p>
                 <xsl:choose>
                     <xsl:when test="t:listBibl">
                         <xsl:for-each select="t:listBibl">

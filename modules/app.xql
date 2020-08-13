@@ -348,10 +348,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                    <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
                    </p>
                    <div class="collapse" id="viewdetails">
-                       <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
-                       the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
-                       Please also include your email address, so that we can follow up with you regarding 
-                       anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
+                       <p>Thank you for your input. Using the following form, please inform us of the URI for the page related to your comment or suggested correction, for example https://caesarea-maritima.org/testimonia/44 or https://caesarea-maritima.org/bibl/SI84MXR2. To assist the editors, please include in your comments a citation for any new or corrected information (except in the case of obvious corrections, such as misspelled words). Please also include your email address, so that we can follow up with you regarding anything which is unclear. In the event of a correction, we woudl like to publish your name, but not your contact information, as the author of the  correction.</p>
                    </div>
                    <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
                    <br/>
@@ -667,7 +664,15 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     </div>
 };
 
-
+(:
+URL
+Extra: CTS-URN
+Extra: OCLC
+-Note, could you investigate if there is a Linked Data or otherAPI that we might send a query to using the OCLC number and return a result if the user clicks on the link?
+Extra: DOI
+-Note, could you investigate if there is a Linked Data or other API that we might send a query to using the DOI number and return a result if the user clicks on the link?
+Extra: xmlFile
+:)
 declare %templates:wrap function app:biblLinkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
     let $CTS-URN := $data/descendant::tei:idno[@subtype='CTS-URN']
