@@ -394,8 +394,8 @@ declare function tei2html:summary-view-bibl($nodes as node()*, $id as xs:string?
                     <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
             </button>
             <span class="results-list-desc desc" dir="ltr" lang="en">{
-                if($nodes/descendant::tei:bibl[@type='formatted']) then 
-                    tei2html:tei2html($nodes/descendant::tei:bibl[@type='formatted'])
+                if($nodes/descendant::tei:bibl[@type='formatted'][@subtype='bibliography']) then 
+                    tei2html:tei2html($nodes/descendant::tei:bibl[@type='formatted'][@subtype='bibliography'])
                 else bibl2html:citation($nodes/descendant::tei:biblStruct)
                 (:global:tei2html(<citation xmlns="http://www.tei-c.org/ns/1.0">{$nodes/descendant::tei:biblStruct}</citation>):)
             }</span>

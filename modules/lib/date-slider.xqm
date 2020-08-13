@@ -37,11 +37,11 @@ let $endDate :=
 return   
     if(not(empty($startDate)) and not(empty($endDate))) then
         if($mode != '') then 
-            concat('[descendant::',$mode,'[(. gt "', $startDate,'" and . lt "', $endDate,'")]]')
+            concat('[descendant::',$mode,'[(. ge "', $startDate,'" and . le "', $endDate,'")]]')
         else
            concat('[descendant::tei:state[@type="existence"][
-            (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
-            (@to gt "', $startDate,'" and @to lt "', $endDate,'")
+            (@from ge "', $startDate,'" and @from le "', $endDate,'") and
+            (@to ge "', $startDate,'" and @to le "', $endDate,'")
             ]]')
     else ()
 };
