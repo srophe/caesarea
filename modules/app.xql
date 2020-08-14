@@ -676,34 +676,37 @@ Extra: xmlFile
 :)
 declare %templates:wrap function app:biblLinkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
+    let $authors := $data/descendant::tei:body/descendant::tei:author
     let $CTS-URN := $data/descendant::tei:idno[@subtype='CTS-URN']
     let $OCLC := $data/descendant::tei:idno[@subtype='OCLC']
     let $DOI := $data/descendant::tei:idno[@subtype='DOI']
     let $xmlFile := $data/descendant::tei:ref[@subtype="xmlFile"]
-    let $connections := count(($CTS-URN,$OCLC,$DOI,$xmlFile))
+    let $connections := count(($authors,$CTS-URN,$OCLC,$DOI,$xmlFile))
     return 
     if($connections gt 0) then
         <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            </div>
+            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a></div>
             <div class="panel-body">
-            <p>This record has {$connections} connection(s).</p>
-            <ul>{(
-                for $c in $CTS-URN
-                return 
-                    <li><a href="{string($c/@target)}">{string($c/@target)}</a></li>,
-                for $o in $OCLC
-                return 
-                    <li><a href="{string($o/@target)}">{string($o/@target)}</a></li>,
-                for $d in $DOI
-                return 
-                    <li><a href="{string($d/@target)}">{string($d/@target)}</a></li>,
-                for $x in $xmlFile
-                return 
-                    <li><a href="{string($x/@target)}">{string($x/@target)}</a></li>   
-            )}</ul> 
+                <p>This record has {$connections} connection(s).</p>
+                {(
+                    if(count($authors) gt 0) then 
+                        for $a in $authors
+                        return (<p>{$a}</p>,<ul><li><a href="http://worldcat.org/identities/find?fullName={$a}">Search WorldCat Identities</a></li></ul>)
+                    else (),
+                    if($OCLC) then
+                        (<p>{$OCLC/preceding-sibling::tei:title[1]/text()}</p>,<ul><li><a href="{$OCLC}">OCLC Worldcat</a></li></ul>)
+                    else (),
+                    if(count(($CTS-URN, $DOI, $xmlFile)) gt 0) then
+                        (<p>Other Linked Data</p>,
+                        <ul>
+                        {for $l in ($CTS-URN, $DOI, $xmlFile)
+                         return <li><a href="{$l}">{$l}</a></li>
+                        }
+                        <li></li>
+                        </ul>)
+                    else ()
+                )}
             </div>
-        </div>
-        
+        </div>        
     else ()
 };
