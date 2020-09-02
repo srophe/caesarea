@@ -344,20 +344,17 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
            <form action="{$config:nav-base}/modules/email.xql" method="post" id="email" role="form">
                <div class="modal-body" id="modal-body">
                    <!-- More information about submitting data from howtoadd.html -->
-                   <p><strong>Notify the editors of a mistake:</strong>
+                   <p><strong>Notify the editors of a comment, addition or correction:</strong>
                    <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
                    </p>
                    <div class="collapse" id="viewdetails">
-                       <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
-                       the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
-                       Please also include your email address, so that we can follow up with you regarding 
-                       anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
+                       <p>Thank you for your input. Using the following form, please inform us of the URI for the page related to your comment or suggested correction, for example https://caesarea-maritima.org/testimonia/44 or https://caesarea-maritima.org/bibl/SI84MXR2. To assist the editors, please include in your comments a citation for any new or corrected information (except in the case of obvious corrections, such as misspelled words). Please also include your email address, so that we can follow up with you regarding anything which is unclear. In the event of a correction, we would like to publish your name, but not your contact information, as the author of the  correction.</p>
                    </div>
                    <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
                    <br/>
-                   <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                   <input type="text" name="email" placeholder="e-mail address" class="form-control" style="max-width:300px"/>
                    <br/>
-                   <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                   <input type="text" name="subject" placeholder="URI" class="form-control" style="max-width:300px"/>
                    <br/>
                    <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
                    <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
@@ -668,45 +665,48 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
 };
 
 
+(:
+URL
+Extra: CTS-URN
+Extra: OCLC
+-Note, could you investigate if there is a Linked Data or otherAPI that we might send a query to using the OCLC number and return a result if the user clicks on the link?
+Extra: DOI
+-Note, could you investigate if there is a Linked Data or other API that we might send a query to using the DOI number and return a result if the user clicks on the link?
+Extra: xmlFile
+:)
 declare %templates:wrap function app:biblLinkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
+    let $authors := $data/descendant::tei:body/descendant::tei:author
     let $CTS-URN := $data/descendant::tei:idno[@subtype='CTS-URN']
     let $OCLC := $data/descendant::tei:idno[@subtype='OCLC']
     let $DOI := $data/descendant::tei:idno[@subtype='DOI']
     let $xmlFile := $data/descendant::tei:ref[@subtype="xmlFile"]
-    let $connections := count(($CTS-URN,$OCLC,$DOI,$xmlFile))
+    let $connections := count(($authors,$CTS-URN,$OCLC,$DOI,$xmlFile))
     return 
     if($connections gt 0) then
         <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            </div>
+            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a></div>
             <div class="panel-body">
-            <p>This record has {$connections} connection(s).</p>
-            <ul>{(
-                for $c in $CTS-URN
-                return 
-                    <li><a href="{string($c/@target)}">{string($c/@target)}</a></li>,
-                for $o in $OCLC
-                return 
-                    <li><a href="{string($o/@target)}">{string($o/@target)}</a></li>,
-                for $d in $DOI
-                return 
-                    <li><a href="{string($d/@target)}">{string($d/@target)}</a></li>,
-                for $x in $xmlFile
-                return 
-                    <li><a href="{string($x/@target)}">{string($x/@target)}</a></li>   
-            )}</ul>
-            
-            <!--
-            This record has 7 [calculated number based on URIs collected in the record] connections.
-    Rome (from Place Composed URI)
-    Ammianus Marcellinus (from Author URI)
-    History (from Title URI if available)
-    Bibliography (I want to link to the 4 bibl items, but am not sure how to do it)
-    -->
-            
+                <p>This record has {$connections} connection(s).</p>
+                {(
+                    if(count($authors) gt 0) then 
+                        for $a in $authors
+                        return (<p>{$a}</p>,<ul><li><a href="http://worldcat.org/identities/find?fullName={$a}">Search WorldCat Identities</a></li></ul>)
+                    else (),
+                    if($OCLC) then
+                        (<p>{$OCLC/preceding-sibling::tei:title[1]/text()}</p>,<ul><li><a href="{$OCLC}">OCLC Worldcat</a></li></ul>)
+                    else (),
+                    if(count(($CTS-URN, $DOI, $xmlFile)) gt 0) then
+                        (<p>Other Linked Data</p>,
+                        <ul>
+                        {for $l in ($CTS-URN, $DOI, $xmlFile)
+                         return <li><a href="{$l}">{$l}</a></li>
+                        }
+                        <li></li>
+                        </ul>)
+                    else ()
+                )}
             </div>
-        </div>
-        
+        </div>        
     else ()
 };
