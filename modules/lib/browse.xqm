@@ -3,21 +3,21 @@ xquery version "3.1";
  : Builds HTML browse pages for Srophe Collections and sub-collections 
  : Alphabetical English and Syriac Browse lists, browse by type, browse by date, map browse. 
  :)
-module namespace browse="http://syriaca.org/srophe/browse";
+module namespace browse="http://srophe.org/srophe/browse";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "data.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
-import module namespace timeline = "http://syriaca.org/srophe/timeline" at "lib/timeline.xqm";
-import module namespace slider = "http://syriaca.org/srophe/slider" at "lib/date-slider.xqm";
-import module namespace maps="http://syriaca.org/srophe/maps" at "maps.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "paging.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
+import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace maps="http://srophe.org/srophe/maps" at "maps.xqm";
+import module namespace page="http://srophe.org/srophe/page" at "paging.xqm";
 
 (: Namespaces :)
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -38,7 +38,7 @@ declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as x
  : @param $facets facet xml file name, relative to collection directory
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?, $facets as xs:string?){
-    map{"hits" : data:get-records($collection, $element) }
+    map{"hits" : data:get-records($collection, $element)}
 };
 
 (:
@@ -64,7 +64,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     data-toggle="collapse" data-target="#filterMap" 
                     href="#filterMap" data-text-swap="+ Show"> - Hide </a></span>
                 <div class="collapse in" id="filterMap">
-                      {facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition)}  
+                      {sf:display($hits, $facet-config)}  
                 </div>
             </div>
           </div>
@@ -113,13 +113,10 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                             if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
                         <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
                             {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
-                            {browse:display-hits($hits)}
+                            {browse:display-hits($hits, $collection)}
                         </div>
                     </div>
-                    <div class="col-md-4 col-md-pull-8">{(
-                        slider:browse-date-slider($hits,'descendant::tei:imprint/tei:date'), 
-                        facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition)
-                        )}</div>
+                    <div class="col-md-4 col-md-pull-8">{sf:display($hits, $facet-config)}</div>
                 </div> 
                 else 
                  <div class="row">
@@ -130,7 +127,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                             if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
                         <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
                             {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
-                            {browse:display-hits($hits)}
+                            {browse:display-hits($hits, $collection)}
                         </div>
                     </div>
                 </div>,
@@ -142,23 +139,31 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
         </div>
     )
 };
- 
+
 (:
  : Page through browse results
 :)
-declare function browse:display-hits($hits){
-    if(count($hits) gt 0) then
-        for $hit in subsequence($hits, $browse:start,$browse:perpage)
-        let $sort-title := 
-        if($browse:lang != 'en' and $browse:lang != 'syr') then 
-            <span class="sort-title" lang="{$browse:lang}" xml:lang="{$browse:lang}">{(if($browse:lang='ar') then attribute dir { "rtl" } else (), string($hit/@sort-title))}</span> 
+declare function browse:display-hits($hits, $collection){
+if(count($hits) gt 0) then 
+    for $hit in subsequence($hits, $browse:start,$browse:perpage)
+    let $sort-title := 
+        if($browse:lang != 'en' and $browse:lang != 'syr' and $browse:lang != '') then 
+            <span class="sort-title" lang="{$browse:lang}" xml:lang="{$browse:lang}">
+            {(if($browse:lang='ar') then attribute dir { "rtl" } else (), 
+                if($collection = 'places') then 
+                    tei2html:tei2html($hit//tei:placeName[@xml:lang = $browse:lang][matches(global:build-sort-string(., $browse:lang),global:get-alpha-filter())])
+                else if($collection = 'persons' or $collection = 'sbd' or $collection = 'q' ) then
+                    tei2html:tei2html($hit//tei:persName[@xml:lang = $browse:lang][matches(global:build-sort-string(., $browse:lang),global:get-alpha-filter())])
+                else tei2html:tei2html($hit//tei:title[@xml:lang = $browse:lang][matches(global:build-sort-string(., $browse:lang),global:get-alpha-filter())])
+                )}
+            </span> 
         else () 
-        let $uri := replace($hit/descendant::tei:publicationStmt/tei:idno[1],'/tei','')
-        return 
-            <div xmlns="http://www.w3.org/1999/xhtml" class="result">
-                {($sort-title, tei2html:summary-view($hit, $browse:lang, $uri))}
-            </div>
-    else <div class="blockquote">There are no results for authors beginning with this letter.</div>
+    let $uri := replace($hit/descendant::tei:publicationStmt/tei:idno[1],'/tei','')
+    return 
+        <div xmlns="http://www.w3.org/1999/xhtml" class="result">
+            {($sort-title, tei2html:summary-view($hit, $browse:lang, $uri))}
+        </div>
+else <div class="blockquote">There are no results for authors beginning with this letter.</div>        
 };
 
 (:

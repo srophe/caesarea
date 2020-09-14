@@ -23,8 +23,7 @@
     <!-- Removing person names since there are none in the data yet <input type="text" label="Person Name" name="persName" element="tei:person/tei:persName" search-tip="Search People" keyboard="yes"/> -->
     <search-tips>
         <h4>Wildcard Characters:</h4>
-        <p>Given the prevalence of variant spellings in names, using Wildcard Characters may
-            help.</p>
+        <p>Given the prevalence of variant spellings in names, using Wildcard Characters may help.</p>
         <p>
             <strong>"?"</strong> can be inserted as a variant for any single character.</p>
         <div class="indent">
@@ -35,8 +34,7 @@
             </div> returns results which contain either "Procopius" or "Procopios".</p>
         </div>
         <p>
-            <strong>"*"</strong> can be inserted as a variant for multiple characters or a truncated
-            word.</p>
+            <strong>"*"</strong> can be inserted as a variant for multiple characters or a truncated word.</p>
         <div class="indent">
             <p>Thus a search for: <div class="btn-group code-grp" role="group" style="width:100%;">
                 <span class="btn code">Καισαρ*</span>
@@ -45,9 +43,7 @@
             </div> returns results for "Καισαρείᾳ" and "Καισαρέων" and more.</p>
         </div>
         <p class="bg-info" style="padding:.5em;">
-            <small>Note: Because the sources we quote use a variety of transliteration formats,
-                Caesarea-Maritima.org ignores diacritics and punctuation in searching; for example,
-                use of "ʿ" is not required to find results with this diacritical mark.</small>
+            <small>Note: Because the sources we quote use a variety of transliteration formats, Caesarea-Maritima.org ignores diacritics and punctuation in searching; for example, use of "ʿ" is not required to find results with this diacritical mark.</small>
         </p>
         <h4>Fuzzy Search Character</h4>
         <p>Appending the character <strong>"~"</strong> after a word returns results for words that

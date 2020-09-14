@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zotero-config>
+    <!-- Used by get-zotero-data.pp.xql-->
+    <groupid>2320447</groupid>
+    <last-modified-version>1741</last-modified-version>
+    <!-- format json or tei -->
+    <format>json</format>
+    <data-dir>/db/apps/caesarea-data/data/bibl/tei</data-dir>
+    <base-uri>https://caesarea-maritima.org/bibl</base-uri>
+    <!-- Allowed values: auto-generated, zotero -->
+    <id-pattern>zotero</id-pattern>
+    <!-- Values used to build TEI records -->
+    <sponsor xmlns="http://www.tei-c.org/ns/1.0">Vanderbilt University</sponsor>
+    <principal xmlns="http://www.tei-c.org/ns/1.0">Joseph Rife</principal>
+    <editor xmlns="http://www.tei-c.org/ns/1.0" role="general" ref="http://caesarea-maritima.org/documentation/editors.xml#jrife">Joseph Rife</editor>
+    <editor xmlns="http://www.tei-c.org/ns/1.0" role="general" ref="http://caesarea-maritima.org/documentation/editors.xml#packerman-lieberman">Phillip
+        Ackerman-Lieberman</editor>
+    <editor xmlns="http://www.tei-c.org/ns/1.0" role="technical" ref="http://caesarea-maritima.org/documentation/editors.xml#dmichelson">David A.
+        Michelson</editor>
+    <editor xmlns="http://www.tei-c.org/ns/1.0" role="technical" ref="http://caesarea-maritima.org/documentation/editors.xml#wpotter">William L. Potter</editor>
+    <editor xmlns="http://www.tei-c.org/ns/1.0" role="creator" ref="http://caesarea-maritima.org/documentation/editors.xml#jrife">Joseph Rife</editor>
+    <availability xmlns="http://www.tei-c.org/ns/1.0">
+        <licence target="http://creativecommons.org/licenses/by/4.0/">
+            <p>The full data set is released for reuse under a Creative Commons Attribution 4.0 Unported License. Individual bibliographic entries are factual data considered to be in the public domain in the United States of America and many other jurisdictions.</p>
+        </licence>
+    </availability>
+</zotero-config>

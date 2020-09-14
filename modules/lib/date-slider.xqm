@@ -16,16 +16,22 @@ xquery version "3.0";
  :
  :)
 
-module namespace slider = "http://syriaca.org/srophe/slider";
+module namespace slider = "http://srophe.org/srophe/slider";
+import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
+
+declare namespace facet="http://expath.org/ns/facet";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:
  : Build date filter for date slider. 
  : @param $startDate
  : @param $endDate
- : @param $mode selects which date element to use for filter. Current modes are 'inscription' and 'bibl'
+ : @param $collection for finding facet definition file
 :)
-declare function slider:date-filter($mode) {
+declare function slider:date-filter($collection) {
+let $facet-config := global:facet-definition-file($collection)
+let $slider := $facet-config/descendant-or-self::*[@display = 'slider']
+let $xpath := $slider/facet:group-by/facet:sub-path/text()
 let $startDate := 
                if(request:get-parameter('startDate', '') != '') then
                     request:get-parameter('startDate', '')
@@ -34,17 +40,21 @@ let $endDate :=
                 if(request:get-parameter('endDate', '') != '') then  
                      request:get-parameter('endDate', '')
                 else() 
-return   
+return 
     if(not(empty($startDate)) and not(empty($endDate))) then
-        if($mode != '') then 
-            concat('[descendant::',$mode,'[(. ge "', $startDate,'" and . le "', $endDate,'")]]')
+        if($slider != '') then 
+            if(starts-with($xpath,'descendant') or starts-with($xpath,'/descendant')) then
+                concat('[',$xpath,'[(. gt "', $startDate,'" and . lt "', $endDate,'")]]')
+            else concat('[descendant::',$xpath,'[(. gt "', $startDate,'" and . lt "', $endDate,'")]]')
         else
            concat('[descendant::tei:state[@type="existence"][
-            (@from ge "', $startDate,'" and @from le "', $endDate,'") and
-            (@to ge "', $startDate,'" and @to le "', $endDate,'")
+            (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
+            (@to gt "', $startDate,'" and @to lt "', $endDate,'")
             ]]')
     else ()
 };
+
+
 
 (:
  : Date slider functions

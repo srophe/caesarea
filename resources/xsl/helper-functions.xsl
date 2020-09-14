@@ -1,18 +1,12 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0"
-    xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns"
-    exclude-result-prefixes="xs t x saxon local" version="2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- =================================================================== -->
     <!-- Helper Functions  -->
     <!-- =================================================================== -->
     <xsl:variable name="odd">
-        <xsl:if
-            test="doc-available(concat('xmldb:exist://', $app-root, '/documentation/syriaca-tei-main.odd'))">
-            <xsl:sequence
-                select="doc(concat('xmldb:exist://', $app-root, '/documentation/syriaca-tei-main.odd'))"
-            />
+        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))">
+            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
         </xsl:if>
     </xsl:variable>
 
@@ -375,32 +369,23 @@
         <xsl:choose>
             <xsl:when test="$odd/descendant::t:valItem[@ident = $label]/t:gloss">
                 <xsl:choose>
-                    <xsl:when
-                        test="$count &gt; 1 and $odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl']">
-                        <xsl:value-of
-                            select="$odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl'][1]"
-                        />
+                    <xsl:when test="$count &gt; 1 and $odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='pl']">
+                        <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='pl'][1]"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:choose>
-                            <xsl:when
-                                test="$odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg']">
-                                <xsl:value-of
-                                    select="$odd/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg'][1]"
-                                />
+                            <xsl:when test="$odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='sg']">
+                                <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss[@type='sg'][1]"/>                                
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of
-                                    select="$odd/descendant::t:valItem[@ident = $label]/t:gloss[1]"
-                                />
+                                <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss[1]"/>                        
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of
-                    select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"/>
+               <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -439,8 +424,7 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of
-                    select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"/>
+                <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -463,10 +447,8 @@
         </xsl:variable>
         <xsl:variable name="file">
             <xsl:choose>
-                <xsl:when test="contains($file-name, $base-uri)">
-                    <xsl:value-of
-                        select="replace($file-name, $base-uri, concat('xmldb:exist://', $nav-base))"
-                    />
+                <xsl:when test="contains($file-name,$base-uri)">
+                    <xsl:value-of select="replace($file-name,$base-uri,concat('xmldb:exist://',$nav-base))"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="doc($ref)"/>
@@ -478,8 +460,7 @@
                 <xsl:value-of select="$file/descendant::*[@xml:id = $label]/t:gloss[1]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of
-                    select="concat(upper-case(substring($label, 1, 1)), substring($label, 2))"/>
+                <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>

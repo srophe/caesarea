@@ -1,6 +1,7 @@
 xquery version "3.0";
 
 import module namespace xdb="http://exist-db.org/xquery/xmldb";
+import module namespace sm = "http://exist-db.org/xquery/securitymanager";
 
 import module namespace xrest="http://exquery.org/ns/restxq/exist" at "java:org.exist.extensions.exquery.restxq.impl.xquery.exist.ExistRestXqModule";
 
@@ -13,9 +14,6 @@ declare variable $dir external;
 (: the target collection into which the app is deployed :)
 declare variable $target external;
 
-(
-    sm:chmod(xs:anyURI($target || '/modules/index.xql'), "rwsr-xr-x"),
-   sm:chmod(xs:anyURI($target || '/modules/git-sync.xql'), "rwsr-xr-x"),
-   sm:chmod(xs:anyURI($target || '/sparql/update-rdf.xql'), "rwsr-xr-x"),
-   sm:chmod(xs:anyURI($target || '/zotero2bibl/get-zotero-data.xql'), "rwsr-xr-x")
-)
+(:
+sm:chmod(xs:anyURI($target || 'get-zotero-data.xql'), "rwsr-xr-x")
+:) ''
