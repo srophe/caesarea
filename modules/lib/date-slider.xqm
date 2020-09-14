@@ -17,7 +17,7 @@ xquery version "3.0";
  :)
 
 module namespace slider = "http://srophe.org/srophe/slider";
-import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
 
 declare namespace facet="http://expath.org/ns/facet";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
