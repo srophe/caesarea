@@ -12,116 +12,60 @@
                         <geo>34.75 31.25</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/65/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 6.5</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/65/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 6.5</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/71/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 11.1-11.18</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/71/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 11.1-11.18</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/78/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 25.6-26.32</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/78/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 25.6-26.32</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/73/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 18.22</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/73/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 18.22</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/76/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 23.23</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/76/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 23.23</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/67/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 10.1</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/67/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 10.1</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/69/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 10.34</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/69/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 10.34</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/77/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 24.1-24.27</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/77/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 24.1-24.27</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/72/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 12.19-12.23</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/72/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 12.19-12.23</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/75/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 21.16</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/75/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 21.16</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/74/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 21.8-21.9</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/74/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 21.8-21.9</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/68/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 10.24</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/68/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 10.24</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/70/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 10.44-10.48</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/70/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 10.44-10.48</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/66/tei"
-                            passive="https://pleiades.stoa.org/places/687995">
-                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title
-                                        level="m">Acts</title> 9.30</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/66/tei" passive="https://pleiades.stoa.org/places/687995">
+                            <desc><title xml:lang="en" level="a">Luke the Evangelist, <title level="m">Acts</title> 9.30</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
                     </listRelation>
@@ -135,74 +79,42 @@
                         <geo>28.961291608299153 41.00779080957012</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/53/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/53/tei" passive="https://pleiades.stoa.org/places/520998">
                             <desc><title xml:lang="en" level="a">Procopius, <title level="m">Secret
-                                        History</title> 11.25</title><title level="m" xml:lang="en"
-                                    >Textual Evidence for Caesarea-Maritima</title></desc>
+                                        History</title> 11.25</title><title level="m" xml:lang="en">Textual Evidence for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/150/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
-                            <desc><title xml:lang="en" level="a">Scholasticus Socrates , <title
-                                        level="m">Ecclesiastical History </title> 2.4</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/150/tei" passive="https://pleiades.stoa.org/places/520998">
+                            <desc><title xml:lang="en" level="a">Scholasticus Socrates , <title level="m">Ecclesiastical History </title> 2.4</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/151/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
-                            <desc><title xml:lang="en" level="a">Scholasticus Socrates , <title
-                                        level="m">Ecclesiastical History </title> 4.4</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/151/tei" passive="https://pleiades.stoa.org/places/520998">
+                            <desc><title xml:lang="en" level="a">Scholasticus Socrates , <title level="m">Ecclesiastical History </title> 4.4</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/201/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/201/tei" passive="https://pleiades.stoa.org/places/520998">
                             <desc><title xml:lang="en" level="a">Procopius, <title level="m">Secret
-                                        History</title> 30.18</title><title level="m" xml:lang="en"
-                                    >Textual Evidence for Caesarea-Maritima</title></desc>
+                                        History</title> 30.18</title><title level="m" xml:lang="en">Textual Evidence for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/200/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/200/tei" passive="https://pleiades.stoa.org/places/520998">
                             <desc><title xml:lang="en" level="a">Procopius , <title level="m">Secret
-                                        History</title> 29.17-29.18</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                                        History</title> 29.17-29.18</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/152/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
-                            <desc><title xml:lang="en" level="a">Sozomenus, <title level="m"
-                                        >Ecclesiastical History </title> 3.2</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/152/tei" passive="https://pleiades.stoa.org/places/520998">
+                            <desc><title xml:lang="en" level="a">Sozomenus, <title level="m">Ecclesiastical History </title> 3.2</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/79/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
-                            <desc><title xml:lang="en" level="a">Justinian I, <title level="m"
-                                        >Digesta L</title> 15.8.7</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/79/tei" passive="https://pleiades.stoa.org/places/520998">
+                            <desc><title xml:lang="en" level="a">Justinian I, <title level="m">Digesta L</title> 15.8.7</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/57/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
-                            <desc><title xml:lang="en" level="a">Justinian I, <title level="m"
-                                        >Digesta L</title> 15.1.6</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/57/tei" passive="https://pleiades.stoa.org/places/520998">
+                            <desc><title xml:lang="en" level="a">Justinian I, <title level="m">Digesta L</title> 15.1.6</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/54/tei"
-                            passive="https://pleiades.stoa.org/places/520998">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/54/tei" passive="https://pleiades.stoa.org/places/520998">
                             <desc><title xml:lang="en" level="a">Procopius. <title level="m">Secret
-                                        History</title> 11.29</title><title level="m" xml:lang="en"
-                                    >Caesarea Maritima: Literary and Documentary
+                                        History</title> 11.29</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                 Testimonia</title></desc>
                         </relation>
                     </listRelation>
@@ -215,356 +127,180 @@
                         <geo>12.486137 41.891775</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/9/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 17.219-17.223</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/9/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 17.219-17.223</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/30/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 2.507-2.513</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/30/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 2.507-2.513</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/22/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 2.14-2.19</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/22/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 2.14-2.19</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/175/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m"
-                                        >Antiquities of the Jews </title> 15.7.3</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/175/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m">Antiquities of the Jews </title> 15.7.3</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/35/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 7.20.</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/35/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 7.20.</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/19/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 1.408-1.415</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/19/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 1.408-1.415</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/13/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 19.356-19.366</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/13/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 19.356-19.366</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/26/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 2.266</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/26/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 2.266</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/43/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Pliny, the Elder, <title level="m"
-                                        >Natural History</title> 5.13</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/43/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Pliny, the Elder, <title level="m">Natural History</title> 5.13</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/43/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Pliny, the Elder. <title level="m"
-                                        >Natural History</title> 5.13</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/43/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Pliny, the Elder. <title level="m">Natural History</title> 5.13</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/174/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m"
-                                        >Antiquities of the Jews </title> 14.4.4</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/174/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m">Antiquities of the Jews </title> 14.4.4</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/8/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >Antiquities of the Jews</title> 17.77-17.78</title><title
-                                    level="m" xml:lang="en">Caesarea Maritima: Literary and
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/8/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">Antiquities of the Jews</title> 17.77-17.78</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and
                                     Documentary Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/3/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 15.293</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/3/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 15.293</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/10/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >Antiquities of the Jews</title> 18.55-18.59</title><title
-                                    level="m" xml:lang="en">Caesarea Maritima: Literary and
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/10/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">Antiquities of the Jews</title> 18.55-18.59</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and
                                     Documentary Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/39/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 7.361-7.376</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/39/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 7.361-7.376</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/36/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 7.23</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/36/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 7.23</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/44/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Cornelius Tacitus, <title level="m"
-                                        >The Histories</title> 2.82-2.83</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/44/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Cornelius Tacitus, <title level="m">The Histories</title> 2.82-2.83</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/31/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 3.410.</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/31/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 3.410.</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/31/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 3.410</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/31/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 3.410</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/27/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 2.277-2.292</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/27/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 2.277-2.292</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/14/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 20.113-20.124</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/14/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 20.113-20.124</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/40/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 7.407</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/40/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 7.407</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/16/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 20.176</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/16/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 20.176</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/16/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >Antiquities of the Jews</title> 20.176</title><title
-                                    level="m" xml:lang="en">Caesarea Maritima: Literary and
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/16/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">Antiquities of the Jews</title> 20.176</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and
                                     Documentary Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/2/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 14.76</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/2/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 14.76</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/11/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >Antiquities of the Jews</title> 19.332-19.334</title><title
-                                    level="m" xml:lang="en">Caesarea Maritima: Literary and
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/11/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">Antiquities of the Jews</title> 19.332-19.334</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and
                                     Documentary Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/33/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 5.1</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/33/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 5.1</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/173/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m"
-                                        >Antiquities of the Jews </title> 13.12.4</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/173/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m">Antiquities of the Jews </title> 13.12.4</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/32/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 4.663</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/32/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 4.663</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/37/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 7.36</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/37/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 7.36</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/50/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Ammianus Marcellinus. <title
-                                        level="m">History</title> 14.11</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/50/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Ammianus Marcellinus. <title level="m">History</title> 14.11</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/17/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 20.182-20.184</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/17/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 20.182-20.184</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/15/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >Antiquities of the Jews</title> 20.173</title><title
-                                    level="m" xml:lang="en">Caesarea Maritima: Literary and
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/15/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">Antiquities of the Jews</title> 20.173</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and
                                     Documentary Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/15/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 20.173</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/15/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 20.173</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/28/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 2.409-2.413</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/28/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 2.409-2.413</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/34/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 5.40</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/34/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 5.40</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/21/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 1.613-1.616</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/21/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 1.613-1.616</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/20/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 1.543-1.551</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/20/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 1.543-1.551</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/177/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m"
-                                        >The Jewish War </title> 1.20.3</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/177/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus , <title level="m">The Jewish War </title> 1.20.3</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/25/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m"
-                                        >The Jewish War</title> 2.232-2.244</title><title level="m"
-                                    xml:lang="en">Caesarea Maritima: Literary and Documentary
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/25/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus. <title level="m">The Jewish War</title> 2.232-2.244</title><title level="m" xml:lang="en">Caesarea Maritima: Literary and Documentary
                                     Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/12/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 19.343-19.352</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/12/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 19.343-19.352</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/42/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Life of Flavius Josephus</title> 65-68</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/42/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Life of Flavius Josephus</title> 65-68</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/5/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >Antiquities of the Jews</title> 16.13</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/5/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">Antiquities of the Jews</title> 16.13</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/29/tei"
-                            passive="https://pleiades.stoa.org/places/423025">
-                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m"
-                                        >The Jewish War</title> 2.449-2.460</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/29/tei" passive="https://pleiades.stoa.org/places/423025">
+                            <desc><title xml:lang="en" level="a">Flavius Josephus, <title level="m">The Jewish War</title> 2.449-2.460</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
                     </listRelation>
@@ -577,42 +313,27 @@
                         <geo>35.202123 31.712291</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/143/tei"
-                            passive="https://pleiades.stoa.org/places/687856">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/143/tei" passive="https://pleiades.stoa.org/places/687856">
                             <desc><title xml:lang="en" level="a">Jerome, <title level="m">De viris
-                                        illustribus</title> 130</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                                        illustribus</title> 130</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/139/tei"
-                            passive="https://pleiades.stoa.org/places/687856">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/139/tei" passive="https://pleiades.stoa.org/places/687856">
                             <desc><title xml:lang="en" level="a">Jerome, <title level="m">De viris
-                                        illustribus</title> 75</title><title level="m" xml:lang="en"
-                                    >Textual Evidence for Caesarea-Maritima</title></desc>
+                                        illustribus</title> 75</title><title level="m" xml:lang="en">Textual Evidence for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/142/tei"
-                            passive="https://pleiades.stoa.org/places/687856">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/142/tei" passive="https://pleiades.stoa.org/places/687856">
                             <desc><title xml:lang="en" level="a">Jerome, <title level="m">De viris
-                                        illustribus</title> 113</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                                        illustribus</title> 113</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/140/tei"
-                            passive="https://pleiades.stoa.org/places/687856">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/140/tei" passive="https://pleiades.stoa.org/places/687856">
                             <desc><title xml:lang="en" level="a">Jerome, <title level="m">De viris
-                                        illustribus</title> 98</title><title level="m" xml:lang="en"
-                                    >Textual Evidence for Caesarea-Maritima</title></desc>
+                                        illustribus</title> 98</title><title level="m" xml:lang="en">Textual Evidence for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/141/tei"
-                            passive="https://pleiades.stoa.org/places/687856">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/141/tei" passive="https://pleiades.stoa.org/places/687856">
                             <desc><title xml:lang="en" level="a">Jerome, <title level="m">De viris
-                                        illustribus</title> 100</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                                        illustribus</title> 100</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
                     </listRelation>
@@ -625,337 +346,187 @@
                         <geo>34.900416 32.501833</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/192/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 8.8</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/192/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 8.8</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/68/tei"
-                            passive="https://pleiades.stoa.org/places/991396">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/68/tei" passive="https://pleiades.stoa.org/places/991396">
                             <desc><title xml:lang="en" level="a">Luke. <title level="m">Acts</title>
                                     10.24</title><title level="m" xml:lang="en">Caesarea Maritima:
                                     Literary and Documentary Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/124/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 4.8</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/124/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 4.8</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/67/tei"
-                            passive="https://pleiades.stoa.org/places/991396">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/67/tei" passive="https://pleiades.stoa.org/places/991396">
                             <desc><title xml:lang="en" level="a">Luke. <title level="m">Acts</title>
                                     10.1</title><title level="m" xml:lang="en">Caesarea Maritima:
                                     Literary and Documentary Testimonia</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/189/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/189/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title>
                                     4.14-4.15</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/128/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 11</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/128/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 11</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/184/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 6.7</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/184/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 6.7</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/191/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 8.3</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/191/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 8.3</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/197/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 11.29</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/197/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 11.29</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/95/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/95/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     3.31.5</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/101/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/101/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     6.8.4</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/131/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Life of Constantine </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/131/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Life of Constantine </title>
                                     4.36-4.37</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/106/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/106/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     6.27.1</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/187/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 2.4</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/187/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 2.4</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/123/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 3.2</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/123/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 3.2</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/109/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/109/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     6.32.2</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/183/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 6.5</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/183/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 6.5</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/110/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title> 6.39</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/110/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title> 6.39</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/127/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 9.12</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/127/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 9.12</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/105/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/105/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     6.26.1</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/92/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/92/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     2.3.3</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/196/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 11.6</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/196/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 11.6</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/186/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 2.1</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/186/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 2.1</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/199/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 11.31</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/199/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 11.31</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/126/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 6.3</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/126/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 6.3</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/121/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 1.1-1.2</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/121/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 1.1-1.2</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/93/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/93/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     2.10.1</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/104/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title> 6.23</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/104/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title> 6.23</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/97/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/97/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     5.22.1</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/130/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Life of Constantine </title> 1.19</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/130/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Life of Constantine </title> 1.19</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/195/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 11.2</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/195/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 11.2</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/125/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 6.2</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/125/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 6.2</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/198/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 11.3</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/198/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 11.3</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/193/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 9.6-9.7</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/193/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 9.6-9.7</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/185/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 1.3</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/185/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 1.3</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/108/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/108/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     6.30.1</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/98/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/98/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     5.23.3</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/190/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 7.1</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/190/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 7.1</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/194/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 10.2</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/194/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 10.2</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/103/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/103/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     6.19.16</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/181/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Martyrs of Palestine</title> 6.1</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/181/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Martyrs of Palestine</title> 6.1</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/94/tei"
-                            passive="https://pleiades.stoa.org/places/678401">
-                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title
-                                        level="m">Ecclesiastical History </title>
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/94/tei" passive="https://pleiades.stoa.org/places/678401">
+                            <desc><title xml:lang="en" level="a">Eusebius of Caesarea, <title level="m">Ecclesiastical History </title>
                                     2.10.3</title><title level="m" xml:lang="en">Textual Evidence
                                     for Caesarea-Maritima</title></desc>
                         </relation>
@@ -970,9 +541,7 @@
                         <geo>36.952677 36.7396705</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/154/tei"
-                            passive="https://pleiades.stoa.org/places/658446">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/154/tei" passive="https://pleiades.stoa.org/places/658446">
                             <desc><title xml:lang="en" level="a">Theodoret, Bishop of Cyrrhus ,
                                         <title level="m">Ecclesiastical History </title>
                                     5.8</title><title level="m" xml:lang="en">Textual Evidence for
@@ -989,12 +558,8 @@
                         <geo>34.5663495 37.858700999999996</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/48/tei"
-                            passive="https://pleiades.stoa.org/places/648801">
-                            <desc><title xml:lang="en" level="a">Apollonius of Tyana, <title
-                                        level="m">Epistles</title> 11</title><title level="m"
-                                    xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/48/tei" passive="https://pleiades.stoa.org/places/648801">
+                            <desc><title xml:lang="en" level="a">Apollonius of Tyana, <title level="m">Epistles</title> 11</title><title level="m" xml:lang="en">Textual Evidence for
                                 Caesarea-Maritima</title></desc>
                         </relation>
                     </listRelation>
@@ -1008,12 +573,9 @@
                         <geo>29.909773 31.201435</geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/1/tei"
-                            passive="https://pleiades.stoa.org/places/727070">
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/1/tei" passive="https://pleiades.stoa.org/places/727070">
                             <desc><title xml:lang="en" level="a">Philo, <title level="m">Embassy to
-                                        Gaius</title> 276-327</title><title level="m" xml:lang="en"
-                                    >Textual Evidence for Caesarea-Maritima</title></desc>
+                                        Gaius</title> 276-327</title><title level="m" xml:lang="en">Textual Evidence for Caesarea-Maritima</title></desc>
                         </relation>
                     </listRelation>
                 </place>
@@ -1025,12 +587,8 @@
                         <geo> </geo>
                     </location>
                     <listRelation>
-                        <relation type="Place of Origin" ana="Place of Origin"
-                            active="https://caesarea-maritima.org/testimonia/163/tei"
-                            passive="https://pleiades.stoa.org/places/897709 ">
-                            <desc><title xml:lang="en" level="a">Evagrius Scholasticus , <title
-                                        level="m">Ecclesiastical History </title> 4.7</title><title
-                                    level="m" xml:lang="en">Textual Evidence for
+                        <relation type="Place of Origin" ana="Place of Origin" active="https://caesarea-maritima.org/testimonia/163/tei" passive="https://pleiades.stoa.org/places/897709 ">
+                            <desc><title xml:lang="en" level="a">Evagrius Scholasticus , <title level="m">Ecclesiastical History </title> 4.7</title><title level="m" xml:lang="en">Textual Evidence for
                                     Caesarea-Maritima</title></desc>
                         </relation>
                     </listRelation>

@@ -5,7 +5,7 @@ xquery version "3.1";
  : Run on webhook activation, add new names, check for dups. 
 :)
 
-import module namespace config="http://syriaca.org/srophe/config" at "config.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "config.xqm";
 import module namespace http="http://expath.org/ns/http-client";
 
 import module namespace functx="http://www.functx.com";

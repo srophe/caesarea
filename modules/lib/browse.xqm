@@ -49,8 +49,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
   let $hits := $model("hits")
   let $facet-config := global:facet-definition-file($collection)
   return 
-    (
-    if($browse:view = 'map') then 
+    (if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">{
             let $ids := $hits/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
             let $mapData := for $id in distinct-values($ids)
