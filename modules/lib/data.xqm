@@ -120,38 +120,36 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
     return 
         if(request:get-parameter('view', '') = 'map') then 
             for $hit in $hits
-            let $sort := 
-                if($collection = 'bibl') then
-                    data:add-sort-options-bibl($hit, $sort)
-                else data:add-sort-options($hit, $sort)    
-            order by $sort ascending collation 'http://www.w3.org/2013/collation/UCA'
+            let $s := 
+                    if(contains($sort, 'author')) then ft:field($hit, "author")[1]
+                    else if(request:get-parameter('sort', '') = 'title') then ft:field($hit, "title")
+                    else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
+                        if($collection = 'bibl') then
+                            data:add-sort-options-bibl($hit, $sort)
+                        else data:add-sort-options($hit, $sort)                    
+                    else ft:field($hit, "title")
+            order by $s collation 'http://www.w3.org/2013/collation/UCA'
             where $hit[1]//tei:geo
             return $hit                             
-        else if(request:get-parameter('alpha-filter', '') = ('ALL','all')) then 
+        else if(request:get-parameter('alpha-filter', '') != ('','All','ALL','all')) then
             for $hit in $hits
-            let $sort := 
-                if($collection = 'bibl') then
-                    data:add-sort-options-bibl($hit, $sort)
-                else data:add-sort-options($hit, $sort)    
-            order by $sort ascending collation 'http://www.w3.org/2013/collation/UCA'
-            return $hit              
-        else if(request:get-parameter('alpha-filter', '') != '') then 
-            for $hit in $hits
-            let $sort := 
-                if($collection = 'bibl') then
-                    data:add-sort-options-bibl($hit, $sort)
-                else data:add-sort-options($hit, $sort)
-            order by $sort ascending collation 'http://www.w3.org/2013/collation/UCA'
-            where matches($sort,global:get-alpha-filter())
-            return $hit             
+            let $root := $hit/ancestor-or-self::tei:TEI
+            let $s := 
+                    if(contains($sort, 'author')) then ft:field($hit, "author")[1]
+                    else if(request:get-parameter('sort', '') = 'title') then ft:field($hit, "title")
+                    else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
+                        if($collection = 'bibl') then
+                            data:add-sort-options-bibl($hit, $sort)
+                        else data:add-sort-options($hit, $sort)                    
+                    else ft:field($hit, "title")                
+            order by $s collation 'http://www.w3.org/2013/collation/UCA'
+            where matches($s,global:get-alpha-filter())
+            return $root
         else
             for $hit in $hits
-            let $sort := 
-                if($collection = 'bibl') then
-                    data:add-sort-options-bibl($hit, $sort)
-                else data:add-sort-options($hit, $sort) 
-            order by $sort ascending collation 'http://www.w3.org/2013/collation/UCA' 
-            return $hit
+            let $root := $hit/ancestor-or-self::tei:TEI
+            order by ft:field($hit, "title"), ft:field($hit, "author")[1]  collation 'http://www.w3.org/2013/collation/UCA'
+            return $root
 };
 
 (:~
@@ -166,23 +164,26 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
             if(request:get-parameter-names() = '' or empty(request:get-parameter-names())) then 
                 collection($config:data-root || '/' || $collection)//tei:body[ft:query(., (),sf:facet-query())]
             else util:eval($eval-string)//tei:body[ft:query(., (),sf:facet-query())]              
+    let $sort := if($sort-element != '') then 
+                    $sort-element
+                 else if(request:get-parameter('sort-element', '') != '') then
+                    request:get-parameter('sort-element', '')
+                 else ()
     return 
-        if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') then 
-                for $hit in $hits/ancestor-or-self::tei:TEI
-                let $sort := 
-                    if($collection = 'bibl') then
-                        data:add-sort-options-bibl($hit, request:get-parameter('sort-element', ''))
-                    else data:sort-element($hit, request:get-parameter('sort-element', ''), request:get-parameter('lang', '')) 
-                order by $sort
-                return $hit
-        else if($sort-element != '' and $sort-element != 'relevance') then  
-                for $hit in $hits/ancestor-or-self::tei:TEI
-                let $sort := 
-                    if($collection = 'bibl') then
-                        data:add-sort-options-bibl($hit, request:get-parameter('sort-element', ''))
-                    else data:sort-element($hit, request:get-parameter('sort-element', ''), request:get-parameter('lang', '')) 
-                order by $sort
-                return $hit
+       if((request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') or ($sort-element != '' and $sort-element != 'relevance')) then 
+            for $hit in $hits/ancestor-or-self::tei:TEI
+            let $s := 
+                    if(contains($sort, 'author')) then ft:field($hit, "author")[1]
+                    else if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
+                    else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
+                    else if(request:get-parameter('sort', '') = 'title') then ft:field($hit, "title")
+                    else if(request:get-parameter('sort', '') != '' and request:get-parameter('sort', '') != 'title' and not(contains($sort, 'author'))) then
+                        if($collection = 'bibl') then
+                            data:add-sort-options-bibl($hit, $sort)
+                        else data:add-sort-options($hit, $sort)                    
+                    else ft:field($hit, "title")                
+            order by $s collation 'http://www.w3.org/2013/collation/UCA'
+            return $hit
         else 
             for $hit in $hits
             order by ft:score($hit) descending
