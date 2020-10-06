@@ -70,8 +70,8 @@ declare function sf:build-index(){
                 ($facets(:,$fields :))
             }
                 <!-- Predetermined sort fields -->               
-                <field name="title" expression="sf:field(descendant-or-self::tei:body, (),'title')"/>
-                <field name="author" expression="sf:field(descendant-or-self::tei:body, (),'author')"/>
+                <field name="title" expression="sf:field(descendant-or-self::tei:body,'title')"/>
+                <field name="author" expression="sf:field(descendant-or-self::tei:body,'author')"/>
             </text>
             <text qname="tei:fileDesc"/>
             <text qname="tei:biblStruct"/>
@@ -162,7 +162,7 @@ declare function sf:facet($element as item()*, $path as xs:string, $name as xs:s
 (: For sort fields, or fields not defined in search-config.xml :)
 declare function sf:field($element as item()*, $name as xs:string){
     try { 
-        util:eval(concat('sf:field-',$name,'($element, $name)'))
+        util:eval(concat('sf:field-',$name,'($element,$name)'))
     } catch * {concat($err:code, ": ", $err:description)}
 };
 
@@ -462,7 +462,7 @@ declare function sf:facet-range($element as item()*, $facet-definition as item()
 (:~
  : TEI Title field, specific to Srophe applications 
  :)
-declare function sf:field-title($element as item()*, $facet-definition as item()*,$name as xs:string){
+declare function sf:field-title($element as item()*,$name as xs:string){
 (: Caesarea specific titles :)
     if($element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']) then 
         sf:build-sort-string($element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform'])
@@ -486,7 +486,7 @@ declare function sf:facet-title($element as item()*, $facet-definition as item()
 (:~
  : TEI author field, specific to Srophe applications 
  :)
-declare function sf:field-author($element as item()*,$facet-definition as item()*, $name as xs:string){
+declare function sf:field-author($element as item()*, $name as xs:string){
     if($element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']) then 
         $element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']
     else if($element/ancestor-or-self::tei:TEI/descendant::tei:titleStmt/tei:author[1]) then
