@@ -40,7 +40,7 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
             else ()
             }
         <script type="text/javascript">
-            <![CDATA[
+            <![CDATA[ 
 
             var terrain = L.tileLayer('https://a.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
                                 
