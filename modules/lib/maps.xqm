@@ -27,7 +27,7 @@ else maps:build-leaflet-map($nodes,$total-count)
 :)
 declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:integer?){
     <div id="map-data" style="margin-bottom:3em;">
-                <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.js"/>
+        <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.js"/>
         <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.awesome-markers.min.js"/>
         <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.markercluster-src.js"/>
         <div id="map"/>
@@ -40,13 +40,12 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
             else ()
             }
         <script type="text/javascript">
-            <![CDATA[ 
-
+            <![CDATA[
             var terrain = L.tileLayer('https://a.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
                                 
             /* Not added by default, only through user control action */
             var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
-                                         
+                                
             var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC', maxZoom: 11 });
                                 
             var placesgeo = ]]>{geojson:geojson($nodes)}
@@ -151,8 +150,8 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
         <script type="text/javascript">
            <![CDATA[
                   var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
-                  var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012",maxNativeZoom: 18, maxZoom: 11});
-                  var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+                  var terrain = L.tileLayer('https://a.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png', {attribution: "ISAW, 2012",maxNativeZoom: 18, maxZoom: 11});
+                  var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
                   var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC'});
                   
                     
