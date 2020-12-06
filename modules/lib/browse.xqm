@@ -51,7 +51,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
   return 
     (if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">{
-            let $ids := $hits/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
+            let $ids := $hits/descendant::tei:publicationStmt/tei:idno[@type='URI']
             let $mapData := for $id in distinct-values($ids)
                             let $id-results := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:relation[@active = $id]
                             return $id-results
