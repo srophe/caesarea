@@ -205,7 +205,8 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
           		});
           		L.control.layers({
                         "Terrain (default)": terrain,
-                        "Streets": streets }).addTo(map);
+                        "Streets": streets,
+                        "Imperium": imperium }).addTo(map);
                         
           		markers.addLayer(geoJsonLayer);
           
