@@ -41,13 +41,25 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
             }
         <script type="text/javascript">
             <![CDATA[
-            var terrain = L.tileLayer('https://a.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
-                                
+            var terrain =  
+            L.tileLayer(
+                'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token=]]>{$config:map-api-key}<![CDATA[', {
+                    attribution: '<a href="http://mapbox.com">Mapbox</a> ', 
+                    id: 'mapbox/outdoors-v11', 
+                    maxZoom: 12, 
+                    accessToken: ']]>{$config:map-api-key}<![CDATA['
+                });
+                
             /* Not added by default, only through user control action */
-            var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+            var streets = L.tileLayer(
+                'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+                {attribution: "OpenStreetMap"});
                                 
-            var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC', maxZoom: 11 });
-                                
+            var imperium = L.tileLayer(
+                    'https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png', {
+                        maxZoom: 10,
+                        attribution: 'Powered by <a href="http://leafletjs.com/">Leaflet</a>. Map base: <a href="https://dh.gu.se/dare/" title="Digital Atlas of the Roman Empire, Department of Archaeology and Ancient History, Lund University, Sweden">DARE</a>, 2015 (cc-by-sa).'
+                    });                   
             var placesgeo = ]]>{geojson:geojson($nodes)}
             <![CDATA[                                
             var sropheIcon = L.Icon.extend({
@@ -150,10 +162,25 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
         <script type="text/javascript">
            <![CDATA[
                   var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
-                  var terrain = L.tileLayer('https://a.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png', {attribution: "ISAW, 2012",maxNativeZoom: 18, maxZoom: 11});
-                  var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
-                  var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC'});
-                  
+                  var terrain =  
+            L.tileLayer(
+                'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token=]]>{$config:map-api-key}<![CDATA[', {
+                    attribution: '<a href="http://mapbox.com">Mapbox</a> ', 
+                    id: 'mapbox/outdoors-v11', 
+                    maxZoom: 12, 
+                    accessToken: ']]>{$config:map-api-key}<![CDATA['
+                });
+                
+            /* Not added by default, only through user control action */
+            var streets = L.tileLayer(
+                'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+                {attribution: "OpenStreetMap"});
+                                
+            var imperium = L.tileLayer(
+                    'https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png', {
+                        maxZoom: 10,
+                        attribution: 'Powered by <a href="http://leafletjs.com/">Leaflet</a>. Map base: <a href="https://dh.gu.se/dare/" title="Digital Atlas of the Roman Empire, Department of Archaeology and Ancient History, Lund University, Sweden">DARE</a>, 2015 (cc-by-sa).'
+                    });
                     
           		var map = L.map('map').addLayer(terrain);
           
