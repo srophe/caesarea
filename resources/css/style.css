@@ -39,7 +39,7 @@
 }
 .banner-container {display:inline-block; line-height:2.5em;}
 /*.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}*/
-.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em;}
+.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.5em;}
 .banner-icon img{height:50px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
 
 .bg-light {
