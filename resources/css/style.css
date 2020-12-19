@@ -38,7 +38,8 @@
     border-bottom:4px solid #aa0000ff;
 }
 .banner-container {display:inline-block; line-height:2.5em;}
-.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+/*.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}*/
+.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em;}
 .banner-icon img{height:50px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
 
 .bg-light {
@@ -185,6 +186,11 @@ ul.footnote-list {margin-bottom: 1.5em;}
 .geo-home #map {border-bottom:4px solid #aa0000ff}
 
 /* H */
+h1, h2, h3, h4, .navbar { 
+    font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;  
+    font-style: normal; 
+    font-variant: normal; 
+}    
 .home-page-text {
     color:white; font-size:1.75em; margin-top:2em;
     font-weight:200;
@@ -598,7 +604,7 @@ h4.slider {
 	min-height: 250px;  
 }
 .featureTestemonia .featureBanner{
-    min-height:75px; 
+    min-height:125px; 
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     background-size:cover;
@@ -607,10 +613,10 @@ h4.slider {
     border-bottom:4px solid grey;
 }
 .featureBibl .featureBanner{
-    min-height:75px;
+    min-height:125px;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
-background-size:cover;
+    background-size:cover;
 	background-position:top;    
     background-image:url('../images/featureBibl.jpg');
     border-bottom:4px solid grey;
