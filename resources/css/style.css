@@ -30,7 +30,7 @@
     position:relative;
     margin-top:-1em;
     padding-top:0;
-	background-image:url('../images/banner.jpeg');
+	background-image:url('../images/banner.jpg');
 	background-size:cover;
 	background-position:top;
     height:250px;
@@ -195,7 +195,7 @@ h1, h2, h3, h4, .navbar {
     color:white; font-size:1.75em; margin-top:2em;
     font-weight:200;
     background: rgb(34,34,34); /* for IE */
-    background: rgba(34,34,34,0.55);
+    background: rgba(34,34,34,0.4);
     color: white; 
     padding: 2.75em 2em 2em;
     display:block;
@@ -208,9 +208,9 @@ h1, h2, h3, h4, .navbar {
     position:relative;
     margin:0;
     padding:0;
-	background-image:url('../images/banner.jpeg');
+	background-image:url('../images/banner.jpg');
 	background-size:cover;
-	background-position:top;
+	background-position:bottom;
     min-height:325px;
     width:100%;
     position:relative
@@ -618,7 +618,7 @@ h4.slider {
     border-top-right-radius: 25px;
     background-size:cover;
 	background-position:top;    
-    background-image:url('../images/featureBibl.jpg');
+    background-image:url('../images/banner-bibl.jpg');
     border-bottom:4px solid grey;
 }
 
