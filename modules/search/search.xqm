@@ -149,7 +149,7 @@ declare function search:build-form($search-config) {
     let $config := doc($search-config)
     return 
         <form method="get" class="form-horizontal indent" role="form">
-            <h1 class="search-header">{if($config//label != '') then $config//label else 'Search'}</h1>
+            <h1 class="search-header">{if($config//label != '') then $config//label//text() else 'Search'}</h1>
             {if($config//desc != '') then 
                 <p class="indent info">{$config//desc}</p>
             else() 
@@ -261,7 +261,11 @@ let $collection-data := string(config:collection-vars($collection)/@data-root)
 return
     if($collection != '') then 
         if(doc-available($search-config)) then 
-           concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),slider:date-filter(()),data:dynamic-paths($search-config))
+           concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",
+           facet:facet-filter(global:facet-definition-file($collection)),
+           slider:date-filter(()),
+           search:placeName(),
+           data:dynamic-paths($search-config))
         else if($collection = 'places') then  
             concat("collection('",$config:data-root,"')//tei:TEI",
             facet:facet-filter(global:facet-definition-file($collection)),
@@ -292,4 +296,12 @@ return
         data:element-search('bibl',request:get-parameter('bibl', '')),
         data:uri()
         )
+};
+
+(:Caesarea search elements :)
+
+declare function search:placeName() as xs:string? {
+    if(request:get-parameter('placeName', '') != '') then 
+        concat("[descendant::tei:placeName[ft:query(.,'",data:clean-string(request:get-parameter('placeName', '')),"',data:search-options())] or descendant::tei:origPlace[ft:query(.,'",data:clean-string(request:get-parameter('placeName', '')),"',data:search-options())]]")
+    else ()  
 };
