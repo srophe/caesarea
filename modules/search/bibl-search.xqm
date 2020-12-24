@@ -291,7 +291,7 @@ declare function bibls:search-form() {
                 </div>
             </div>
             <div class="form-group">     
-                <label for="idno" class="col-sm-2 col-md-3  control-label">Only items viewable online: </label>
+                <label for="online" class="col-sm-2 col-md-3  control-label">Only items viewable online: </label>
                 <div class="col-sm-10 col-md-2 ">
                     <label class="switch">
                         <input id="online" name="online" type="checkbox"/>

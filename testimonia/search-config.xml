@@ -1,25 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <search-config>
     <label>Testimonia: Advanced Search</label>
     <desc>This advanaced function searches the TEI XML records for all testimonia.</desc>
     <!-- Uses Lucene full text search make sure any elements used in the search-config.xml 
         are added to the collection.xconf file in your data repository. -->                            
-    <input type="text" label="Keyword " name="keyword" 
-        element="." 
-        title="Use this box to search for keywords anywhere in the testimonia." 
-        placeholder="Search by keywords anywhere..." keyboard="yes"/>
-    <input type="text" label="Title" 
-        name="title" element="tei:titleStmt/tei:title" 
-        title="Use this box to search only within titles." 
-        placeholder="Search by keywords in titles..." keyboard="yes"/>
-    <input type="text" label="Author" 
-        name="author" element="tei:persName[@role='author']" 
-        title="Use this box to search only within author names." 
-        placeholder="Search by author name..." keyboard="yes"/>
-    <input type="text" label="Place Name" name="placeName" 
-        element="tei:placeName" 
-        title="Use this box to search only within place names." 
-        placeholder="Search by keywords in place names..." keyboard="yes"/>
+    <input type="text" label="Keyword " name="keyword" element="." title="Use this box to search for keywords anywhere in the testimonia." placeholder="Search by keywords anywhere..." keyboard="yes"/>
+    <input type="text" label="Title" name="title" element="tei:titleStmt/tei:title" title="Use this box to search only within titles." placeholder="Search by keywords in titles..." keyboard="yes"/>
+    <input type="text" label="Author" name="author" element="tei:persName[@role='author']" title="Use this box to search only within author names." placeholder="Search by author name..." keyboard="yes"/>
+    <input type="text" label="Place Name" name="placeName" title="Use this box to search only within place names." placeholder="Search by keywords in place names..." keyboard="yes"/>
     <!-- Removing person names since there are none in the data yet <input type="text" label="Person Name" name="persName" element="tei:person/tei:persName" search-tip="Search People" keyboard="yes"/> -->
     <search-tips>
         <h4>Wildcard Characters:</h4>
@@ -61,8 +48,7 @@
         <div class="indent">
             <p>Thus <div class="btn-group code-grp" role="group" style="width:100%;">
                 <span class="btn code">"Constantius II"</span>
-                <a href="./search.html?keyword=&#34;Constantius II&#34;" type="button" class="btn
-                    btn-primary">
+                <a href="./search.html?keyword=&#34;Constantius II&#34;" type="button" class="btn                     btn-primary">
                     <span class="glyphicon glyphicon-search"/>  </a>
             </div> returns only results with that exact phrase, while several results are found
                 for the words "Constantius" without "II".</p>
