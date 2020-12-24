@@ -87,7 +87,7 @@ declare function bibls:online() as xs:string? {
 :)
 declare function bibls:date-range() as xs:string?{
     if($bibls:start-date != '' and $bibls:end-date != '') then 
-        concat("[descendant::tei:imprint/tei:date[(. >='", global:make-iso-date($bibls:start-date),"') and (. <= '",global:make-iso-date($bibls:end-date) ,"')]]")
+        concat("[descendant::tei:imprint/tei:date[. >='", global:make-iso-date($bibls:start-date),"' and . <= '",global:make-iso-date($bibls:end-date) ,"']]")
     else if($bibls:start-date != ''  and $bibls:end-date = '') then
         concat("[descendant::tei:imprint/tei:date[. >= '",global:make-iso-date($bibls:start-date),"']]")
     else if($bibls:end-date != ''  and $bibls:start-date = '') then
