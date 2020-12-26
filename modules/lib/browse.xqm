@@ -102,8 +102,13 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right paging"}">
                     {page:pages($hits, $collection, $browse:start, $browse:perpage,'', $sort-options)}
                 </div>
-                {if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then ()
-                 else browse:browse-abc-menu()}
+                {(if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then ()
+                 else browse:browse-abc-menu(),
+                 if($collection = 'bibl') then 
+                    sf:display($hits, $facet-config//facet:facet-definition[@name="publicationDate"])
+                 else ()
+                 )}
+                
                 </div>, 
                 if($facet-config != '') then
                    <div class="row">
@@ -117,7 +122,17 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                             {browse:display-hits($hits, $collection)}
                         </div>
                     </div>
-                    <div class="col-md-4 col-md-pull-8">{sf:display($hits, $facet-config)}</div>
+                    <div class="col-md-4 col-md-pull-8">{
+                        if($collection = 'bibl') then
+                            if($browse:view = 'title') then
+                                (sf:display($hits, $facet-config//facet:facet-definition[@name="biblAuthors"]),
+                                sf:display($hits, $facet-config//facet:facet-definition[@name="publicationDateRange"]))         
+                            else if($browse:view = 'date') then 
+                                (sf:display($hits, $facet-config//facet:facet-definition[@name="biblAuthors"]),
+                                sf:display($hits, $facet-config//facet:facet-definition[@name="publicationDateRange"]))
+                            else sf:display($hits, $facet-config//facet:facet-definition[@name="publicationDateRange"])
+                        else sf:display($hits, $facet-config)
+                    }</div>
                 </div> 
                 else 
                  <div class="row">

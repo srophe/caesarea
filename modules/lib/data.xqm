@@ -104,6 +104,10 @@ declare function data:build-collection-path($collection as xs:string?) as xs:str
             else "//tei:TEI"
     return concat("collection('",$config:data-root,$collection-path,"')",$series-path)
 };
+
+(:~
+ : Function for selecting sort element or field
+:)
 declare function data:get-sort($h, $sort, $collection){
     if(request:get-parameter('view', '') = 'map') then ()
     else if(request:get-parameter('view', '') = 'timeline') then ()
@@ -141,7 +145,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             else ()     
     let $eval-string := 
         concat(data:build-collection-path($collection),
-            '[descendant::tei:body[ft:query(., (),sf:facet-query())]]',
+            slider:date-filter($collection),'[descendant::tei:body[ft:query(., (),sf:facet-query())]]',
                 if(request:get-parameter('alpha-filter', '') != '' 
                     and request:get-parameter('alpha-filter', '') != 'All'
                     and request:get-parameter('alpha-filter', '') != 'ALL'
