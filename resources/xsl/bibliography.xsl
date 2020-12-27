@@ -1402,6 +1402,11 @@
             <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
         </div>
     </xsl:template>
+    <xsl:template match="t:textLang" mode="full">
+        <p><span class="tei-label">Language: </span>
+            <xsl:value-of select="@mainLang"/>
+        </p>
+    </xsl:template>
     <xsl:template match="*" mode="full">
         <p>
            <span class="tei-label">
