@@ -582,13 +582,6 @@ h4.slider {
 .historical-era-label.selected{background:#ddd;}
 .historical-era-label .dateLabel{color:#666;}
 
-.equal {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-}
 
 .feature .glyphicon {font-size:1.5em; color:#777; vertical-align: bottom;}
 .feature h3 {font-size:1.25em;}
@@ -601,7 +594,7 @@ h4.slider {
     padding:0;
     border: 1px solid grey;
 	border-radius: 25px !important;
-	min-height: 250px;  
+	min-height: 350px;  
 }
 .featureTestemonia .featureBanner{
     min-height:125px; 
