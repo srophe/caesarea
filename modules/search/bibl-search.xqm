@@ -144,7 +144,9 @@ declare function bibls:search-string(){
                 else if ($parameter = 'author') then 
                     (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}&#160; </span>)
                 else if ($parameter = 'subject-exact') then 
-                    (<span class="param">Subject: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
+                    (<span class="param">Subject: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)
+                else if ($parameter = 'StartDate') then () 
+                else if ($parameter = 'EndDate') then () 
                 else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
             else ()               
 };

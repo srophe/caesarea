@@ -165,6 +165,8 @@ declare function page:display-search-params($collection as xs:string?){
             if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'fq') then ()
             else if($parameter = ('q','keyword')) then 
                 (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
+            else if ($parameter = 'StartDate') then () 
+            else if ($parameter = 'EndDate') then ()
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
         else ())
         }
