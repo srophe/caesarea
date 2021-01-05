@@ -210,9 +210,10 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
                         "Streets": streets }).addTo(map);
                         
           		markers.addLayer(geoJsonLayer);
-          
           		map.addLayer(markers);
           		map.fitBounds(markers.getBounds(), {padding: [50,50]}, {maxZoom: 10});
+          		//Map fix for Caesarea, center on Caesarea and control initial zoom. 
+          		map.setView([34.900416, 32.501833], 4);
             ]]>
         </script>
     </div> 
