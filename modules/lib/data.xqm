@@ -134,7 +134,7 @@ declare function data:get-sort($h, $sort, $collection){
 declare function data:get-records($collection as xs:string*, $element as xs:string?){
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
-        else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
+        (:else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', ''):)
         else ()             
     let $collection-path := 
         if(config:collection-vars($collection)/@data-root != '') then concat('/',config:collection-vars($collection)/@data-root)
