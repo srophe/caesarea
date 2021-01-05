@@ -111,12 +111,13 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
                                 }
                             })
         var map = L.map('map').fitBounds(geojson.getBounds(),{maxZoom: 5});     
-        terrain.addTo(map);
+        imperium.addTo(map);
                                         
         L.control.layers({
-                        "Terrain (default)": terrain,
-                        "Streets": streets,
-                        "Imperium": imperium }).addTo(map);
+                        "Imperium (default)": imperium,  
+                        "Terrain": terrain,
+                        "Streets": streets
+                         }).addTo(map);
         geojson.addTo(map);     
         ]]>
         </script>
@@ -161,15 +162,15 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
         <div id="map"/>
         <script type="text/javascript">
            <![CDATA[
-                  var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
-                  var terrain =  
-            L.tileLayer(
-                'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token=]]>{$config:map-api-key}<![CDATA[', {
-                    attribution: '<a href="http://mapbox.com">Mapbox</a> ', 
-                    id: 'mapbox/outdoors-v11', 
-                    maxZoom: 12, 
-                    accessToken: ']]>{$config:map-api-key}<![CDATA['
-                });
+             var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
+             var terrain =  
+                    L.tileLayer(
+                        'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token=]]>{$config:map-api-key}<![CDATA[', {
+                            attribution: '<a href="http://mapbox.com">Mapbox</a> ', 
+                            id: 'mapbox/outdoors-v11', 
+                            maxZoom: 12, 
+                            accessToken: ']]>{$config:map-api-key}<![CDATA['
+                        });
                 
             /* Not added by default, only through user control action */
             var streets = L.tileLayer(
@@ -182,7 +183,7 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
                         attribution: 'Powered by <a href="http://leafletjs.com/">Leaflet</a>. Map base: <a href="https://dh.gu.se/dare/" title="Digital Atlas of the Roman Empire, Department of Archaeology and Ancient History, Lund University, Sweden">DARE</a>, 2015 (cc-by-sa).'
                     });
                     
-          		var map = L.map('map').addLayer(terrain);
+          		var map = L.map('map').addLayer(imperium);
           
           		var markers = L.markerClusterGroup({
                         maxClusterRadius: function (zoom) {
@@ -204,9 +205,9 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
           			}
           		});
           		L.control.layers({
-                        "Terrain (default)": terrain,
-                        "Streets": streets,
-                        "Imperium": imperium }).addTo(map);
+                        "Imperium (default)": imperium,  
+                        "Terrain": terrain,
+                        "Streets": streets }).addTo(map);
                         
           		markers.addLayer(geoJsonLayer);
           
