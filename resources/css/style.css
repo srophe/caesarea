@@ -371,6 +371,7 @@ img{ margin:0px }
 .param {font-weight:500;}
 .param-string {margin-right:.75em;}
 /* API documentation */
+.param {font-weight:bold; color: #666;}
 pre code {
 	line-height: 1.6em;
 	font-size: 11px;
