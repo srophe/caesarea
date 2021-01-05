@@ -39,6 +39,12 @@ declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as x
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?, $facets as xs:string?){
     let $hits := data:get-records($collection, $element)
+    let $hits := if(request:get-parameter('sort-element', '') != '') then 
+                    for $h in $hits
+                    let $s := data:get-sort($h, request:get-parameter('sort-element', ''), $collection)
+                    order by $s collation 'http://www.w3.org/2013/collation/UCA'  
+                    return $h/ancestor-or-self::tei:TEI
+                  else $hits
     return 
         map{"hits" : $hits}
 };
@@ -254,19 +260,19 @@ declare function browse:browse-abc-menu(){
             if(($browse:lang = 'syr')) then  
                 for $letter in tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ ALL', ' ')
                 return 
-                    <li class="syr-menu {if($browse:alpha-filter = $letter) then "selected badge" else()}" lang="syr"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort-element', '') != '') then concat('&amp;sort-element=',request:get-parameter('sort-element', '')) else()}">{$letter}</a></li>
+                    <li class="syr-menu {if($browse:alpha-filter = $letter) then "selected badge" else()}" lang="syr"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort', '') != '') then concat('&amp;sort=',request:get-parameter('sort', '')) else()}">{$letter}</a></li>
             else if(($browse:lang = 'ar')) then  
                 for $letter in tokenize('ALL ا ب ت ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ف  ق  ك ل م ن ه  و ي', ' ')
                 return 
-                    <li class="ar-menu {if($browse:alpha-filter = $letter) then "selected badge" else()}" lang="ar"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort-element', '') != '') then concat('&amp;sort-element=',request:get-parameter('sort-element', '')) else()}">{$letter}</a></li>
+                    <li class="ar-menu {if($browse:alpha-filter = $letter) then "selected badge" else()}" lang="ar"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort', '') != '') then concat('&amp;sort=',request:get-parameter('sort', '')) else()}">{$letter}</a></li>
             else if($browse:lang = 'ru') then 
                 for $letter in tokenize('А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я ALL',' ')
                 return 
-                <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort-element', '') != '') then concat('&amp;sort-element=',request:get-parameter('sort-element', '')) else()}">{$letter}</a></li>            
+                <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort', '') != '') then concat('&amp;sort=',request:get-parameter('sort', '')) else()}">{$letter}</a></li>            
             else                
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ALL', ' ')
                 return
-                    <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort-element', '') != '') then concat('&amp;sort-element=',request:get-parameter('sort-element', '')) else()}">{$letter}</a></li>
+                    <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}{if(request:get-parameter('sort', '') != '') then concat('&amp;sort=',request:get-parameter('sort', '')) else()}">{$letter}</a></li>
         }
         </ul>
     </div>
