@@ -526,14 +526,6 @@ declare function sf:field-author($element as item()*, $name as xs:string){
     else ()
 };
 
-(:~
- : TEI author facet, specific to Srophe applications 
- :)
-declare function sf:facet-authors($element as item()*, $facet-definition as item(), $name as xs:string){
-    if($element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct) then 
-        $element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct/descendant::tei:author | $element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct/descendant::tei:editor
-    else $element/ancestor-or-self::tei:TEI/descendant::tei:titleStmt/descendant::tei:author
-};
 
 (:~
  : TEI author field, specific to Srophe applications 
@@ -679,7 +671,7 @@ declare function sf:facet-refLabel($element as item()*, $facet-definition as ite
     group by $facet-grp := normalize-space($v)
     return 
         let $label := $element//@ref[normalize-space(.) = $facet-grp]/parent::*[1]//text()
-        return $label[1] 
+        return normalize-space(string-join($label,'')) 
 };
 
 (: Get text value of a element with ident attribute :)
@@ -687,4 +679,33 @@ declare function sf:facet-identLabel($element as item()*, $facet-definition as i
     let $xpath := $facet-definition/facet:group-by/facet:sub-path/text()    
     let $value := util:eval(concat('$element/',$xpath))
     return $value/parent::*[1][@ident=$value][1]//text() 
+};
+
+declare function sf:facet-workTestimonia($element as item()*, $facet-definition as item(), $name as xs:string){
+    for $v in $element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']/@ref
+    group by $facet-grp := normalize-space($v)
+    return 
+        if(string($facet-grp) != '') then 
+            let $label := collection($config:data-root)//@ref[normalize-space(.) = $facet-grp][1]/parent::*[1]//text()
+            return normalize-space(string-join($label[1],''))
+        else 
+            for $i in $v
+            group by $facet-grp := normalize-space(string-join($v/parent::*[1]//text(),''))
+            return $facet-grp
+};
+
+(:~
+ : TEI author facet, specific to Srophe applications 
+ :)
+declare function sf:facet-authorTestimonia($element as item()*, $facet-definition as item(), $name as xs:string){
+   for $v in $element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref
+    group by $facet-grp := normalize-space($v)
+    return 
+        if(string($facet-grp) != '') then 
+            let $label := collection($config:data-root)//@ref[normalize-space(.) = $facet-grp][1]/parent::*[1]//text()
+            return normalize-space(string-join($label[1],''))
+        else 
+            for $i in $v
+            group by $facet-grp := normalize-space(string-join($v/parent::*[1]//text(),''))
+            return $facet-grp
 };
