@@ -1,14 +1,14 @@
 <facets xmlns="http://expath.org/ns/facet">
-    <facet-definition name="author" label="Author">
-        <group-by function="refLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref</sub-path>
+    <facet-definition name="authorTestimonia" label="Author">
+        <group-by function="authorTestimonia">
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']</sub-path>
         </group-by>
         <max-values show="5">100</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
-    <facet-definition name="work" label="Work">
-        <group-by function="refLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']/@ref</sub-path>
+    <facet-definition name="workTestimonia" label="Work">
+        <group-by function="workTestimonia">
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']</sub-path>
         </group-by>
         <max-values show="5">100</max-values>
         <order-by direction="ascending">value</order-by>
