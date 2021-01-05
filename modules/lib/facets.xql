@@ -675,8 +675,11 @@ declare function sf:facet-eraComposed($element as item()*, $facet-definition as 
 declare function sf:facet-refLabel($element as item()*, $facet-definition as item(), $name as xs:string){
     let $xpath := $facet-definition/facet:group-by/facet:sub-path/text()    
     let $value := util:eval(concat('$element/',$xpath))
-    for $t in subsequence(collection($config:data-root)//@ref[normalize-space(.)=$value]/parent::*[1]//text(),1,1)
-    return $t 
+    for $v in $value
+    group by $facet-grp := normalize-space($v)
+    return 
+        let $label := $element//@ref[normalize-space(.) = $facet-grp]/parent::*[1]//text()
+        return $label[1] 
 };
 
 (: Get text value of a element with ident attribute :)
