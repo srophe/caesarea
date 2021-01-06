@@ -751,30 +751,30 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Author:</span> <a href="{$nav-base}/search.html?author={t:creation/t:persName[@role='author']/@ref}">
-                    <xsl:value-of select="t:creation/t:persName[@role='author']"/>
+                <span class="label">Author: </span> <a href="{$nav-base}/search.html?facet-authorTestimonia={encode-for-uri(t:creation/t:persName[@role='author']//text())}">
+                    &#160;<xsl:value-of select="t:creation/t:persName[@role='author']"/>
                 </a>
             </li>
             <li>
-                <span class="label">Title:</span> <a href="{$nav-base}/search.html?title={t:creation/t:title[@type='uniform']/@ref}">
+                <span class="label">Title: </span> <a href="{$nav-base}/search.html?facet-workTestimonia={t:creation/t:title[@type='uniform']}">
                     <xsl:value-of select="t:creation/t:title[@type='uniform']"/>
                 </a>
             </li>
             <li>
-                <span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/>
+                <span class="label">Citation: </span> <xsl:value-of select="t:creation/t:ref"/>
             </li>
             <li>
-                <span class="label">Original Language:</span> <a href="{$nav-base}/search.html?facet-originalLanguage={t:langUsage/t:language/@ident}">
+                <span class="label">Original Language: </span> <a href="{$nav-base}/search.html?facet-originalLanguage={t:langUsage/t:language}">
                     <xsl:value-of select="t:langUsage/t:language"/>
                 </a>
             </li>
             <li>
-                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace/@ref}">
+                <span class="label">Place Composed: </span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace}">
                     <xsl:value-of select="t:creation/t:origPlace"/>
                 </a>
             </li>
             <li>
-                <span class="label">Date Composed:</span>
+                <span class="label">Date Composed: </span>
                 <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}">
                     <xsl:value-of select="normalize-space(t:creation/t:origDate)"/>
                 </a>
@@ -785,9 +785,10 @@
                 <xsl:variable name="cat" select="//t:encodingDesc"/>
                 <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
                     <xsl:variable name="id" select="replace(.,'#','')"/>
-                    <a href="{$nav-base}/browse.html?view=timeline&amp;facet-eraComposed={encode-for-uri(.)}" class="indent">
-                        <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
-                    </a>
+                    <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]//text(),''))"/>
+                    <a href="{$nav-base}/browse.html?view=timeline&amp;facet-eraComposed={encode-for-uri($label)}" class="indent">
+                        <xsl:value-of select="$label"/>
+                    </a><br/>
                 </xsl:for-each>
             </li> 
             <li>
