@@ -155,7 +155,7 @@
         <div id="about">
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
-                    <h3>How to Cite this Database:</h3>
+                    <h3>How to Cite this Database</h3>
                     <h4>In a note:</h4>
                     <div class="indent" style="margin-top:-.75em;"> Joseph L. Rife and Phillip I. Lieberman,
                         eds., <em>A Comprehensive Bibliography on Caesarea Maritima</em>, (Nashville, TN:
@@ -169,7 +169,7 @@
                         Exploration Project, 2020. <a href="https://caesarea-maritima.org/bibl/index.html"
                             >https://caesarea-maritima.org/bibl/index.html</a>.</div>
                     <div data-template="app:contact-form"/>
-                    <h3>About this Entry:</h3>
+                    <h3>About this Entry</h3>
                     <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
                 </xsl:when>
                 <xsl:otherwise>
