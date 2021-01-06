@@ -751,12 +751,12 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}">
+                <span class="label">Author:</span> <a href="{$nav-base}/search.html?author={t:creation/t:persName[@role='author']/@ref}">
                     <xsl:value-of select="t:creation/t:persName[@role='author']"/>
                 </a>
             </li>
             <li>
-                <span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}">
+                <span class="label">Title:</span> <a href="{$nav-base}/search.html?title={t:creation/t:title[@type='uniform']/@ref}">
                     <xsl:value-of select="t:creation/t:title[@type='uniform']"/>
                 </a>
             </li>
@@ -764,12 +764,12 @@
                 <span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/>
             </li>
             <li>
-                <span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}">
+                <span class="label">Original Language:</span> <a href="{$nav-base}/search.html?facet-originalLanguage={t:langUsage/t:language/@ident}">
                     <xsl:value-of select="t:langUsage/t:language"/>
                 </a>
             </li>
             <li>
-                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}">
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace/@ref}">
                     <xsl:value-of select="t:creation/t:origPlace"/>
                 </a>
             </li>
@@ -785,7 +785,7 @@
                 <xsl:variable name="cat" select="//t:encodingDesc"/>
                 <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
                     <xsl:variable name="id" select="replace(.,'#','')"/>
-                    <a href="{$nav-base}/browse.html?view=timeline&amp;fq=;fq-Historical Era Composed:{encode-for-uri(.)}" class="indent">
+                    <a href="{$nav-base}/browse.html?view=timeline&amp;facet-eraComposed={encode-for-uri(.)}" class="indent">
                         <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                     </a>
                 </xsl:for-each>
