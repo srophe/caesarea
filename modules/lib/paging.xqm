@@ -163,10 +163,17 @@ declare function page:display-search-params($collection as xs:string?){
     return 
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'startDate' or $parameter = 'endDate') then ()
+            else if($parameter = 'start-date' or $parameter = 'end-date') then ()
             else if($parameter = ('q','keyword')) then 
                 (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
-        else ())
-        }
+        else (),
+     if(request:get-parameter('start-date', '') != '') then
+        (<span class="param">Start Date: </span>,<span class="match">{request:get-parameter('start-date', '')}&#160;</span>)
+     else (),
+     if(request:get-parameter('end-date', '') != '') then
+        (<span class="param">End Date: </span>,<span class="match">{request:get-parameter('end-date', '')}&#160;</span>)
+     else ()
+)}
 </span>
 };
