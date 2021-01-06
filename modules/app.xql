@@ -635,11 +635,12 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
                 </li>,
             for $a in $persons
             group by $persID := $a/@ref
+            let $label := global:parse-name($a)
             return 
-                <li>{$a[1]/text()}
+                <li>{$label[1]}
                     <ul>
                         <li><a href="{$persID}">VIAF Entry</a></li>
-                        <li><a href="{concat('https://www.worldcat.org/identities/find?fullName=',$a[1]/text())}">Search WorldCat Identities</a></li>
+                        <li><a href="{concat('https://www.worldcat.org/identities/find?fullName=',$label[1])}">Search WorldCat Identities</a></li>
                     </ul>
                 </li>,
             if($bibl) then
@@ -664,16 +665,6 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     </div>
 };
 
-
-(:
-URL
-Extra: CTS-URN
-Extra: OCLC
--Note, could you investigate if there is a Linked Data or otherAPI that we might send a query to using the OCLC number and return a result if the user clicks on the link?
-Extra: DOI
--Note, could you investigate if there is a Linked Data or other API that we might send a query to using the DOI number and return a result if the user clicks on the link?
-Extra: xmlFile
-:)
 declare %templates:wrap function app:biblLinkedData($node as node(), $model as map(*)){
     let $data := $model("hits")
     let $authors := $data/descendant::tei:body/descendant::tei:author
@@ -691,7 +682,8 @@ declare %templates:wrap function app:biblLinkedData($node as node(), $model as m
                 {(
                     if(count($authors) gt 0) then 
                         for $a in $authors
-                        return (<p>{$a}</p>,<ul><li><a href="http://worldcat.org/identities/find?fullName={$a}">Search WorldCat Identities</a></li></ul>)
+                        let $label := global:parse-name($a)
+                        return (<p>{$label}</p>,<ul><li><a href="http://worldcat.org/identities/find?fullName={$label}">Search WorldCat Identities</a></li></ul>)
                     else (),
                     if($OCLC) then
                         (<p>{$OCLC/preceding-sibling::tei:title[1]/text()}</p>,<ul><li><a href="{$OCLC}">OCLC Worldcat</a></li></ul>)
