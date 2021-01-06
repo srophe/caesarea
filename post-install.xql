@@ -17,5 +17,6 @@ declare variable $target external;
     sm:chmod(xs:anyURI($target || '/modules/index.xql'), "rwsr-xr-x"),
    sm:chmod(xs:anyURI($target || '/modules/git-sync.xql'), "rwsr-xr-x"),
    sm:chmod(xs:anyURI($target || '/sparql/update-rdf.xql'), "rwsr-xr-x"),
+   sm:chmod(xs:anyURI($target || '/modules/build-lod.xql'), "rwsr-xr-x"),
    sm:chmod(xs:anyURI($target || '/zotero2bibl/get-zotero-data.xql'), "rwsr-xr-x")
 )
