@@ -235,6 +235,10 @@ img{ margin:0px }
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
+#infoBox {
+    word-wrap: break-word;
+}
+#infoBox .label {padding:0;}
 
 /* K */
 .keboard-btn {margin-left:-1em;}
