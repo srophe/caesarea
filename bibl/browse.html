@@ -1,34 +1,39 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/bibl.html" data-template-at="content">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude"
+    data-template="templates:surround" data-template-with="templates/bibl.html"
+    data-template-at="content">
     <div class="main-content top-padding">
-    <div class="main-content-block">
-        <!-- Calls xquery functions -->
-        <div data-template="browse:get-all" data-template-collection="bibl" data-template-element="tei:titleStmt/tei:title[@level='a']">
-            <!-- Example limits data to places collection, see example entry in repo-config.xml -->    
-            <!--        <div data-template="browse:get-all" data-template-collection="places">-->
-            <ul class="nav nav-tabs" id="nametabs">
-                <li>
-                    <a href="browse.html" default="default">By Author/Editor</a>
-                </li>
-                <li>
-                    <a href="browse.html?view=title&amp;sort-element=title">By Title</a>
-                </li>
-                <li>
-                    <a href="browse.html?view=date&amp;sort-element=publicationDate">By Date</a>
-                </li>
-            </ul>
-            <div class="tabbable"> 
-                <!-- Browse Content -->
-                <div class="tab-content">
-                    <div class="tab-pane active">
-                        <div class="row">
-                            <!-- data-template-sort-options="title,author,origDate,origPlace" -->
-                            <div data-template="browse:show-hits" data-template-collection="bibl" data-template-sort-options="title,author/Editor,pubDate"/>
+        <h1>Bibliography: Browse</h1>
+        <div class="main-content-block">
+            <!-- Calls xquery functions -->
+            <div data-template="browse:get-all" data-template-collection="bibl"
+                data-template-element="tei:titleStmt/tei:title[@level='a']">
+                <!-- Example limits data to places collection, see example entry in repo-config.xml -->
+                <!--        <div data-template="browse:get-all" data-template-collection="places">-->
+                <ul class="nav nav-tabs" id="nametabs">
+                    <li>
+                        <a href="browse.html" default="default">By Author/Editor</a>
+                    </li>
+                    <li>
+                        <a href="browse.html?view=title&amp;sort-element=title">By Title</a>
+                    </li>
+                    <li>
+                        <a href="browse.html?view=date&amp;sort-element=publicationDate">By Date</a>
+                    </li>
+                </ul>
+                <div class="tabbable">
+                    <!-- Browse Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div class="row">
+                                <!-- data-template-sort-options="title,author,origDate,origPlace" -->
+                                <div data-template="browse:show-hits"
+                                    data-template-collection="bibl"
+                                    data-template-sort-options="title,author/Editor,pubDate"/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-        
     </div>
 </div>
