@@ -7,6 +7,7 @@ xquery version "3.0";
 module namespace tei2="http://srophe.org/srophe/tei2dc";
 declare namespace dc="http://purl.org/dc/elements/1.1/";
 
+
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace util="http://exist-db.org/xquery/util";

@@ -18,11 +18,11 @@
         </div>
         <div class="col-md-9">
             <div>
-                <h1>Syriaca.org API documentation</h1>
+                <h1>API documentation</h1>
                 <!--<p>Note about API policies (if we have any)</p>-->
                 <hr/>
                 <h3 id="search">Search API</h3>
-                <p>Base url: <pre>http://syriaca.org/api/search</pre>
+                <p>Base url: <pre>https://caesarea-maritima.org/api/search</pre>
                 </p>
                 <table class="table table-bordered">
                     <thead>
@@ -68,7 +68,7 @@
                                 <p>Accepts simple text string. Used only with '/title' search.</p>
                             </td>
                             <td>
-                                <p>Performs a simple keyword search across all Syriaca.org collections.</p>
+                                <p>Performs a simple keyword search across all collections.</p>
                                 <p>Provides results as JSON.</p>
                                 <p>Example:<pre>/api/search/persName?q=aaron&amp;collection=The Syriac Biographical Dictionary</pre>
                                 </p>
@@ -85,15 +85,15 @@
                                 <pre>
 [
     {
-        "id": "http://syriaca.org/work/1002",
+        "id": "https://caesarea-maritima.org/work/1002",
         "title": "Mary Mother of God (text)"
     },
     {
-        "id": "http://syriaca.org/work/1001",
+        "id": "https://caesarea-maritima.org/work/1001",
         "title": "Mary Mother of God (text)"
     },
     {
-        "id": "http://syriaca.org/work/1000",
+        "id": "https://caesarea-maritima.org/work/1000",
         "title": "Mary Mother of God (text)"
     }
 ]
@@ -105,7 +105,7 @@
                 </table>
                 <hr/>
                 <h3 id="geo">Geographic API</h3>
-                <p>Base url: <pre>http://syriaca.org/api/geo</pre>
+                <p>Base url: <pre>https://caesarea-maritima.org/api/geo</pre>
                 </p>
                 <table class="table table-bordered">
                     <thead>
@@ -146,11 +146,11 @@
                             </td>
                             <td>
                                 <p>Provides geoJSON results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
-                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/json</pre>
+                                <p>Example return all locations:<pre>https://caesarea-maritima.org/api/geo/json</pre>
                                 </p>
-                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/json?type=church</pre>
+                                <p>Example return only churches:<pre>https://caesarea-maritima.org/api/geo/json?type=church</pre>
                                 </p>
-                                <p>Example return churches and rivers:<pre>http://syriaca.org/api/geo/json?type=church,river</pre>
+                                <p>Example return churches and rivers:<pre>https://caesarea-maritima.org/api/geo/json?type=church,river</pre>
                                 </p>
                             </td>
                             <td>GET</td>
@@ -184,11 +184,11 @@
                             </td>
                             <td>
                                 <p>Provides KML results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
-                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/kml</pre>
+                                <p>Example return all locations:<pre>https://caesarea-maritima.org/api/geo/kml</pre>
                                 </p>
-                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/kml?type=church</pre>
+                                <p>Example return only churches:<pre>https://caesarea-maritima.org/api/geo/kml?type=church</pre>
                                 </p>
-                                <p>Example return churches and rivers:<pre>http://syriaca.org/api/geo/kml?type=church,river</pre>
+                                <p>Example return churches and rivers:<pre>https://caesarea-maritima.org/api/geo/kml?type=church,river</pre>
                                 </p>
                             </td>
                             <td>GET</td>
@@ -196,7 +196,7 @@
                     </tbody>
                 </table>
                 <h3 id="oai">OAI-PMH Provider API</h3>
-                <p>Base url: <pre>http://syriaca.org/api/oai</pre>
+                <p>Base url: <pre>https://caesarea-maritima.org/api/oai</pre>
                 </p>
                 <p>Full OAI-PMH documentation can be found: <a href="http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm">http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm</a>
                 </p>
@@ -218,33 +218,33 @@
                                 <strong>verb</strong>
                                 <p>OAI-PMH verb.</p>
                                 <strong>identifier</strong>
-                                <p>Syriaca.org record identifier. ex: http://syriaca.org/place/78</p>
+                                <p>Record identifier. ex: https://caesarea-maritima.org/place/78</p>
                                 <strong>from</strong>
                                 <p>Date to start harvesting from. Uses publication/last modified date of record.</p>
                                 <strong>until</strong>
                                 <p>Date to end harvesting from. Uses publication/last modified date of record.</p>
                                 <strong>set</strong>
-                                <p>Syriaca.org sets are based on Syriaca.org submodules. Use verb=ListSets to view available sets.</p>
+                                <p>Sets are based on submodules. Use verb=ListSets to view available sets.</p>
                                 <strong>resumptionToken</strong>
                                 <p>Where to start results list.</p>
                                 <strong>metadataPrefix</strong>
                                 <p>What type of data to return.</p>
-                                <p>Syriaca.org currently supports OAI_DC and TEI. Use values: oai_dc or tei</p>
+                                <p>Site currently supports OAI_DC and TEI. Use values: oai_dc or tei</p>
                                 <p/>
                             </td>
                             <td>
                                 <p>Description of service</p>
                                 <p>List Sets.</p>
-                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=ListSets</pre>
+                                <p>Example:<pre>https://caesarea-maritima.org/modules/oai.xql?verb=ListSets</pre>
                                 </p>
                                 <p>List records (Dublin Core)</p>
-                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=ListRecords&amp;metadataPrefix=oai_dc</pre>
+                                <p>Example:<pre>https://caesarea-maritima.org/modules/oai.xql?verb=ListRecords&amp;metadataPrefix=oai_dc</pre>
                                 </p>
                                 <p>List records (TEI)</p>
-                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=ListRecords&amp;metadataPrefix=tei</pre>
+                                <p>Example:<pre>https://caesarea-maritima.org/modules/oai.xql?verb=ListRecords&amp;metadataPrefix=tei</pre>
                                 </p>
                                 <p>Get a single record</p>
-                                <p>Example:<pre>http://syriaca.org/modules/oai.xql?verb=GetRecord&amp;identifier=http://syriaca.org/place/78</pre>
+                                <p>Example:<pre>https://caesarea-maritima.org/modules/oai.xql?verb=GetRecord&amp;identifier=https://caesarea-maritima.org/place/78</pre>
                                 </p>
                             </td>
                             <td>GET</td>

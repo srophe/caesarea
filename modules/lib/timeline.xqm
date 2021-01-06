@@ -153,8 +153,8 @@ let $dates :=
             <headline>{$timeline-title}</headline>
             <type>default</type>
             <asset>
-                <media>syriaca.org</media>
-                <credit>Syriaca.org</credit>
+                <media>{$config:app-title}</media>
+                <credit>{$config:app-title}</credit>
                 <caption>Events for {$timeline-title}</caption>
             </asset>
             <date>

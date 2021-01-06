@@ -126,33 +126,4 @@ declare function geojson:geojson-object-relation($node as node()*, $count as xs:
                  </relation> 
              </properties>
          </json:value>
-(:
-for $r in $node/descendant::tei:relation
-let $id := $node/descendant::tei:idno[1]
-let $title := $node/descendant::tei:placeName[1]
-let $coords := $node/descendant::tei:geo[1]
-let $workID := string($r/@active)
-let $link := replace(replace($workID,$config:base-uri,$config:nav-base),'/tei','')
-let $lat := tokenize($coords,' ')[2]
-let $long := tokenize($coords,' ')[1] 
-return 
-    <json:value>
-        {(if(count($count) = 1) then attribute {xs:QName("json:array")} {'true'} else())}
-        <type>Feature</type>
-        <geometry>
-            <type>Point</type>
-            <coordinates json:literal="true">{$long}</coordinates>
-            <coordinates json:literal="true">{$lat}</coordinates>
-        </geometry>
-        <properties>
-            <uri>{$id/text()}</uri>
-            <name>{$title/text()}</name>
-            <type>{string($r/@type)}</type>
-            <relation>
-                <id>{$link}</id>
-                <title>{$r/tei:desc/tei:title/text()}</title>
-            </relation> 
-        </properties>
-    </json:value>
-    :)
 };

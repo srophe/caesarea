@@ -72,7 +72,7 @@
      See: http://www.chicagomanualofstyle.org/tools_citationguide.html
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     
-   <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
+   <xsl:param name="editoruriprefix"><xsl:value-of select="$base-uri"/>documentation/editors.xml#</xsl:param>
    <xsl:variable name="editorssourcedoc">
        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))">
            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))"/>
