@@ -155,7 +155,7 @@
         <div id="about">
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
-                    <h3>How to Cite this Database</h3>
+                    <h3>How to Cite this Database:</h3>
                     <h4>Note:</h4>
                     <div class="indent" style="margin-top:-.75em;"> Joseph L. Rife and Phillip I. Lieberman,
                         eds., <em>A Comprehensive Bibliography on Caesarea Maritima</em>, (Nashville, TN:
