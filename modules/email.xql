@@ -114,12 +114,12 @@ let $timediff := (util:system-time() - xs:time(request:get-parameter('formLoaded
 return 
     if(exists(request:get-parameter('url','')) and request:get-parameter('url','') != '')  then 
             if(mail:send-email(local:spam(),$smtp, ()) ) then
-                <h4>Thank you. Your message has been sent. t1</h4>
+                <h4>Thank you. Your message has been sent.</h4>
             else 
                 <h4>Could not send message.</h4>
     else if($timediff lt 10) then
             if(mail:send-email(local:spam(),$smtp, ()) ) then
-                <h4>Thank you. Your message has been sent. t1</h4>
+                <h4>Thank you. Your message has been sent.</h4>
             else 
                 <h4>Could not send message.</h4>
     else if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '')  then 
