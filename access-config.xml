@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-    <!-- Configuration for Github webhooks sync feature -->
-    <git-config>
-        <!-- github secret key can be stored here or as a environment variable. (prefered)  -->
-        <private-key/>
-        <private-key-variable/>
-        <!-- github token for rate limiting. can be stored here or as a environment variable. (prefered)  -->
-        <gitToken/>
-        <gitToken-variable/>
-        <!-- Branch to sync, if empty assumes master -->
-        <github-branch/>
-        <!-- Collection in eXistdb to sync app to. example: /db/apps/tcadrt -->
-        <exist-collection/>
-        <!-- App root in git repository. example: srophe-app -->
-        <repo-name/>
-    </git-config>
     <!-- Configuration for recaptcha options -->
     <recaptcha>
         <!-- recpatcha secret key can be stored here or as a environment variable. (prefered)  -->
@@ -23,10 +8,6 @@
         <recaptcha-secret-key-variable>secret</recaptcha-secret-key-variable>
     </recaptcha>
     <email>
-        <contact listID="ID">
-            <from/>
-            <to/>
-        </contact>
         <contact>
             <from/>
             <to/>
