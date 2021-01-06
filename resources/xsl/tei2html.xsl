@@ -156,13 +156,13 @@
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
                     <h3>How to Cite this Database:</h3>
-                    <h4>Note:</h4>
+                    <h4>In a note:</h4>
                     <div class="indent" style="margin-top:-.75em;"> Joseph L. Rife and Phillip I. Lieberman,
                         eds., <em>A Comprehensive Bibliography on Caesarea Maritima</em>, (Nashville, TN:
                         Caesarea City and Port Exploration Project, 2020), <a
                             href="https://caesarea-maritima.org/bibl/index.html"
                             >https://caesarea-maritima.org/bibl/index.html</a>.</div>
-                    <h4>Bibliography:</h4>
+                    <h4>In a bibliography:</h4>
                     <div class="indent" style="margin-top:-.75em;">Rife, Joseph L. and Phillip I. Lieberman,
                         eds. <em>A Comprehensive Bibliography on Caesarea Maritima</em>. Technical design
                         by David A. Michelson and William L. Potter. Nashville, TN: Caesarea City and Port
