@@ -79,17 +79,21 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             <div class="horizontal-facets">
             {
+            (: sf:display-timeline($hits, $facet-config//facet:facet-definition[@name="eraComposed"]):) 
+            
              let $dates := doc($config:app-root || '/documentation/caesarea-maritima-historical-era-taxonomy.xml')//*:record
+             let $cats := collection($config:data-root)//tei:category
              let $d := tokenize(string-join(collection($config:data-root)//tei:origDate/@period,' '),' ')
-             let $selected := substring-after(request:get-parameter('fq', ''),':')
+             let $selected := request:get-parameter('facet-eraComposed', '')
              for $f in $d
-             group by $facet-grp := tokenize($f,' ')
+             group by $facet-grp := replace(tokenize($f,' '),'#','')
              let $controlled-vocab := $dates[*:catId = replace($facet-grp,'#','')]
              let $date := $controlled-vocab/*:notBefore
+             let $label := normalize-space($cats[@xml:id = $facet-grp][1])
              order by $date
              return 
-                <a href="?view=timeline&amp;fq=;fq-Historical%20Era%20Composed:{encode-for-uri($facet-grp)}" 
-                class="historical-era-label {if($selected = $facet-grp) then 'selected' else ()}">
+                <a href="?view=timeline&amp;facet-eraComposed={encode-for-uri($label)}" 
+                class="historical-era-label {if($selected = $label) then 'selected' else ()}">
                     {$controlled-vocab/*:catDesc/text()}
                     <br/><span class="dateLabel">{$controlled-vocab/*:dateRangeLabel}</span>
                 </a>
