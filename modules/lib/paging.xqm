@@ -164,6 +164,8 @@ declare function page:display-search-params($collection as xs:string?){
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'startDate' or $parameter = 'endDate') then ()
             else if($parameter = 'start-date' or $parameter = 'end-date') then ()
+            else if(starts-with($parameter,'facet-')) then
+                (<span class="param">{functx:capitalize-first(functx:camel-case-to-words(replace($parameter,'facet-',''),' '))}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
             else if($parameter = ('q','keyword')) then 
                 (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
