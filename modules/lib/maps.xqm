@@ -213,7 +213,7 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
           		map.addLayer(markers);
           		map.fitBounds(markers.getBounds(), {padding: [50,50]}, {maxZoom: 10});
           		//Map fix for Caesarea, center on Caesarea and control initial zoom. 
-          		map.setView([35.095192, 33.203430], 4.75);
+          		map.setView([35.4840483, 29.5413633], 4.95);
             ]]>
         </script>
     </div> 
