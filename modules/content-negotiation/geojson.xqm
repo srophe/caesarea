@@ -62,6 +62,8 @@ let $id := if($node/descendant::tei:idno[@type='URI']) then $node/descendant::te
            else $node/descendant::tei:idno[1]
 let $title := if($node/descendant-or-self::*[@srophe:tags="#headword"]) then $node/descendant-or-self::*[@srophe:tags="#headword"][1] 
               else if($node/descendant::*[@syriaca-tags="#syriaca-headword"]) then $node/descendant::*[@syriaca-tags="#syriaca-headword"][1] 
+              else if($node/descendant::tei:title[@level="a"]) then 
+                $node/descendant::tei:title[@level="a"]
               else $node/descendant::tei:title[1]
 let $desc := if($node/descendant::tei:desc[1]/tei:quote) then 
                 concat('"',$node/descendant::tei:desc[1]/tei:quote,'"')
@@ -120,7 +122,7 @@ declare function geojson:geojson-object-relation($node as node()*, $count as xs:
                  <type>{string($r/@type)}</type>
                  <relation>
                      <id>{$link}</id>
-                     <title>{$r/tei:desc/tei:title/text()}</title>
+                     <title>{$r/tei:desc/tei:title[1]/text()}</title>
                  </relation> 
              </properties>
          </json:value>
