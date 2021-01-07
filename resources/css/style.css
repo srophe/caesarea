@@ -39,8 +39,8 @@
 }
 .banner-container {display:inline-block; line-height:2.5em;}
 /*.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}*/
-.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.5em;}
-.banner-icon img{height:50px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
+.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font-size:1.5em;}
+.banner-icon img{height:50px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:.15em .5em 0 .5em; padding:0;}
 
 .bg-light {
   background-color: rgb(248,249,250, .85);
@@ -297,7 +297,7 @@ img{ margin:0px }
 
 /* N */
 /* Navbar styles*/
-.navbar {padding:0 2em; border-bottom:4px solid #aa0000ff !important;}
+.navbar {padding:0 2em; border-bottom:4px solid #aa0000ff !important; font-size:1.15em;}
 .navbar .dropdown {margin-top:.65em; margin-left: 1.5em;}
 .navbar {border-bottom:4px solid #aa0000ff !important;}
 .navbar-inner {border-bottom:.5em solid #aa0000ff !important;}

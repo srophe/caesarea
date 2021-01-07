@@ -99,10 +99,36 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand banner-container" href="$nav-base/index.html">
-                    <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"></span>
-                    <span class="banner-text" data-template="config:app-title">App Title</span>
-                </a>
+                <ul class="nav navbar-nav">
+                    <li><span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
+                            <span class="banner-text"><span data-template="config:collection-title" data-template-collection="bibl">App Title</span>  <b class="caret"/></span> 
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="$nav-base/index.html">
+                                    <span class="icon-text">Caesarea-Maritima.org: A Digital Archive</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="$nav-base/testimonia/index.html">
+                                    <span class="icon-text">Caesarea Maritima: A Collection of Testimonia</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="$nav-base/bibl/index.html">
+                                    <span class="icon-text">Caesarea Maritima: A Comprehensive Bibliography</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="$nav-base/documentation/index.html">
+                                    <span class="icon-text">Technical Documentation</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
             <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
                 <ul class="nav navbar-nav">
