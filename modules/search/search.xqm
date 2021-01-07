@@ -152,7 +152,18 @@ declare function search:build-form($search-config) {
             <h1 class="search-header">{if($config//label != '') then $config//label//text() else 'Search'}</h1>
             {if($config//desc != '') then 
                 <p class="indent info">{$config//desc}</p>
-            else() 
+            else(),
+            (<button type="button" class="btn btn-info pull-right clearfix search-button" data-toggle="collapse" data-target="#searchTips">
+                        Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>,                       
+                    if($config//search-tips != '') then
+                        <div class="panel panel-default collapse" id="searchTips">
+                            <div class="panel-body">
+                            <h3 class="panel-title">Search Tips</h3>
+                            {$config//search-tips}
+                            </div>
+                        </div>
+                    else if(doc-available($config:app-root || '/searchTips.html')) then doc($config:app-root || '/searchTips.html')
+                    else ())
             }
             <div class="well well-small search-box">
                 <div class="row">
