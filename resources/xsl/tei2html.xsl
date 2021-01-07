@@ -724,6 +724,24 @@
                     <xsl:sequence select="local:add-footnotes(@source,.)"/>
                 </li>
             </xsl:when>
+            <xsl:when test="@type='corrigenda'">
+                <div class="tei-note corrigenda">
+                    <xsl:choose>
+                        <xsl:when test="t:quote">
+                            <xsl:apply-templates/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <span>
+                                <xsl:sequence select="local:attributes(.)"/>
+                                Note: <xsl:apply-templates/>
+                                <!-- Check for ending punctuation, if none, add . -->
+                                <!-- Do not have this working -->
+                            </span>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                </div>
+            </xsl:when>
             <xsl:otherwise>
                 <div class="tei-note">  
                     <xsl:choose>
