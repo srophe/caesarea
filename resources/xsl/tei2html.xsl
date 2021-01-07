@@ -191,7 +191,9 @@
                                 <span id="show{@xml:id}" class="collapse">
                                 <xsl:copy-of select="$aftertext"/>
                                 </span>
-                                <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                                <xsl:if test="not(empty($aftertext//text()))">
+                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
+                                </xsl:if>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:apply-templates select="."/>        
@@ -226,7 +228,9 @@
                                     <span id="show{@xml:id}" class="collapse">
                                         <xsl:copy-of select="$aftertext"/>
                                     </span>
-                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
+                                    <xsl:if test="not(empty($aftertext//text()))">
+                                        <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
+                                    </xsl:if>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:apply-templates select="."/>        
