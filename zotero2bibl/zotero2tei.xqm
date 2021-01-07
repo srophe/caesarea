@@ -343,10 +343,10 @@ let $tei-monogr := if($recordType = "analytic" or $recordType = "monograph") the
                         if($recordType = "bookSection") then ($oclcId) else (),
                         if($lang) then ($lang) else (),
                         if ($imprint) then ($imprint) else (),
-                        for $p in $rec?data?pages[. != '']
-                        return <biblScope unit="pp">{$p}</biblScope>,
                         for $vol in $rec?data?volume[. != '']
                         return <biblScope unit="vol">{$vol}</biblScope>
+                        for $p in $rec?data?pages[. != '']
+                        return <biblScope unit="pp">{$p}</biblScope>,
                     }</monogr>
                      else ()
 (: I haven't found an example file with series information to find the JSON equivalence to the tei structure, so have to continue on that :)
