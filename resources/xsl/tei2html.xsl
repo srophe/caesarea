@@ -155,21 +155,7 @@
         <div id="about">
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
-                    <h3>How to Cite this Database</h3>
-                    <h4>In a note:</h4>
-                    <div class="indent" style="margin-top:-.75em;"> Joseph L. Rife and Phillip I. Lieberman,
-                        eds., <em>A Comprehensive Bibliography on Caesarea Maritima</em>, (Nashville, TN:
-                        Caesarea City and Port Exploration Project, 2020), <a
-                            href="https://caesarea-maritima.org/bibl/index.html"
-                            >https://caesarea-maritima.org/bibl/index.html</a>.</div>
-                    <h4>In a bibliography:</h4>
-                    <div class="indent" style="margin-top:-.75em;">Rife, Joseph L. and Phillip I. Lieberman,
-                        eds. <em>A Comprehensive Bibliography on Caesarea Maritima</em>. Technical design
-                        by David A. Michelson and William L. Potter. Nashville, TN: Caesarea City and Port
-                        Exploration Project, 2020. <a href="https://caesarea-maritima.org/bibl/index.html"
-                            >https://caesarea-maritima.org/bibl/index.html</a>.</div>
-                    <div data-template="app:contact-form"/>
-                    <h3>About this Entry</h3>
+                    <h3>About this Online Bibliography</h3>
                     <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -766,7 +752,7 @@
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
                 <span class="label">Author: </span> <a href="{$nav-base}/search.html?facet-authorTestimonia={encode-for-uri(t:creation/t:persName[@role='author']//text())}">
-                    &#160;<xsl:value-of select="t:creation/t:persName[@role='author']"/>
+                     <xsl:value-of select="t:creation/t:persName[@role='author']"/>
                 </a>
             </li>
             <li>
@@ -1517,7 +1503,7 @@
                         <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-foot"/>
                         <div class="collapse" id="showcit">
                             <div id="citation-bibliography">
-                                <h4>Bibliography:</h4>
+                                <h4>Bibliography: </h4>
                                 <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                             </div>
                             <xsl:call-template name="aboutEntry"/>
@@ -1587,12 +1573,6 @@
             <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>                
             <small>
                 <span class="uri">
-                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($prev-uri,$base-uri,$nav-base)}">
-                            <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
-                        </a>
-                    </xsl:if>
-                    <xsl:text> </xsl:text>
                     <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
                         <span class="srp-label">URI</span>
                     </button>
@@ -1610,12 +1590,6 @@
                         console.log(e);
                         });
                     </script>
-                    <xsl:text> </xsl:text>
-                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($next-uri,$base-uri,$nav-base)}">
-                            <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
-                        </a>
-                    </xsl:if>
                 </span>
                 <xsl:if test="t:seriesStmt/t:biblScope/t:title">
                     <span class="series pull-right" style="margin-left:2em; padding-left:2em; display:inline">
