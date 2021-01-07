@@ -23,7 +23,7 @@
             <strong>"?"</strong> can be inserted as a variant for any single character.</p>
         <div class="indent">
             <p>Thus a search for: <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">Procopi?s</span>
+                    <span class="btn code">Procopis</span>
                 <a href="./search.html?keyword=Procopi?s" type="button" class="btn btn-primary">
                         <span class="glyphicon glyphicon-search"/>  </a>
                 </div> returns results which contain either "Procopius" or "Procopios".</p>

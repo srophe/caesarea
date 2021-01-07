@@ -35,7 +35,7 @@
         <p>
             <strong>"?"</strong> can be inserted as a variant for any single character.</p>
         <div class="indent">
-            <p>Thus a search in Titles for: <div class="btn-group code-grp" role="group" style="width:100%;">
+            <p>Thus a search in title fields for: <div class="btn-group code-grp" role="group" style="width:100%;">
                     <span class="btn code">Maritim?</span>
                 <a href="./search.html?title=Maritim%3F" type="button" class="btn btn-primary">
                         <span class="glyphicon glyphicon-search"/>  </a>
