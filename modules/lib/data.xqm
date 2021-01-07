@@ -202,6 +202,10 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
                     else ft:field($hit, "title")                
             order by $s collation 'http://www.w3.org/2013/collation/UCA'
             return $hit
+        else if($collection = 'bibl') then 
+            for $hit in $hits 
+            order by ft:field($hit, "publicationDate") descending
+            return $hit/ancestor-or-self::tei:TEI
         else 
             for $hit in $hits
             order by ft:score($hit) descending

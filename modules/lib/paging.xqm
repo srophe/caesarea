@@ -134,9 +134,10 @@ declare function page:sort($param-string as xs:string?, $start as xs:integer?, $
             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                 {
                     for $option in tokenize($options,',')
+                    let $optionParam := if($option = 'author/Editor') then 'author' else $option
                     return 
                     <li role="presentation">
-                        <a role="menuitem" tabindex="-1" href="{concat(replace($param-string,'&amp;sort-element=(\w+)', ''),$start,'&amp;sort-element=',$option)}" id="rel">
+                        <a role="menuitem" tabindex="-1" href="{concat(replace($param-string,'&amp;sort-element=(\w+)', ''),$start,'&amp;sort-element=',$optionParam)}" id="rel">
                             {
                                 if($option = 'pubDate' or $option = 'persDate') then 'Date'
                                 else if($option = 'pubPlace') then 'Place of publication'
