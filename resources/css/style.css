@@ -522,6 +522,9 @@ h4.slider {
     padding-right:.5em;    
 }
 
+.tei-text .collapse.in {
+    display: inline-block;
+}
 .tei-quote .tei-placeName {color: #6699cc; font-weight:bold;}
 /*.tei-title > .tei-title {font-style:italic;} */
 .top-padding {margin-top:4.5em !important;}
