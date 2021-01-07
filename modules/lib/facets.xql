@@ -479,7 +479,7 @@ declare function sf:facet-range($element as item()*, $facet-definition as item()
 declare function sf:field-title($element as item()*,$name as xs:string){
 (: Caesarea specific titles :)
     if($element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']) then 
-        sf:build-sort-string($element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform'])
+        concat(sf:build-sort-string($element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']),' ',$element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']/following-sibling::tei:ref)
     else if($element/tei:biblStruct) then 
         if($element/tei:body/tei:biblStruct/descendant::tei:title[@level='a']) then 
             sf:build-sort-string($element/tei:biblStruct/descendant::tei:title[@level='a'][1])
@@ -611,48 +611,10 @@ declare function sf:facet-persNameLang($element as item()*, $facet-definition as
 };
 
 (: **** Caesrea Custom **** :)
-
 declare function sf:facet-controlled-labels($element as item()*, $facet-definition as item(), $name as xs:string){
     let $xpath := $facet-definition/facet:group-by/facet:sub-path/text() 
     return util:eval(concat('$element/',$xpath))
 };
-
-(:
-declare function sf:display($result as item()*, $facet-definition as item()*) {
-    for $facet in $facet-definition/descendant-or-self::facet:facet-definition
-    let $name := string($facet/@name)
-    let $count := if(request:get-parameter(concat('all-',$name), '') = 'on' ) then () else string($facet/facet:max-values/@show)
-    let $f := ft:facets($result, $name, $count)
-    let $sort := $facet-definition/facet:order-by
-    return
-        if($facet/@display = 'slider') then
-            slider:browse-date-slider($result,'descendant::tei:biblStruct/descendant::tei:imprint/tei:date')
-        else if (map:size($f) > 0) then
-            <span class="facet-grp">
-                <span class="facet-title">{string($facet/@label)}</span>
-                <span class="facet-list">
-                {array:for-each(sf:sort($f), function($entry) {
-                    map:for-each($entry, function($label, $freq) {
-                        let $param-name := concat('facet-',$name)
-                        let $facet-param := concat($param-name,'=',$label)
-                        let $active := if(request:get-parameter($param-name, '') = $label) then 'active' else ()
-                        let $url-params := 
-                            if($active) then replace(replace(replace(request:get-query-string(),encode-for-uri($label),''),concat($param-name,'='),''),'&amp;&amp;','&amp;') 
-                            else concat($facet-param,'&amp;',request:get-query-string())
-                        return
-                            <a href="?{$url-params}" class="facet-label btn btn-default {$active}">
-                            {if($active) then (<span class="glyphicon glyphicon-remove facet-remove"></span>)else ()}
-                            {$label} <span class="count"> ({$freq})</span> </a>
-                    })
-                })}
-                {if(map:size($f) = xs:integer($count)) then 
-                    <a href="?{request:get-query-string()}&amp;all-{$name}=on" class="facet-label btn btn-info"> View All </a>
-                 else ()}
-                </span>
-            </span>
-        else ()  
-};
-:)
 
 (: Caesarea facets :)
 declare function sf:facet-eraComposed($element as item()*, $facet-definition as item(), $name as xs:string){
