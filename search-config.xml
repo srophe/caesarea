@@ -73,24 +73,24 @@
         <p>To find an exact phrase, it should be enclosed in double quotes.</p>
         <div class="indent">
             <p>Thus <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">"Constantius II"</span>
-                    <a href="./search.html?keyword=&#34;Constantius II&#34;" type="button"
+                <span class="btn code">"Byzantine pottery"</span>
+                <a href="./search.html?keyword=&#34;Byzantine pottery&#34;" type="button"
                         class="btn                         btn-primary">
                         <span class="glyphicon glyphicon-search"/>  </a>
                 </div> returns only results with that exact phrase, while several results are found
-                for the words "Constantius" without "II".</p>
+                for the words "Byzantine" without "pottery".</p>
         </div>
         <h4>Proximity Characters</h4>
         <p>To find two or more words which occur within a specified range of each other, one can
             append the character "~" followed by a number to an "Exact Phrase" search. This allows
             one to search for two or more words that occur within a specified distance of each other
-            as defined by number of words.</p>
+            as defined by number of words. This search may find more results than a strict exact phrase search.</p>
         <p>Thus <div class="btn-group code-grp" role="group" style="width:100%;">
-                <span class="btn code">"tower+strato"~2</span>
-                <a href="/search.html?keyword=&#34;tower%2Bstrato&#34;~2" type="button" class="btn
+                <span class="btn code">"Byzantine+pottery"~5</span>
+            <a href="./search.html?keyword=&#34;Byzantine%2Bpottery&#34;~5" type="button" class="btn
                     btn-primary">
                     <span class="glyphicon glyphicon-search"/>  </a>
-            </div> finds results in which the words "tower" and "strato" occur within two words of
-            each other such as in the phrase "Tower of Strato".</p>
+        </div> finds results in which the words "Byzantine" and "pottery" occur within five words of
+            each other. This query finds more results than the search for the exact phrase "Byzantine pottery".</p>
     </search-tips>
 </search-config>
