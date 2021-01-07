@@ -285,7 +285,8 @@ declare function bibls:search-form() {
                     <p class="hint">* Dates should be entered as YYYY or YYYY-MM-DD. Add a minus sign (-) in front of BCE dates. <span><a href="$nav-base/documentation/wiki.html?wiki-page=/Encoding-Guidelines-for-Approximate-Dates&amp;wiki-uri=https://github.com/srophe/caesarea-data/wiki">more <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span></p>
                 </div>
             </div>  
-            <hr/>
+           <!--
+           <hr/>
             <div class="form-group">            
                 <label for="idno" class="col-sm-2 col-md-3  control-label">ISBN / DOI / URI: </label>
                 <div class="col-sm-10 col-md-2 ">
@@ -301,6 +302,7 @@ declare function bibls:search-form() {
                     </label>
                 </div>
             </div> 
+            -->
         </div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;
