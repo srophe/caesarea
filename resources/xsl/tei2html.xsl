@@ -191,9 +191,7 @@
                                 <span id="show{@xml:id}" class="collapse">
                                 <xsl:copy-of select="$aftertext"/>
                                 </span>
-                                <xsl:if test="not(empty($aftertext//text()))">
-                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
-                                </xsl:if>
+                                <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:apply-templates select="."/>        
@@ -228,9 +226,7 @@
                                     <span id="show{@xml:id}" class="collapse">
                                         <xsl:copy-of select="$aftertext"/>
                                     </span>
-                                    <xsl:if test="not(empty($aftertext//text()))">
-                                        <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
-                                    </xsl:if>
+                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:apply-templates select="."/>        
@@ -727,6 +723,24 @@
                     </span>
                     <xsl:sequence select="local:add-footnotes(@source,.)"/>
                 </li>
+            </xsl:when>
+            <xsl:when test="@type='corrigenda'">
+                <div class="tei-note corrigenda">
+                    <xsl:choose>
+                        <xsl:when test="t:quote">
+                            <xsl:apply-templates/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <span>
+                                <xsl:sequence select="local:attributes(.)"/>
+                                Note: <xsl:apply-templates/>
+                                <!-- Check for ending punctuation, if none, add . -->
+                                <!-- Do not have this working -->
+                            </span>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                </div>
             </xsl:when>
             <xsl:otherwise>
                 <div class="tei-note">  

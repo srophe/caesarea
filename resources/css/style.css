@@ -521,7 +521,12 @@ h4.slider {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
-
+.tei-note.corrigenda {
+    display:block;
+    margin:1em 0;
+    border-top: 1px solid grey;
+    font-style: italic;
+}
 .tei-text .collapse.in {
     display: inline-block;
 }
