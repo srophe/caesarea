@@ -72,7 +72,7 @@
      See: http://www.chicagomanualofstyle.org/tools_citationguide.html
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     
-   <xsl:param name="editoruriprefix"><xsl:value-of select="$base-uri"/>documentation/editors.xml#</xsl:param>
+   <xsl:param name="editoruriprefix"><xsl:value-of select="$base-uri"/>/documentation/editors.xml#</xsl:param>
    <xsl:variable name="editorssourcedoc">
        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))">
            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))"/>
@@ -929,11 +929,11 @@
     <xsl:template match="t:author | t:editor | t:principal | t:person | t:persName | t:name" mode="lastname-first" priority="1">
         <xsl:choose>
             <!-- if @ref exists use external editors.xml document from database -->
-            <xsl:when test="@ref and starts-with(@ref, $editoruriprefix) and not(empty($editorssourcedoc))">
+            <xsl:when test="starts-with(@ref, $editoruriprefix) and $editorssourcedoc/descendant::t:listPerson">
                 <xsl:variable name="sought" select="substring-after(@ref, $editoruriprefix)"/>
                 <xsl:choose>
                     <xsl:when test="$editorssourcedoc/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]">
-                        <xsl:apply-templates select="$editorssourcedoc/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="footnote"/>
+                        <xsl:apply-templates select="$editorssourcedoc/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="lastname-first"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <span class="{local-name()}">
@@ -1189,9 +1189,7 @@
                         </xsl:when>
                     </xsl:choose>
                 </xsl:attribute>
-                <xsl:for-each select="./node()">
-                    <xsl:apply-templates select="."/>
-                </xsl:for-each>
+                <xsl:apply-templates mode="biblist"/>
             </span>
         </xsl:if>
     </xsl:template>

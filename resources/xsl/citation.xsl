@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
@@ -69,7 +68,7 @@
     <xsl:template match="t:titleStmt" mode="cite-biblist">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',1)"/>
+        <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',10)"/>
         <xsl:text>, </xsl:text>
         
         <!-- title of the entry -->
@@ -79,8 +78,12 @@
         
         <!-- monographic title -->
         <xsl:text> In </xsl:text>
+        <!-- Hardcoded according to: https://github.com/srophe/caesarea/issues/191#event-4177004183 -->
+        <span class="title-monographic">Caesarea Maritima: A Collection of Testimonia.</span> 
+        <xsl:text> Edited by Joseph L. Rife, Phillip I. Lieberman, and David A. Michelson. Technical design by David A. Michelson and William L. Potter. Nashville, TN: Caesarea City and Port Exploration Project, 2020.</xsl:text> 
+        <!-- 
         <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
-        
+        -->
         <!-- general editors -->
         <xsl:text>, edited by </xsl:text>
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
