@@ -883,9 +883,7 @@
                         <xsl:apply-templates select="$editorssourcedoc/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="footnote"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!--NOTE: Added preceding space for dealing with names in titles (ex: /bibl/670), check for issues.  -->
-                        <span>
-                            <xsl:text> </xsl:text>
+                        <xsl:variable name="fullname">
                             <xsl:choose>
                                 <xsl:when test="t:persName[starts-with(@xml:lang,'en')]">
                                     <xsl:apply-templates select="t:persName[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
@@ -897,15 +895,15 @@
                                     <xsl:apply-templates mode="footnote"/>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <!--<xsl:text> </xsl:text>-->
-                        </span>
+                        </xsl:variable>
+                        <!--NOTE: Added preceding space for dealing with names in titles (ex: /bibl/670), check for issues.  -->
+                        <xsl:text> </xsl:text>    
+                        <xsl:value-of select="normalize-space(string-join($fullname//text(),''))"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <!--NOTE: Added preceding space for dealing with names in titles (ex: /bibl/670), check for issues.  -->
-                <span>
-                    <xsl:text> </xsl:text>
+                <xsl:variable name="fullname">
                     <xsl:choose>
                         <xsl:when test="t:persName[starts-with(@xml:lang,'en')]">
                             <xsl:apply-templates select="t:persName[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
@@ -917,8 +915,10 @@
                             <xsl:apply-templates mode="footnote"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <!--<xsl:text> </xsl:text>-->
-                </span>
+                </xsl:variable>
+                <!--NOTE: Added preceding space for dealing with names in titles (ex: /bibl/670), check for issues.  -->
+                <xsl:text> </xsl:text>    
+                <xsl:value-of select="normalize-space(string-join($fullname//text(),''))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
