@@ -1503,7 +1503,7 @@
                         <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-foot"/>
                         <div class="collapse" id="showcit">
                             <div id="citation-bibliography">
-                                <h4>Bibliography: </h4>
+                                <h4>Bibliography:</h4>
                                 <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                             </div>
                             <xsl:call-template name="aboutEntry"/>
