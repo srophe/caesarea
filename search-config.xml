@@ -36,20 +36,20 @@
             <strong>"?"</strong> can be inserted as a variant for any single character.</p>
         <div class="indent">
             <p>Thus a search for: <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">Procopi?s</span>
-                    <a href="./search.html?q=Procopi?s" type="button" class="btn btn-primary">
+                    <span class="btn code">Maritim?</span>
+                <a href="./search.html?q=Maritim%3F" type="button" class="btn btn-primary">
                         <span class="glyphicon glyphicon-search"/>  </a>
-                </div> returns results which contain either "Procopius" or "Procopios".</p>
+                </div> returns results which contain either "Maritima" or "Maritime".</p>
         </div>
         <p>
             <strong>"*"</strong> can be inserted as a variant for multiple characters or a truncated
             word.</p>
         <div class="indent">
             <p>Thus a search for: <div class="btn-group code-grp" role="group" style="width:100%;">
-                    <span class="btn code">Καισαρ*</span>
-                    <a href="./search.html?q=Καισαρ*" type="button" class="btn btn-primary">
+                <span class="btn code">Pal*stin*</span>
+                <a href="./search.html?q=Pal*stin*" type="button" class="btn btn-primary">
                         <span class="glyphicon glyphicon-search"/>  </a>
-                </div> returns results for "Καισαρείᾳ" and "Καισαρέων" and more.</p>
+            </div> returns results for "Palestine" and "Palaestinae" and more.</p>
         </div>
         <p class="bg-info" style="padding:.5em;">
             <small>Note: Because the sources we draw upon use a variety of transliteration formats,
