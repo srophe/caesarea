@@ -62,7 +62,7 @@
         <div class="indent">
             <p>Thus a search for <div class="btn-group code-grp" role="group" style="width:100%;">
                 <span class="btn code">πόλεως~</span>
-                <a href="./search.html?q=πόλεως~ ~" type="button" class="btn btn-primary">
+                <a href="./search.html?q=πόλεως~" type="button" class="btn btn-primary">
                         <span class="glyphicon glyphicon-search"/>  </a>
             </div> returns results which contain "πόλεως" but also " πόλεων", "πόλεις", and other words
                 that are "fuzzy" matches for "πόλεως".</p>
