@@ -1219,7 +1219,7 @@
                 </xsl:when>
                 <!-- glyphicon glyphicon-book -->
                 <xsl:when test="ends-with($ref,'.xml')">
-                    <xsl:text>Link to XML file</xsl:text>
+                    <xsl:text>External link to XML file</xsl:text>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
                     <xsl:text>Link to Worldcat Bibliographic record</xsl:text>
@@ -1262,7 +1262,7 @@
             <xsl:when test="starts-with($ref,$base-uri)"/>
             <!-- glyphicon glyphicon-book -->
             <xsl:when test="contains($ref,'.xml')">
-                <img src="{$nav-base}/resources/images/xml-pngrepo-com.png" alt="Link to XML file" height="18px"/>
+                <img src="{$nav-base}/resources/images/xml-pngrepo-com.png" alt="External link to XML file" height="18px"/>
             </xsl:when>
             <xsl:when test="contains($ref,'worldcat.org/')">
                 <img src="{$nav-base}/resources/images/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record" height="18px"/>
