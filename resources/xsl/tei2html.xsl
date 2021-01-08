@@ -467,7 +467,7 @@
                     <xsl:when test="descendant-or-self::t:ab[@type='translation']">
                         <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="translation"/>                                
                     </xsl:when>
-                    <xsl:when test="descendant-or-self::t:ab[@type='translation']">
+                    <xsl:when test="descendant-or-self::t:ab[@type='edition']">
                         <div class="section" style="display:block;">
                             <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="edition"/>
                         </div>
@@ -2434,7 +2434,7 @@
             </xsl:choose>
         </a>
         <xsl:if test="preceding-sibling::*">,</xsl:if>
-        <!--  If footnotes exist call function do-refs pass footnotes and language variables to function -->
+        <!--   If footnotes exist call function do-refs pass footnotes and language variables to function -->
         <xsl:sequence select="local:add-footnotes(@source,.)"/>
     </xsl:template>
     
