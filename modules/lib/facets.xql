@@ -502,7 +502,13 @@ declare function sf:facet-title($element as item()*, $facet-definition as item()
  :)
 declare function sf:field-author($element as item()*, $name as xs:string){
     if($element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']) then 
-        if($element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/tei:surname) then
+        if($element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/tei:name[@sort]) then 
+            normalize-space(string-join(
+                for $name in $element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/child::*
+                order by $name/@sort
+                return $name
+            ,' ')) 
+        else if($element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/tei:surname) then
             $element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/tei:surname
         else $element/ancestor-or-self::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']
     else if($element/ancestor-or-self::tei:TEI/descendant::tei:persName[@role='author']) then
@@ -531,7 +537,14 @@ declare function sf:field-author($element as item()*, $name as xs:string){
  : TEI author field, specific to Srophe applications 
  :)
 declare function sf:field-publicationDate($element as item()*, $name as xs:string){ 
-   $element/descendant::tei:biblStruct/descendant::tei:imprint/tei:date
+$element/descendant::tei:biblStruct/descendant::tei:imprint/tei:date
+(:
+   let $date := $element/descendant::tei:biblStruct/descendant::tei:imprint/tei:date
+   return 
+        if(contains($date,',')) then 
+        else ()
+:)
+
 };
 
 (:~
@@ -663,11 +676,38 @@ declare function sf:facet-authorTestimonia($element as item()*, $facet-definitio
    for $v in $element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref
     group by $facet-grp := normalize-space($v)
     return 
-        if(string($facet-grp) != '') then 
-            let $label := collection($config:data-root)//@ref[normalize-space(.) = $facet-grp][1]/parent::*[1]//text()
+        if(string($facet-grp) != '') then         
+            let $name := collection($config:data-root)//@ref[normalize-space(.) = $facet-grp][1]/parent::*[1]
+            let $label := 
+                if($name/tei:name[@sort]) then 
+                        normalize-space(string-join(
+                        for $n in $name[tei:name[@sort]][1]/child::*
+                        order by $n/@sort
+                        return $n,' '))
+                else if($name/tei:surname) then
+                    let $n := $name[tei:surname][1]
+                    return concat($n/tei:surname,', ', $n[not(self::tei:surname)])
+                else string-join($name[1]//text(),' ')
             return normalize-space(string-join($label[1],''))
         else 
             for $i in $v
             group by $facet-grp := normalize-space(string-join($v/parent::*[1]//text(),''))
             return $facet-grp
+            (:
+            
+            for $i in $v
+            let $name := $v/parent::*[1]
+            let $label := 
+                if($name/tei:name[@sort]) then 
+                    normalize-space(string-join(
+                        for $name in $name/child::*
+                        order by $name/@sort
+                        return $name
+                    ,' ')) 
+                else if($name/tei:surname) then
+                    normalize-space(concat($name/tei:surname,', ', $name[not(self::tei:surname)] ))
+                else normalize-space(string-join($name//text(),' '))
+            group by $facet-grp := $label
+            return $facet-grp
+            :)
 };
