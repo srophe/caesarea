@@ -1406,7 +1406,8 @@
             <xsl:when test="@place='inline'">
                 <p>
                     <span class="tei-label">Type of Publication: </span>
-                    <xsl:value-of select="."/>
+                    <xsl:variable name="typeLabel" select="concat(substring(.,1,1),replace(substring(.,2),'(\p{Lu})',concat(' ', '$1')))"/>
+                    <xsl:value-of select="concat(upper-case(substring($typeLabel,1,1)),substring($typeLabel,2))"/>
                 </p>
             </xsl:when>
             <xsl:otherwise>
