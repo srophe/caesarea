@@ -271,11 +271,12 @@ let $creator := for $creators in $rec?data?creators?*
                         element {$creators?creatorType} {element forename {$creators?firstName}, element surname{$creators?lastName}}
                     else element {$creators?creatorType} {element name {$creators?name}} 
 (: creating imprint, any additional data required here? :)
-let $imprint := if (empty($rec?data?place) and empty($rec?data?publisher) and empty($rec?data?date)) then () else (<imprint>{
-                    if ($rec?data?place) then (<pubPlace>{$rec?data?place}</pubPlace>) else (),
-                    if ($rec?data?publisher) then (<publisher>{$rec?data?publisher}</publisher>) else (),
-                    if ($rec?data?date) then (<date>{$rec?data?date}</date>) else ()
-                }</imprint>)
+let $imprint := if (empty($rec?data?place) and empty($rec?data?publisher) and empty($rec?data?date)) then () else 
+                    (<imprint>{
+                        if ($rec?data?place) then (<pubPlace>{$rec?data?place}</pubPlace>) else (),
+                        if ($rec?data?publisher) then (<publisher>{$rec?data?publisher}</publisher>) else if($itemType = 'thesis' or $itemType = 'Thesis') then (<publisher>{$rec?data?university}</publisher>) else (),
+                        if ($rec?data?date) then (<date>{$rec?data?date}</date>) else ()
+                    }</imprint>)
 (: Transforming tags to relation... if no subject or ms s present, still shows <listRelations\>, I have to fix that :)
 let $list-relations := if (empty($rec?data?tags) or empty($rec?data?relations)) then () else (<listRelation>{(
                         for $tag in $rec?data?tags?*?tag
