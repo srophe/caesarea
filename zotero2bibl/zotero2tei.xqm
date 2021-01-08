@@ -189,6 +189,7 @@ declare function zotero2tei:build-new-record-json($rec as item()*, $local-id as 
 let $ids :=  tokenize($rec?links?alternate?href,'/')[last()]
 let $local-id := if($ids != '') then concat($zotero2tei:zotero-config//*:base-uri/text(),'/',$ids) else $local-id
 let $itemType := $rec?data?itemType
+let $itemTypeNote := element { xs:QName("note") } {attribute place { "inline" }, $itemType}
 let $recordType := 	
     if($itemType = 'book' and $rec?data?series[. != '']) then 'monograph'
     else if($itemType = ('journalArticle','bookSection','magazineArticle','newspaperArticle','conferencePaper') or $rec?data?series != '') then 'analytic' 
@@ -322,13 +323,14 @@ let $list-relations := if (empty($rec?data?tags) or empty($rec?data?relations)) 
                     )}</listRelation>)
 (: Not sure if that is sufficient for an analytic check? following the TEI-guideline and the other script @github... :)
 let $tei-analytic := if($recordType = "analytic" or $recordType = "bookSection" or $recordType = "chapter") then
-                         <analytic>{
+                         <analytic>{(
                             if($itemType = "bookSection" or $itemType = "chapter") then $creator[self::tei:author]
                             else $creator,
                             $analytic-title,
                             $all-idnos,
+                            $itemTypeNote,
                             if($recordType = "bookSection") then () else ($oclcId)
-                         }</analytic>
+                         )}</analytic>
                          else ()
 let $tei-monogr := if($recordType = "analytic" or $recordType = "monograph") then
                     <monogr>{
@@ -339,14 +341,14 @@ let $tei-monogr := if($recordType = "analytic" or $recordType = "monograph") the
                         if($recordType = "monograph") then $analytic-title
                         else if($itemType = "bookSection" or $itemType = "chapter") then $bookTitle
                         else ($series-titles,$journal-titles),
-                        if ($tei-analytic) then () else ($all-idnos),
+                        if ($tei-analytic) then () else ($all-idnos,$itemTypeNote),
                         if($recordType = "bookSection") then ($oclcId) else (),
                         if($lang) then ($lang) else (),
                         if ($imprint) then ($imprint) else (),
                         for $vol in $rec?data?volume[. != '']
-                        return <biblScope unit="vol">{$vol}</biblScope>
+                        return <biblScope unit="vol">{$vol}</biblScope>,
                         for $p in $rec?data?pages[. != '']
-                        return <biblScope unit="pp">{$p}</biblScope>,
+                        return <biblScope unit="pp">{$p}</biblScope>
                     }</monogr>
                      else ()
 (: I haven't found an example file with series information to find the JSON equivalence to the tei structure, so have to continue on that :)
