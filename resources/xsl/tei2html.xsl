@@ -249,10 +249,45 @@
                 </xsl:for-each>
             </div>
             <br/>
-            
         </xsl:for-each>
     </xsl:template>
-      
+    <xsl:template match="t:ab" mode="edition">
+        <xsl:variable name="limit" select="3000"/>
+        <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
+        <xsl:choose>
+                <xsl:when test="$wordCount gt $limit">
+                    <xsl:variable name="processed-text">
+                        <xsl:apply-templates/>
+                    </xsl:variable>
+                    <xsl:variable name="text">
+                        <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
+                    </xsl:variable>
+                    <xsl:variable name="aftertext">
+                        <xsl:sequence select="local:truncate-after($processed-text,$limit)"/>    
+                    </xsl:variable>
+                    <xsl:copy-of select="$text"/>  
+                    <span id="show{@xml:id}" class="collapse">
+                        <xsl:copy-of select="$aftertext"/>
+                    </span>
+                    <xsl:if test="not(empty($aftertext//text()))">
+                        <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="."/>        
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="t:idno[@xml:base]">
+                    <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                </xsl:when>
+                <xsl:when test="t:idno/t:ref[@target]">
+                    <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                </xsl:when>
+            </xsl:choose>
+        
+    </xsl:template>
+    
     <!-- B -->
     <!-- suppress bibl in title mode -->
     <xsl:template match="t:bibl" mode="title"/>
@@ -435,7 +470,7 @@
                         <div class="section" style="display:block;">
                             <!-- Caesarea customization:  -->
                             <!-- <xsl:apply-templates/> -->
-                            <xsl:apply-templates select="*[not(self::t:ab[@type='identifier']) and not(self::t:desc[@type='abstract'])]"/>
+                            <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="edition"/>
                         </div>                         
                     </xsl:otherwise>
                 </xsl:choose>
