@@ -341,7 +341,7 @@ let $tei-monogr := if($recordType = "analytic" or $recordType = "monograph") the
                         if($recordType = "monograph") then $analytic-title
                         else if($itemType = "bookSection" or $itemType = "chapter") then $bookTitle
                         else ($series-titles,$journal-titles),
-                        if ($tei-analytic) then $itemTypeNote else ($all-idnos),
+                        if ($tei-analytic) then $itemTypeNote else ($all-idnos, $itemTypeNote),
                         if($recordType = "bookSection") then ($oclcId) else (),
                         if($lang) then ($lang) else (),
                         if ($imprint) then ($imprint) else (),
