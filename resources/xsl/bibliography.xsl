@@ -1218,9 +1218,6 @@
                     <xsl:value-of select="concat('Link to ',$repository-title,' Bibliographic Record for ', $title-string)"/>
                 </xsl:when>
                 <!-- glyphicon glyphicon-book -->
-                <xsl:when test="ends-with($ref,'.xml')">
-                    <xsl:text>External link to XML file</xsl:text>
-                </xsl:when>
                 <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
                     <xsl:text>Link to Worldcat Bibliographic record</xsl:text>
                 </xsl:when>
@@ -1261,9 +1258,6 @@
             </xsl:when>
             <xsl:when test="starts-with($ref,$base-uri)"/>
             <!-- glyphicon glyphicon-book -->
-            <xsl:when test="contains($ref,'.xml')">
-                <img src="{$nav-base}/resources/images/xml-pngrepo-com.png" alt="External link to XML file" height="18px"/>
-            </xsl:when>
             <xsl:when test="contains($ref,'worldcat.org/')">
                 <img src="{$nav-base}/resources/images/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record" height="18px"/>
             </xsl:when>
@@ -1398,6 +1392,19 @@
             <xsl:apply-templates select="t:title" mode="full"/>
             <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
         </div>
+    </xsl:template>
+    <xsl:template match="t:note" mode="full">
+        <xsl:choose>
+            <xsl:when test="@place='inline'">
+                <p>
+                    <span class="tei-label">Type of Publication: </span>
+                    <xsl:value-of select="."/>
+                </p>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates mode="full"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="t:series" mode="full">
         <h4>Series</h4>

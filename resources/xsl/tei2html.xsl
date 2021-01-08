@@ -428,7 +428,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- suppress biblScope in title mode -->
+    <!-- suppress biblScope in title mode  -->
     <xsl:template match="t:biblScope"/>
     <xsl:template match="t:biblStruct">
         <xsl:choose>
@@ -466,11 +466,16 @@
                     <xsl:when test="descendant-or-self::t:ab[@type='translation']">
                         <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="translation"/>                                
                     </xsl:when>
+                    <xsl:when test="descendant-or-self::t:ab[@type='translation']">
+                        <div class="section" style="display:block;">
+                            <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="edition"/>
+                        </div>
+                    </xsl:when>
                     <xsl:otherwise>
                         <div class="section" style="display:block;">
                             <!-- Caesarea customization:  -->
                             <!-- <xsl:apply-templates/> -->
-                            <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="edition"/>
+                            <xsl:apply-templates select="*[not(self::t:ab[@type='identifier']) and not(self::t:desc[@type='abstract'])]"/>
                         </div>                         
                     </xsl:otherwise>
                 </xsl:choose>
