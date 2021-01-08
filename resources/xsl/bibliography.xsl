@@ -1379,18 +1379,26 @@
     <xsl:template match="t:biblStruct" mode="full">
         <xsl:apply-templates mode="full"/>
     </xsl:template>
+    <xsl:template name="idDisplay">
+        <div class="indent">
+        <xsl:apply-templates select="descendant::t:note[@place='inline']" mode="full"/>
+        <xsl:apply-templates select="descendant::t:textLang" mode="full"/>
+        <xsl:apply-templates select="descendant::t:analytic/t:idno" mode="full"/>
+        <xsl:apply-templates select="descendant::t:analytic/t:ref" mode="full"/>
+        </div>
+    </xsl:template>
     <xsl:template match="t:analytic" mode="full">
         <h4>Article</h4>
         <div class="indent">
             <xsl:apply-templates select="t:title" mode="full"/>
-            <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
+            <xsl:apply-templates select="*[not(self::t:title) and not(self::t:textLang) and not(self::t:note[@place='inline']) and not(self::t:idno) and not(self::t:ref)]" mode="full"/>
         </div>
     </xsl:template>
     <xsl:template match="t:monogr" mode="full">
         <h4>Publication</h4>
         <div class="indent">
             <xsl:apply-templates select="t:title" mode="full"/>
-            <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
+            <xsl:apply-templates select="*[not(self::t:title) and not(self::t:textLang) and not(self::t:note[@place='inline']) and not(self::t:idno) and not(self::t:ref)]" mode="full"/>
         </div>
     </xsl:template>
     <xsl:template match="t:note" mode="full">
