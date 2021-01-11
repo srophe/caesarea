@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="publicationDate" label="Publication Date" display="slider">
         <group-by>
@@ -18,11 +17,17 @@
         <group-by>
             <sub-path>descendant::tei:biblStruct/descendant::tei:surname</sub-path>
         </group-by>
-        <max-values show="5">100</max-values>
+        <max-values show="10">100</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
-    <!--
-    <facet-definition name="publicationDate" label="Publication Date">
+    <facet-definition name="publicationType" label="Publication Type">
+        <group-by>
+            <sub-path>descendant::tei:biblStruct/descendant::tei:note[@place='inline']</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="descending">order</order-by>
+    </facet-definition>
+    <facet-definition name="publicationDateRange" label="Publication Date">
         <range type="xs:year">
             <bucket gt="2000-01-01" name="2000 &gt;" order="14"/>
             <bucket gt="1975-01-01" lt="2000-01-01" name="1975-2000" order="13"/>
@@ -42,8 +47,7 @@
         <group-by type="xs:date">
             <sub-path>descendant::tei:biblStruct/descendant::tei:imprint/tei:date</sub-path>
         </group-by>
-        <max-values show="5">40</max-values>
+        <max-values show="10">40</max-values>
         <order-by direction="descending">order</order-by>
     </facet-definition>
-    -->
 </facets>

@@ -814,7 +814,7 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Author: </span> <a href="{$nav-base}/testimonia/browse.html?facet-authorTestimonia={encode-for-uri(t:creation/t:persName[@role='author']//text())}">
+                <span class="label">Author: </span> <a href="{$nav-base}/testimonia/browse.html?facet-authorTestimonia={encode-for-uri(string-join(t:creation/t:persName[@role='author']//text(),' '))}">
                      <xsl:value-of select="t:creation/t:persName[@role='author']"/>
                 </a>
             </li>
@@ -849,9 +849,11 @@
                 <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
                     <xsl:variable name="id" select="replace(.,'#','')"/>
                     <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]//text(),''))"/>
-                    <a href="{$nav-base}/testimonia/browse.html?view=timeline&amp;facet-eraComposed={encode-for-uri($label)}" class="indent">
-                        <xsl:value-of select="$label"/>
-                    </a><br/>
+                    <xsl:if test="$label != ''">
+                        <a href="{$nav-base}/testimonia/browse.html?view=timeline&amp;facet-eraComposed={encode-for-uri($label)}" class="indent">
+                            <xsl:value-of select="normalize-space($label)"/>
+                        </a><br/>                        
+                    </xsl:if>
                 </xsl:for-each>
             </li> 
             <li>
