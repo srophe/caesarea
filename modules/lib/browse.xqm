@@ -143,7 +143,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                                 (sf:display($hits, $facet-config//facet:facet-definition[@name="biblAuthors"]),
                                 sf:display($hits, $facet-config//facet:facet-definition[@name="publicationDateRange"]),
                                 sf:display($hits, $facet-config//facet:facet-definition[@name="publicationType"]))
-                            else sf:display($hits, $facet-config//facet:facet-definition[@name="publicationDateRange"])
+                            else (sf:display($hits, $facet-config//facet:facet-definition[@name="publicationDateRange"]),sf:display($hits, $facet-config//facet:facet-definition[@name="publicationType"]))
                         else sf:display($hits, $facet-config)
                     }</div>
                 </div> 
