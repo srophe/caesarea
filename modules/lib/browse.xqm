@@ -126,7 +126,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                         <h3>{(
                             if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
                             else attribute class {"label"},
-                            if($browse:view = 'date') then () else if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
+                            if($browse:view = 'date') then () else if($browse:alpha-filter != '') then $browse:alpha-filter else ())}</h3>
                         <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
                             {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
                             {browse:display-hits($hits, $collection)}
