@@ -222,7 +222,7 @@ declare function sf:display($result as item()*, $facet-definition as item()*) {
                             return
                                 <a href="?{$url-params}" class="facet-label btn btn-default {$active}">
                                 {if($active) then (<span class="glyphicon glyphicon-remove facet-remove"></span>)else ()}
-                                {$label} <span class="count"> ({$freq}) </span> </a>
+                                {functx:capitalize-first(functx:camel-case-to-words($label,' '))} <span class="count"> ({$freq}) </span> </a>
                         })
                 }</div>
                 {
@@ -240,7 +240,7 @@ declare function sf:display($result as item()*, $facet-definition as item()*) {
                                     return
                                         <a href="?{$url-params}" class="facet-label btn btn-default {$active}">
                                         {if($active) then (<span class="glyphicon glyphicon-remove facet-remove"></span>)else ()}
-                                        {$label} <span class="count"> ({$freq}) </span> </a>
+                                        {functx:capitalize-first(functx:camel-case-to-words($label,' '))} <span class="count"> ({$freq}) </span> </a>
                                 })
                         }</div>,
                         <a class="facet-label togglelink btn btn-info" 
