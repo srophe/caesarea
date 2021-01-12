@@ -285,24 +285,20 @@ declare function bibls:search-form() {
                     <p class="hint">* Dates should be entered as YYYY or YYYY-MM-DD. Add a minus sign (-) in front of BCE dates. <span><a href="$nav-base/documentation/wiki.html?wiki-page=/Encoding-Guidelines-for-Approximate-Dates&amp;wiki-uri=https://github.com/srophe/caesarea-data/wiki">more <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span></p>
                 </div>
             </div>  
-           <!--
-           <hr/>
-            <div class="form-group">            
-                <label for="idno" class="col-sm-2 col-md-3  control-label">ISBN / DOI / URI: </label>
-                <div class="col-sm-10 col-md-2 ">
-                    <input type="text" id="idno" name="idno" class="form-control"  placeholder="Ex: 3490"/>
-                </div>
+            <hr/>
+            <div class="indent"> 
+            <h4>Filter by Publication Type</h4>
+            <div class="indent"> 
+            {
+                let $search := collection($config:data-root)//tei:body[ft:query(.,())]
+                let $types := ft:facets($search, "publicationType", ())
+                return 
+                    map:for-each($types, function($label, $count) {
+                            <span class="search-radio"><input type="radio" id="{$label}" name="facet-publicationType" value="{$label}"><label for="{$label}">{functx:capitalize-first(functx:camel-case-to-words($label,' '))}</label></input></span>
+                        })
+                
+            } </div>
             </div>
-            <div class="form-group">     
-                <label for="online" class="col-sm-2 col-md-3  control-label">Only items viewable online: </label>
-                <div class="col-sm-10 col-md-2 ">
-                    <label class="switch">
-                        <input id="online" name="online" type="checkbox"/>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </div> 
-            -->
         </div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;
