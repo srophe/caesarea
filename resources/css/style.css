@@ -609,7 +609,7 @@ h4.slider {
     padding:0;
     border: 1px solid grey;
 	border-radius: 25px !important;
-	min-height: 350px;  
+	min-height: 300px;  
 }
 .featureTestemonia .featureBanner{
     min-height:125px; 
