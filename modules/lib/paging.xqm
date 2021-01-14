@@ -169,7 +169,7 @@ declare function page:display-search-params($collection as xs:string?){
                 (<span class="param">{functx:capitalize-first(functx:camel-case-to-words(replace($parameter,'facet-',''),' '))}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
             else if($parameter = ('q','keyword')) then 
                 (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
+            else (<span class="param">{functx:capitalize-first(functx:camel-case-to-words($parameter, ' '))}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
         else (),
      if(request:get-parameter('start-date', '') != '') then
         (<span class="param">Start Date: </span>,<span class="match">{request:get-parameter('start-date', '')}&#160;</span>)
