@@ -77,6 +77,7 @@ declare function sf:build-index(){
             <text qname="tei:fileDesc"/>
             <text qname="tei:biblStruct"/>
             <text qname="tei:div"/>
+            <text qname="tei:ab"/>
             <text qname="tei:author" boost="5.0"/>
             <text qname="tei:persName" boost="5.0"/>
             <text qname="tei:placeName" boost="5.0"/>
