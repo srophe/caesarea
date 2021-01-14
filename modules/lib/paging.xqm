@@ -162,21 +162,16 @@ declare function page:display-search-params($collection as xs:string?){
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
     return 
-        if(request:get-parameter($parameter, '') != '') then
-            if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'startDate' or $parameter = 'endDate') then ()
-            else if($parameter = 'start-date' or $parameter = 'end-date') then ()
-            else if(starts-with($parameter,'facet-')) then
-                (<span class="param">{functx:capitalize-first(functx:camel-case-to-words(replace($parameter,'facet-',''),' '))}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
-            else if($parameter = ('q','keyword')) then 
-                (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
-            else (<span class="param">{functx:capitalize-first(functx:camel-case-to-words($parameter, ' '))}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
-        else (),
-     if(request:get-parameter('start-date', '') != '') then
-        (<span class="param">Start Date: </span>,<span class="match">{request:get-parameter('start-date', '')}&#160;</span>)
-     else (),
-     if(request:get-parameter('end-date', '') != '') then
-        (<span class="param">End Date: </span>,<span class="match">{request:get-parameter('end-date', '')}&#160;</span>)
-     else ()
+        for $p in request:get-parameter($parameter, '')
+        return 
+            if($p != '') then
+                if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'startDate' or $parameter = 'endDate') then ()
+                else if(starts-with($parameter,'facet-')) then
+                    (<span class="param">{functx:capitalize-first(functx:camel-case-to-words(replace($parameter,'facet-',''),' '))}: </span>,<span class="match">{functx:capitalize-first(functx:camel-case-to-words($p, ' '))}&#160;</span>)
+                else if($parameter = ('q','keyword')) then 
+                    (<span class="param">Keyword: </span>,<span class="match">{$p}&#160;</span>)
+                else (<span class="param">{functx:capitalize-first(functx:camel-case-to-words($parameter, ' '))}: </span>,<span class="match">{functx:capitalize-first(functx:camel-case-to-words($p, ' '))}&#160; </span>)    
+            else ()
 )}
 </span>
 };

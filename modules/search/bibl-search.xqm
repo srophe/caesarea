@@ -294,7 +294,10 @@ declare function bibls:search-form() {
                 let $types := ft:facets($search, "publicationType", ())
                 return 
                     map:for-each($types, function($label, $count) {
-                            <span class="search-radio"><input type="radio" id="{$label}" name="facet-publicationType" value="{$label}"><label for="{$label}">{functx:capitalize-first(functx:camel-case-to-words($label,' '))}</label></input></span>
+                            <span class="search-radio">
+                            <input type="checkbox" id="{$label}" name="facet-publicationType" value="{$label}"/>
+                            <label for="{$label}">{functx:capitalize-first(functx:camel-case-to-words($label,' '))}</label>
+                            </span>
                         })
                 
             } </div>

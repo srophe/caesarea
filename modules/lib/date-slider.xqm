@@ -120,7 +120,9 @@ let $params :=
     return 
         if($param = 'startDate' or $param = 'endDate' or $param = 'start' or $param = 'start-date' or $param = 'end-date') then ()
         else if(request:get-parameter($param, '') = ' ') then ()
-        else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
+        else 
+            for $p in request:get-parameter($param, '')
+            return concat('&amp;',$param[1], '=',request:get-parameter($p, '')),'')
 return 
 if(not(empty($d))) then
     <div>
