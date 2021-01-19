@@ -267,9 +267,21 @@ declare function search:default-search-form() {
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-let $search-config := concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
-let $collection-data := string(config:collection-vars($collection)/@data-root)
-return
+let $config-path := 
+    if($collection != '') then
+        if(string(config:collection-vars($collection)/@app-root) != '') then 
+            concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
+        else concat($config:app-root, '/', $collection,'/','search-config.xml')
+    else concat($config:app-root, '/','search-config.xml')
+let $search-config :=
+    if(doc-available($config-path)) then
+        $config-path
+    else ()
+let $collection-data := 
+    if(string(config:collection-vars($collection)/@data-root) != '') then 
+        string(config:collection-vars($collection)/@data-root)
+    else ()
+return 
     if($collection != '') then 
         if(doc-available($search-config)) then 
            concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",

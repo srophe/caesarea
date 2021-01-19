@@ -409,6 +409,8 @@ pre {
     color: #666;
 }
 
+.search-radio {display:inline-block; margin:1em;}
+.search-radio label {padding-left: .5em; margin:0;}
 #sources ul {
 	list-style-type: none;
 	padding-left: -0.1em;
@@ -607,7 +609,7 @@ h4.slider {
     padding:0;
     border: 1px solid grey;
 	border-radius: 25px !important;
-	min-height: 350px;  
+	min-height: 300px;  
 }
 .featureTestemonia .featureBanner{
     min-height:125px; 
