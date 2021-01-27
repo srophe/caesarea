@@ -273,6 +273,13 @@
     <dateRangeLabel>585-331 BCE</dateRangeLabel>
   </record>
   <record>
+    <catId>classicalPeriod</catId>
+    <catDesc>Classical Period</catDesc>
+    <notBefore>-0480</notBefore>
+    <notAfter>-0336</notAfter>
+    <calendar>Gregorian</calendar>
+    <dateRangeLabel>480-336 BCE</dateRangeLabel>
+  <record>
     <catId>earlyHellenistic</catId>
     <catDesc>Early Hellenistic period</catDesc>
     <notBefore>-0331</notBefore>
