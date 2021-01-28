@@ -91,6 +91,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
              let $date := $controlled-vocab/*:notBefore
              let $label := normalize-space($cats[@xml:id = $facet-grp][1])
              order by $date
+             where $label != ''
              return 
                 <a href="?view=timeline&amp;facet-eraComposed={encode-for-uri($label)}" 
                 class="historical-era-label {if($selected = $label) then 'selected' else ()}">
