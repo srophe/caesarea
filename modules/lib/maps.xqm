@@ -41,15 +41,8 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
             }
         <script type="text/javascript">
             <![CDATA[
-            var terrain =  
-            L.tileLayer(
-                'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token=]]>{$config:map-api-key}<![CDATA[', {
-                    attribution: '<a href="http://mapbox.com">Mapbox</a> ', 
-                    id: 'mapbox/outdoors-v11', 
-                    maxZoom: 12, 
-                    accessToken: ']]>{$config:map-api-key}<![CDATA['
-                });
-                
+            var terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
+            
             /* Not added by default, only through user control action */
             var streets = L.tileLayer(
                 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
@@ -163,14 +156,7 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
         <script type="text/javascript">
            <![CDATA[
              var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
-             var terrain =  
-                    L.tileLayer(
-                        'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token=]]>{$config:map-api-key}<![CDATA[', {
-                            attribution: '<a href="http://mapbox.com">Mapbox</a> ', 
-                            id: 'mapbox/outdoors-v11', 
-                            maxZoom: 12, 
-                            accessToken: ']]>{$config:map-api-key}<![CDATA['
-                        });
+             var terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
                 
             /* Not added by default, only through user control action */
             var streets = L.tileLayer(
