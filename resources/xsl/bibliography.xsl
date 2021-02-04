@@ -178,11 +178,12 @@
     <xsl:template name="footnote">
         <xsl:variable name="passThrough">
             <xsl:if test="not(empty(t:biblScope))">
-                <xsl:text>, </xsl:text>
                 <xsl:apply-templates select="t:biblScope" mode="footnote"/>
             </xsl:if>
             <xsl:if test="not(empty(t:citedRange))">
-                <xsl:text>, </xsl:text>
+                <xsl:if test="not(empty(t:biblScope)) and not(ends-with(t:biblScope,'.'))">
+                    <xsl:text>, </xsl:text>    
+                </xsl:if>
                 <xsl:for-each select="t:citedRange">
                     <xsl:apply-templates select="." mode="footnote"/>
                     <xsl:if test="not(last())">
@@ -224,6 +225,9 @@
                                         <xsl:variable name="rec" select="document($biblfilepath)"/>
                                         <xsl:for-each select="$rec/descendant::t:biblStruct">
                                             <xsl:apply-templates mode="footnote"/>
+                                            <xsl:if test="not(empty($passThrough))">
+                                                <xsl:text> </xsl:text>
+                                            </xsl:if>
                                             <xsl:sequence select="$passThrough"/>
                                             <xsl:if test="descendant::t:idno[@type='URI']">
                                                 <span class="footnote-links">
@@ -235,6 +239,9 @@
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:apply-templates mode="footnote"/>
+                                        <xsl:if test="not(empty($passThrough))">
+                                            <xsl:text> </xsl:text>
+                                        </xsl:if>
                                         <xsl:sequence select="$passThrough"/>
                                         <xsl:if test="descendant::t:idno[@type='URI']">
                                             <span class="footnote-links">
@@ -257,6 +264,9 @@
                                         <xsl:text> </xsl:text>
                                     </xsl:if>
                                 </xsl:for-each>
+                                <xsl:if test="not(empty($passThrough))">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
                                 <xsl:sequence select="$passThrough"/>
                                 <xsl:if test="descendant::t:idno[@type='URI']">
                                     <span class="footnote-links">
@@ -279,6 +289,9 @@
                             <xsl:choose>
                                 <xsl:when test="$rec/descendant::t:bibl[@type='formatted'][@subtype='citation']">
                                     <xsl:apply-templates select="$rec/descendant::t:bibl[@subtype='citation']" mode="citation"/>
+                                    <xsl:if test="not(empty($passThrough))">
+                                        <xsl:text> </xsl:text>
+                                    </xsl:if>
                                     <xsl:sequence select="$passThrough"/>
                                     <xsl:if test="$rec/descendant::t:idno[@type='URI']">
                                         <span class="footnote-links">
@@ -290,6 +303,9 @@
                                 <xsl:otherwise>
                                    <xsl:for-each select="$rec/descendant::t:biblStruct">
                                         <xsl:apply-templates mode="footnote"/>
+                                       <xsl:if test="not(empty($passThrough))">
+                                           <xsl:text> </xsl:text>
+                                       </xsl:if>
                                         <xsl:sequence select="$passThrough"/>
                                         <xsl:if test="descendant::t:idno[@type='URI']">
                                             <span class="footnote-links">
@@ -303,6 +319,9 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates mode="footnote"/>
+                            <xsl:if test="not(empty($passThrough))">
+                                <xsl:text> </xsl:text>
+                            </xsl:if>
                             <xsl:sequence select="$passThrough"/>
                             <xsl:if test="descendant::t:idno[@type='URI']">
                                 <span class="footnote-links">
@@ -328,6 +347,9 @@
                                 </xsl:if>
                             </xsl:for-each>
                             <xsl:apply-templates select="text()"/>
+                            <xsl:if test="not(empty($passThrough))">
+                                <xsl:text> </xsl:text>
+                            </xsl:if>
                             <xsl:sequence select="$passThrough"/>
                             <xsl:if test="descendant::t:idno[@type='URI']">
                                 <span class="footnote-links">
@@ -1106,6 +1128,7 @@
         <xsl:choose>
             <xsl:when test="@unit = preceding-sibling::*[1]/@unit"/>
             <xsl:when test="@unit='ff'"/>
+            <xsl:when test="@unit = 'section'"><xsl:text>See section: </xsl:text></xsl:when>
             <xsl:when test="@unit and @unit != ''">
                 <xsl:value-of select="concat(@unit,': ')"/>
             </xsl:when>
