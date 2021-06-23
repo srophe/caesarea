@@ -489,7 +489,7 @@
                     </div>    
                 </xsl:if>
                 <xsl:if test="descendant::t:listBibl">
-                    <xsl:call-template name="sources"/>   
+<!--                    <xsl:call-template name="sources"/>   -->
                 </xsl:if>
             </div>
         </bdi>
@@ -844,7 +844,6 @@
             </li> 
             <li>
                 <span class="label">Historical Era Composed:</span>
-                <br/> 
                 <xsl:variable name="cat" select="//t:encodingDesc"/>
                 <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
                     <xsl:variable name="id" select="replace(.,'#','')"/>

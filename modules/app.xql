@@ -29,9 +29,18 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
 (: Global Variables:)
-declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $app:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
-
+declare variable $app:perpage { 
+    if(request:get-parameter('perpage', 20)[1]) then 
+        if(request:get-parameter('perpage', 20)[1] castable as xs:integer) then request:get-parameter('perpage', 20)[1] cast as xs:integer
+        else 20
+    else 20
+    };
+declare variable $app:start { 
+    if(request:get-parameter('start', 1)[1]) then 
+        if(request:get-parameter('start', 1)[1] castable as xs:integer) then request:get-parameter('start', 1)[1] cast as xs:integer
+        else 1
+    else 1
+    }; 
 (:~
  : Get app logo. Value passed from repo-config.xml  
 :)
@@ -710,3 +719,22 @@ declare %templates:wrap function app:biblLinkedData($node as node(), $model as m
         </div>        
     else ()
 };
+
+(: Ceaserea Customizations :)
+(:~  
+ : Display any TEI nodes passed to the function via the paths parameter
+ : Used by templating module, defaults to tei:body if no nodes are passed. 
+ : @param $paths comma separated list of xpaths for display. Passed from html page  
+:)
+declare function app:display-text($node as node(), $model as map(*), $collection as xs:string?){
+    let $nodes := $model("hits")/descendant::tei:text
+    return 
+        if($config:get-config//repo:html-render/@type='xslt') then
+            global:tei2html($nodes, $collection)
+        else tei2html:tei2html($nodes)
+}; 
+declare function app:display-bibl($node as node(), $model as map(*), $collection as xs:string?){
+    let $nodes := $model("hits")/descendant::tei:listBibl
+    return 
+        global:tei2html(<sources xmlns="http://www.tei-c.org/ns/1.0">{$nodes}</sources>,$collection)
+}; 
