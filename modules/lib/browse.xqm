@@ -24,11 +24,21 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
 (: Global Variables :)
-declare variable $browse:alpha-filter {request:get-parameter('alpha-filter', '')};
-declare variable $browse:lang {request:get-parameter('lang', '')};
-declare variable $browse:view {request:get-parameter('view', '')};
-declare variable $browse:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
+declare variable $browse:alpha-filter {request:get-parameter('alpha-filter', '')[1]};
+declare variable $browse:lang {request:get-parameter('lang', '')[1]};
+declare variable $browse:view {request:get-parameter('view', '')[1]};
+declare variable $browse:perpage { 
+    if(request:get-parameter('perpage', 20)[1]) then 
+        if(request:get-parameter('perpage', 20)[1] castable as xs:integer) then request:get-parameter('perpage', 20)[1] cast as xs:integer
+        else 20
+    else 20
+    };
+declare variable $browse:start { 
+    if(request:get-parameter('start', 1)[1]) then 
+        if(request:get-parameter('start', 1)[1] castable as xs:integer) then request:get-parameter('start', 1)[1] cast as xs:integer
+        else 1
+    else 1
+    }; 
 
 (:~
  : Build initial browse results based on parameters
@@ -39,12 +49,6 @@ declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as x
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?, $facets as xs:string?){
     let $hits := data:get-records($collection, $element)
-    let $hits := if(request:get-parameter('sort-element', '') != '') then 
-                    for $h in $hits
-                    let $s := data:get-sort($h, request:get-parameter('sort-element', ''), $collection)
-                    order by $s collation 'http://www.w3.org/2013/collation/UCA'  
-                    return $h/ancestor-or-self::tei:TEI
-                  else $hits
     return 
         map{"hits" : $hits}
 };
