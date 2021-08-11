@@ -394,11 +394,11 @@
   </record>
   <record>
     <catId>britishTerritorialAdministration</catId>
-    <catDesc>British Territorial Administration Period</catDesc>
+    <catDesc>British Territorial Administration</catDesc>
     <notBefore>1917</notBefore>
     <notAfter>1920</notAfter>
     <calendar>Gregorian</calendar>
-    <dateRangeLabel>1970-1920 CE</dateRangeLabel>
+    <dateRangeLabel>1917-1920 CE</dateRangeLabel>
   </record>
   <record>
     <catId>britishMandate</catId>
