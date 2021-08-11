@@ -249,14 +249,6 @@
     <dateRangeLabel>899-699 BCE</dateRangeLabel>
   </record>
   <record>
-    <catId>ironIic</catId>
-    <catDesc>Iron IIC</catDesc>
-    <notBefore>-0799</notBefore>
-    <notAfter>-0731</notAfter>
-    <calendar>Gregorian</calendar>
-    <dateRangeLabel>799-731 BCE</dateRangeLabel>
-  </record>
-  <record>
     <catId>ironAgeIic</catId>
     <catDesc>Iron Age IIC</catDesc>
     <notBefore>-0699</notBefore>
