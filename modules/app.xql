@@ -29,18 +29,9 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
 (: Global Variables:)
-declare variable $app:perpage { 
-    if(request:get-parameter('perpage', 20)[1]) then 
-        if(request:get-parameter('perpage', 20)[1] castable as xs:integer) then request:get-parameter('perpage', 20)[1] cast as xs:integer
-        else 20
-    else 20
-    };
-declare variable $app:start { 
-    if(request:get-parameter('start', 1)[1]) then 
-        if(request:get-parameter('start', 1)[1] castable as xs:integer) then request:get-parameter('start', 1)[1] cast as xs:integer
-        else 1
-    else 1
-    }; 
+declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
+declare variable $app:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
+
 (:~
  : Get app logo. Value passed from repo-config.xml  
 :)
@@ -363,7 +354,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                    <br/>
                    <input type="text" name="email" placeholder="e-mail address" class="form-control" style="max-width:300px"/>
                    <br/>
-                   <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                   <input type="text" name="subject" placeholder="URI" class="form-control" style="max-width:300px"/>
                    <br/>
                    <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
                    <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
@@ -455,28 +446,6 @@ declare function app:wiki-menu($node, $model, $wiki-uri){
     let $wiki-data := app:wiki-rest-request($wiki-uri)
     let $menu := app:wiki-links($wiki-data//html:div[@class='wiki-rightbar']/descendant::html:ul, $wiki-uri)
     return $menu
-};
-
-(:~
- : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
- : @param $wiki pulls content from specified wiki or wiki page. 
-:)
-declare function app:wiki-links($nodes as node()*, $wiki) {
-    for $node in $nodes
-    return 
-        typeswitch($node)
-            case element(html:a) return
-                let $wiki-path := substring-after($wiki,'https://github.com')
-                let $href := concat($config:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
-                return
-                    <a href="{$href}">
-                        {$node/@* except $node/@href, $node/node()}
-                    </a>
-            case element() return
-                element { node-name($node) } {
-                    $node/@*, app:wiki-links($node/node(), $wiki)
-                }
-            default return $node               
 };
 
 (:~
@@ -600,18 +569,6 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
         else ''  
 };
 
-(:~ 
- : Adds google analytics from config.xml
- : @param $node
- : @param $model
- : @param $path path to html content file, relative to app root. 
-:)
-declare  
-    %templates:wrap 
-function app:google-analytics($node as node(), $model as map(*)){
-   $config:get-config//google_analytics/text() 
-};
-
 (:
  : Linked Data Box
 :)
@@ -625,9 +582,9 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
     return 
     <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via {$config:app-title} to 
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to 
             additional resources beyond this record. 
-            We welcome your additions, please use the e-mail button on the right to contact {$config:app-title} about submitting additional links."></span>
+            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
             <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
         </div>
         <div class="panel-body">
@@ -719,22 +676,3 @@ declare %templates:wrap function app:biblLinkedData($node as node(), $model as m
         </div>        
     else ()
 };
-
-(: Ceaserea Customizations :)
-(:~  
- : Display any TEI nodes passed to the function via the paths parameter
- : Used by templating module, defaults to tei:body if no nodes are passed. 
- : @param $paths comma separated list of xpaths for display. Passed from html page  
-:)
-declare function app:display-text($node as node(), $model as map(*), $collection as xs:string?){
-    let $nodes := $model("hits")/descendant::tei:text
-    return 
-        if($config:get-config//repo:html-render/@type='xslt') then
-            global:tei2html($nodes, $collection)
-        else tei2html:tei2html($nodes)
-}; 
-declare function app:display-bibl($node as node(), $model as map(*), $collection as xs:string?){
-    let $nodes := $model("hits")/descendant::tei:listBibl
-    return 
-        global:tei2html(<sources xmlns="http://www.tei-c.org/ns/1.0">{$nodes}</sources>,$collection)
-}; 

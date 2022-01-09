@@ -27,7 +27,7 @@ else maps:build-leaflet-map($nodes,$total-count)
 :)
 declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:integer?){
     <div id="map-data" style="margin-bottom:3em;">
-        <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.js"/>
+                <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.js"/>
         <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.awesome-markers.min.js"/>
         <script type="text/javascript" src="{$config:nav-base}/resources/leaflet/leaflet.markercluster-src.js"/>
         <div id="map"/>
@@ -41,8 +41,8 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
             }
         <script type="text/javascript">
             <![CDATA[
+           var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
             var terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
-            
             /* Not added by default, only through user control action */
             var streets = L.tileLayer(
                 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
@@ -52,7 +52,8 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
                     'https://dh.gu.se/tiles/imperium/{z}/{x}/{y}.png', {
                         maxZoom: 10,
                         attribution: 'Powered by <a href="http://leafletjs.com/">Leaflet</a>. Map base: <a href="https://dh.gu.se/dare/" title="Digital Atlas of the Roman Empire, Department of Archaeology and Ancient History, Lund University, Sweden">DARE</a>, 2015 (cc-by-sa).'
-                    });                   
+                    });
+                                     
             var placesgeo = ]]>{geojson:geojson($nodes)}
             <![CDATA[                                
             var sropheIcon = L.Icon.extend({
@@ -104,13 +105,12 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
                                 }
                             })
         var map = L.map('map').fitBounds(geojson.getBounds(),{maxZoom: 5});     
-        imperium.addTo(map);
+        terrain.addTo(map);
                                         
         L.control.layers({
-                        "Imperium (default)": imperium,  
-                        "Terrain": terrain,
-                        "Streets": streets
-                         }).addTo(map);
+                        "Terrain (default)": terrain,
+                        "Streets": streets,
+                        "Imperium": imperium }).addTo(map);
         geojson.addTo(map);     
         ]]>
         </script>
@@ -155,9 +155,8 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
         <div id="map"/>
         <script type="text/javascript">
            <![CDATA[
-             var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
-             var terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
-                
+            var geoJsonData = ]]>{geojson:geojson($nodes)}<![CDATA[;
+            var terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
             /* Not added by default, only through user control action */
             var streets = L.tileLayer(
                 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
@@ -169,7 +168,7 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
                         attribution: 'Powered by <a href="http://leafletjs.com/">Leaflet</a>. Map base: <a href="https://dh.gu.se/dare/" title="Digital Atlas of the Roman Empire, Department of Archaeology and Ancient History, Lund University, Sweden">DARE</a>, 2015 (cc-by-sa).'
                     });
                     
-          		var map = L.map('map').addLayer(imperium);
+          		var map = L.map('map').addLayer(terrain);
           
           		var markers = L.markerClusterGroup({
                         maxClusterRadius: function (zoom) {
@@ -191,15 +190,13 @@ declare function maps:build-leaflet-map-cluster($nodes as node()*){
           			}
           		});
           		L.control.layers({
-                        "Imperium (default)": imperium,  
-                        "Terrain": terrain,
+                        "Terrain (default)": terrain,
                         "Streets": streets }).addTo(map);
                         
           		markers.addLayer(geoJsonLayer);
+          
           		map.addLayer(markers);
           		map.fitBounds(markers.getBounds(), {padding: [50,50]}, {maxZoom: 10});
-          		//Map fix for Caesarea, center on Caesarea and control initial zoom. 
-          		map.setView([35.4840483, 29.5413633], 4.95);
             ]]>
         </script>
     </div> 

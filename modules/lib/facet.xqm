@@ -331,7 +331,7 @@ declare function facet:eraComposed($results as item()*, $facet-definition as ele
             descending
         return 
             let $id := replace($facet-grp,'#','')
-            let $label := $results[//tei:category[@xml:id = $id]][1]
+            let $label := $results[descendant::tei:category[@xml:id = $id]][1]
             let $label-txt := $results[descendant::tei:category[@xml:id = $id]][1]//tei:category[@xml:id = $id]/tei:catDesc/text()
             return facet:key($label-txt, $facet-grp, count($f), $facet-definition) 
     let $count := count($facets)           
