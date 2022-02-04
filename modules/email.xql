@@ -110,20 +110,18 @@ declare function local:spam(){
 
 let $cache := current-dateTime()
 let $smtp := if($config:get-access-config//*:smtp/text() != '') then $config:get-access-config//*:smtp/text() else ()
-(:let $timediff := (util:system-time() - xs:time(request:get-parameter('formLoaded',''))) div xs:dayTimeDuration("PT1S"):) 
+let $timediff := (util:system-time() - xs:time(request:get-parameter('formLoaded',''))) div xs:dayTimeDuration("PT1S") 
 return 
     if(exists(request:get-parameter('url','')) and request:get-parameter('url','') != '')  then 
             if(mail:send-email(local:spam(),$smtp, ()) ) then
                 <h4>Thank you. Your message has been sent. t1</h4>
             else 
-                <h4>Could not send message.</h4>  
-    (:                
+                <h4>Could not send message.</h4>
     else if($timediff lt 10) then
             if(mail:send-email(local:spam(),$smtp, ()) ) then
                 <h4>Thank you. Your message has been sent. t1</h4>
             else 
                 <h4>Could not send message.</h4>
-    :)                
     else if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '')  then 
         if(exists(request:get-parameter('comments','')) and request:get-parameter('comments','') != '') then 
           if($secret-key != '') then

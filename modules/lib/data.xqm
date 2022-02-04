@@ -106,27 +106,6 @@ declare function data:build-collection-path($collection as xs:string?) as xs:str
 };
 
 (:~
- : Function for selecting sort element or field
-:)
-declare function data:get-sort($h, $sort, $collection){
-    if(request:get-parameter('view', '') = 'map') then ()
-    else if(request:get-parameter('view', '') = 'timeline') then ()
-    else if(contains($sort, 'author')) then ft:field($h, "author")[1]
-    else if($sort =  'publicationDate') then ft:field($h, "publicationDate")[1]
-    else if(contains($sort, 'title') or contains($sort, 'headword') or ($sort = 'title')) then 
-            if(request:get-parameter('lang', '') = 'syr') then ft:field($h, "titleSyriac")[1]
-            else if(request:get-parameter('lang', '') = 'ar') then ft:field($h, "titleArabic")[1]
-            else ft:field($h, "title")[1]
-    else if(request:get-parameter('lang', '') = 'syr') then ft:field($h, "titleSyriac")[1]
-    else if(request:get-parameter('lang', '') = 'ar') then ft:field($h, "titleArabic")[1]                         
-    else if($sort != '' and not(contains($sort, 'title') and not(contains($sort, 'author')))) then
-            if($collection = 'bibl') then
-                data:add-sort-options-bibl($h, $sort)
-            else data:add-sort-options($h, $sort)                                            
-    else ft:field($h, "author")[1]
-};
-
-(:~
  : Get all data for browse pages 
  : @param $collection collection to limit results set by
  : @param $element TEI element to base sort order on. 
@@ -134,43 +113,37 @@ declare function data:get-sort($h, $sort, $collection){
 declare function data:get-records($collection as xs:string*, $element as xs:string?){
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
-        (:else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', ''):)
-        else ()             
-    let $collection-path := 
-        if(config:collection-vars($collection)/@data-root != '') then concat('/',config:collection-vars($collection)/@data-root)
-        else if($collection != '') then concat('/',$collection)
-        else ()  
-    let $get-series-idno :=  
-            if(config:collection-vars($collection)/@collection-URI != '') then string(config:collection-vars($collection)/@collection-URI)
-            else ()     
-    let $eval-string := 
-        concat(data:build-collection-path($collection),
-            slider:date-filter($collection),'[descendant::tei:body[ft:query(., (),sf:facet-query())]]',
-                if(request:get-parameter('alpha-filter', '') != '' 
-                    and request:get-parameter('alpha-filter', '') != 'All'
-                    and request:get-parameter('alpha-filter', '') != 'ALL'
-                    and request:get-parameter('alpha-filter', '') != 'all') then
-                    if(request:get-parameter('view', '') = 'A-Z') then 
-                        "][matches(data:get-sort(., $sort, $collection),'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')] 
-                            and matches(data:get-sort(., $sort, $collection),global:get-alpha-filter())]" 
-                    else if(request:get-parameter('view', '') = 'ܐ-ܬ') then
-                        "{[matches(.,'\p{IsSyriac}','i')] and matches(data:get-sort(., $sort, $collection),global:get-alpha-filter())]" 
-                    else if(request:get-parameter('view', '') = 'ا-ي') then
-                        "[[matches(.,'\p{IsArabic}','i')] and matches(data:get-sort(., $sort, $collection),global:get-alpha-filter())]"
-                    else if(request:get-parameter('view', '') = 'other') then  
-                        "[[not(matches(substring(global:build-sort-string(.,''),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))] and matches(data:get-sort(., $sort, $collection),global:get-alpha-filter())]"
-                    else "[matches(data:get-sort(., $sort, $collection),global:get-alpha-filter())]" 
-                else() 
-        )    
-    let $hits := util:eval($eval-string)
+        else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
+        else if($element) then $element 
+        else ()         
+    let $hits := util:eval(data:build-collection-path($collection))[descendant::tei:body[ft:query(., (),sf:facet-query())]]  
     return 
-        if(request:get-parameter('view', '') = 'map') then $hits/ancestor-or-self::tei:TEI
-        else if(request:get-parameter('view', '') = 'timeline') then $hits/ancestor-or-self::tei:TEI
+        if(request:get-parameter('view', '') = 'map') then $hits  
+        else if(request:get-parameter('view', '') = 'timeline') then $hits
+        else if(request:get-parameter('alpha-filter', '') != '' 
+        and request:get-parameter('alpha-filter', '') != 'All'
+        and request:get-parameter('alpha-filter', '') != 'ALL'
+        and request:get-parameter('alpha-filter', '') != 'all') then
+            for $hit in $hits
+            let $root := $hit/ancestor-or-self::tei:TEI
+            let $s := 
+                    if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
+                    else if(contains($sort, 'title')) then ft:field($hit, "title")                
+                    else if($collection = 'bibl') then ft:field($hit, "title")
+                    else ft:field($hit, "author")                
+            order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
+            where matches($s,global:get-alpha-filter())
+            return $root
         else
-            for $h in $hits
-            let $s := data:get-sort($h, $sort, $collection)
-            order by $s collation 'http://www.w3.org/2013/collation/UCA'  
-            return $h/ancestor-or-self::tei:TEI           
+            for $hit in $hits
+            let $root := $hit/ancestor-or-self::tei:TEI
+            let $s := 
+                    if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
+                    else if(contains($sort, 'title')) then ft:field($hit, "title")                
+                    else if($collection = 'bibl') then ft:field($hit, "title")
+                    else ft:field($hit, "author")  
+            order by $s[1]  collation 'http://www.w3.org/2013/collation/UCA'
+            return $root
 };
 
 (:~
@@ -202,10 +175,6 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
                     else ft:field($hit, "title")                
             order by $s collation 'http://www.w3.org/2013/collation/UCA'
             return $hit
-        else if($collection = 'bibl') then 
-            for $hit in $hits 
-            order by ft:field($hit, "publicationDate") descending
-            return $hit/ancestor-or-self::tei:TEI
         else 
             for $hit in $hits
             order by ft:score($hit) descending
@@ -420,8 +389,10 @@ declare function data:dynamic-paths($search-config as xs:string?){
             if(request:get-parameter($p, '') != '') then
                 if($p = 'keyword') then
                     data:keyword-search()
+                else if(string($config//input[@name = $p]/@element) = '.') then
+                    concat("[ft:query(.//tei:body,'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
                 else if(string($config//input[@name = $p]/@element) != '') then
-                    concat("[descendant-or-self::",string($config//input[@name = $p]/@element),"[ft:query(.,'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]]") 
+                    concat("[ft:query(.//",string($config//input[@name = $p]/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
                 else ()    
             else (),'')
 };

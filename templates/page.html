@@ -2,53 +2,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-work" lang="en">
     <head>
         <title data-template="app:record-title">App Title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta data-template="config:app-meta" />
-        <link rel="shortcut icon" href="$nav-base/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta data-template="config:app-meta"/>
+        <link rel="shortcut icon" href="$nav-base/favicon.ico"/>
         <!-- Bootstrap 3 -->
-        <link rel="stylesheet" type="text/css"
-            href="$nav-base/resources/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css" />
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css"/>
         <!-- Srophe styles -->
-        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css" />
-        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css" />
-        <link rel="stylesheet" type="text/css" media="print"
-            href="$nav-base/resources/css/print.css" />
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css"/>
+        <link rel="stylesheet" type="text/css" media="print" href="$nav-base/resources/css/print.css"/>
         <!-- Leaflet -->
-        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css" />
-        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.awesome-markers.css" />
-        <link rel="stylesheet" href="$nav-base/resources/leaflet/MarkerCluster.css" />
-        <link rel="stylesheet" href="$nav-base/resources/leaflet/MarkerCluster.Default.css" />
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css"/>
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.awesome-markers.css"/>
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/MarkerCluster.css"/>
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/MarkerCluster.Default.css"/>
         <!-- JQuery -->
-        <link href="$nav-base/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
-        <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/jquery-ui/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/js/jquery.smartmenus.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/js/clipboard.min.js"></script>
+        <link href="$nav-base/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/jquery-ui/jquery-ui.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/js/jquery.smartmenus.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/js/clipboard.min.js"/>
         <!-- Bootstrap -->
-        <script type="text/javascript" src="$nav-base/resources/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="$nav-base/resources/bootstrap/js/bootstrap.min.js"/>
         <!-- ReCaptcha -->
-        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script>
+        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
         <!-- keyboard widget css & script -->
-        <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
-        <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css"
-            rel="stylesheet" />
-        <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet" />
-        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/keyboardSupport.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/syr.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Greek.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Russian.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Arabic.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Hebrew.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-French.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/german.min.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Italian.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/polish.js"></script>
-        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Spanish.js"></script>
+        <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+        <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+        <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/syr.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Greek.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Russian.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Arabic.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Hebrew.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-French.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/german.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Italian.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/polish.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/layouts/ms-Spanish.js"/>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
@@ -89,51 +86,43 @@
         </script>
     </head>
     <body id="body">
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-            data-template="app:fix-links">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#navbar-collapse-1">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
+                    <span class="icon-bar"/>
                 </button>
-                <ul class="nav navbar-nav">
-                    <li><span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
-                            <span class="banner-text"><span data-template="config:collection-title">App Title</span>  <b class="caret"/></span> 
-                        </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li>
-                                <a href="$nav-base/index.html">
-                                    <span class="icon-text">Caesarea-Maritima.org: A Digital Archive</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="$nav-base/testimonia/index.html">
-                                    <span class="icon-text">Caesarea Maritima: A Collection of Testimonia</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="$nav-base/bibl/index.html">
-                                    <span class="icon-text">Caesarea Maritima: A Comprehensive Bibliography</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="$nav-base/documentation/index.html">
-                                    <span class="icon-text">Technical Documentation</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <a class="navbar-brand banner-container" href="$nav-base/index.html">
+                    <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
+                    <span class="banner-text" data-template="config:app-title">App Title</span>
+                </a>
             </div>
             <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="$nav-base/about.html" class="nav-text">About</a>
+                        <a href="$nav-base/index.html" class="nav-text">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
+                                <span class="mobile-submenu">Publications</span>  <b class="caret"/>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="$nav-base/testimonia/index.html">
+                                    <span class="icon-text">A Collection of Testimonia</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="$nav-base/bibl/index.html">
+                                    <span class="icon-text">A Comprehensive Bibliography </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="$nav-base/documentation/index.html" class="nav-text">Documentation </a>
+                            </li>
+                        </ul>
                     </li>
                     <!--
                     <li>
@@ -156,61 +145,44 @@
                 </ul>
             </div>
         </nav>
-        <div id="content" class="text mainContentArea"></div>
+        <div id="content" class="text mainContentArea"/>
         <footer>
             <p class="caveat">Caesarea-Maritima.org is made possible through the generous support of
                 a Discovery Grant from the Office of the Provost of Vanderbilt University
                 (2018-2021) and through the support and collaboration of the following partners:</p>
             <p>
-                <a href="https://as.vanderbilt.edu/classics/">Department of Classical and
+                <a href="https://as.vanderbilt.edu/classics/">The Program in Classical and
                     Mediterranean Studies at Vanderbilt University</a>
             </p>
             <ul class="list-inline funding" style="margin-left:2em;">
                 <li>
-                    <a href="http://www.antiquities.org.il">
-                        <img src="$nav-base/resources/images/IAA-logo_en_he1.png"
-                            alt="Israel Antiquities Authority" height="50px" />
-                    </a>
-                </li>
-                <li>
                     <a href="http://www.vanderbilt.edu/">
-                        <img src="$nav-base/resources/images/vu07b.gif" alt="Vanderbilt University"
-                            height="65px" />
+                        <img src="$nav-base/resources/images/vu07b.gif" alt="Vanderbilt University" height="65px"/>
                     </a>
-                </li>
+                </li>        
                 <li>
                     <a href="https://www.vanderbilt.edu/digitalhumanities/">
-                        <img src="$nav-base/resources/images/2020VUCDHlogo.png"
-                            alt="The Center for Digital Humanities at Vanderbilt University"
-                            height="70px" />
+                        <img src="$nav-base/resources/images/2020VUCDHlogo.png" alt="The Center for Digital Humanities at Vanderbilt University" height="70px"/>
                     </a>
                 </li>
                 <li>
                     <a href="http://www.library.vanderbilt.edu/">
-                        <img src="$nav-base/resources/images/JAH_LIBRARIES.png"
-                            alt="Vanderbilt University Libraries" height="50px" />
-                    </a>
-                </li>
-                <li>
-                    <a href="https://chs.harvard.edu/CHS/article/display/2633"><img
-                        src="$nav-base/resources/images/Sunoikisis.png" alt="Sunoikisis"
-                        height="40px" />
+                        <img src="$nav-base/resources/images/JAH_LIBRARIES.png" alt="Vanderbilt University Libraries" height="50px"/>
                     </a>
                 </li>
                 <li>
                     <a class="poweredby" href="http://srophe.app">
-                        <img src="$nav-base/resources/images/srophe.svg" alt="Srophe" height="50px"
-                        />
+                        <img src="$nav-base/resources/images/srophe.svg" alt="Srophe" height="50px"/>
                     </a>
                 </li>
             </ul>
-            <hr />
+            <hr/>
             <p class="caveat">The statements made herein are solely the responsibility of the
                 authors. Any views, findings, conclusions, or recommendations expressed in this
                 publication do not necessarily reflect those of the sponsors.</p>
         </footer>
     </body>
     <!-- Additional Javascript -->
-    <script type="text/javascript" src="$nav-base/resources/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="$nav-base/resources/js/srophe.js"></script>
+    <script type="text/javascript" src="$nav-base/resources/js/jquery.validate.min.js"/>
+    <script type="text/javascript" src="$nav-base/resources/js/srophe.js"/>
 </html>

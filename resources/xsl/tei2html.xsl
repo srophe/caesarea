@@ -1,7 +1,8 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
-       Copyright 2013 New York University   
+       Copyright 2013 New York University  
        
        This file is part of the Syriac Reference Portal Places Application.
        
@@ -130,7 +131,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    
     <!-- Resource title -->
     <xsl:variable name="resource-title">
         <xsl:apply-templates select="/descendant-or-self::t:titleStmt/t:title[1]"/>
@@ -191,9 +191,7 @@
                                 <span id="show{@xml:id}" class="collapse">
                                 <xsl:copy-of select="$aftertext"/>
                                 </span>
-                                <xsl:if test="not(empty($aftertext//text()))">
-                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
-                                </xsl:if>
+                                <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:apply-templates select="."/>        
@@ -201,10 +199,16 @@
                         </xsl:choose>
                         <xsl:choose>
                             <xsl:when test="t:idno[@xml:base]">
-                                <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                <div class="linkOut">
+                                    <a href="{concat(t:idno/@xml:base,t:idno)}">
+                                        <span class="glyphicon glyphicon-new-window"/>  Browse source text.</a>
+                                </div>
                             </xsl:when>
                             <xsl:when test="t:idno/t:ref[@target]">
-                                <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                <div class="linkOut">
+                                    <a href="{t:idno/t:ref/@target}">
+                                        <span class="glyphicon glyphicon-new-window"/>  Browse source text.</a>
+                                </div>
                             </xsl:when>
                         </xsl:choose>
                     </xsl:for-each>
@@ -228,9 +232,7 @@
                                     <span id="show{@xml:id}" class="collapse">
                                         <xsl:copy-of select="$aftertext"/>
                                     </span>
-                                    <xsl:if test="not(empty($aftertext//text()))">
-                                        <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
-                                    </xsl:if>                                    
+                                    <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:apply-templates select="."/>        
@@ -238,10 +240,16 @@
                             </xsl:choose>
                             <xsl:choose>
                                 <xsl:when test="t:idno[@xml:base]">
-                                    <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                    <div class="linkOut">
+                                        <a href="{concat(t:idno/@xml:base,t:idno)}">
+                                            <span class="glyphicon glyphicon-new-window"/>  Browse source text.</a>
+                                    </div>
                                 </xsl:when> 
                                 <xsl:when test="t:idno/t:ref[@target]">
-                                    <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
+                                    <div class="linkOut">
+                                        <a href="{t:idno/t:ref/@target}">
+                                            <span class="glyphicon glyphicon-new-window"/>  Browse source text.</a>
+                                    </div>
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:for-each>
@@ -249,45 +257,10 @@
                 </xsl:for-each>
             </div>
             <br/>
+            
         </xsl:for-each>
     </xsl:template>
-    <xsl:template match="t:ab" mode="edition">
-        <xsl:variable name="limit" select="3000"/>
-        <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
-        <xsl:choose>
-                <xsl:when test="$wordCount gt $limit">
-                    <xsl:variable name="processed-text">
-                        <xsl:apply-templates/>
-                    </xsl:variable>
-                    <xsl:variable name="text">
-                        <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
-                    </xsl:variable>
-                    <xsl:variable name="aftertext">
-                        <xsl:sequence select="local:truncate-after($processed-text,$limit)"/>    
-                    </xsl:variable>
-                    <xsl:copy-of select="$text"/>  
-                    <span id="show{@xml:id}" class="collapse">
-                        <xsl:copy-of select="$aftertext"/>
-                    </span>
-                    <xsl:if test="not(empty($aftertext//text()))">
-                        <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>                                        
-                    </xsl:if>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="."/>        
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="t:idno[@xml:base]">
-                    <div class="linkOut"><a href="{concat(t:idno/@xml:base,t:idno)}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
-                </xsl:when>
-                <xsl:when test="t:idno/t:ref[@target]">
-                    <div class="linkOut"><a href="{t:idno/t:ref/@target}"><span class="glyphicon glyphicon-new-window"/>  Browse source text.</a></div>
-                </xsl:when>
-            </xsl:choose>
-        
-    </xsl:template>
-    
+      
     <!-- B -->
     <!-- suppress bibl in title mode -->
     <xsl:template match="t:bibl" mode="title"/>
@@ -428,7 +401,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- suppress biblScope in title mode  -->
+    <!-- suppress biblScope in title mode -->
     <xsl:template match="t:biblScope"/>
     <xsl:template match="t:biblStruct">
         <xsl:choose>
@@ -447,7 +420,6 @@
                 <h3>Full Citation Information</h3>
                 <div class="section indent">
                     <xsl:apply-templates mode="full"/>
-                    <xsl:call-template name="idDisplay"/>
                 </div>
             </xsl:when>
             <xsl:otherwise>
@@ -467,11 +439,6 @@
                     <xsl:when test="descendant-or-self::t:ab[@type='translation']">
                         <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="translation"/>                                
                     </xsl:when>
-                    <xsl:when test="descendant-or-self::t:ab[@type='edition']">
-                        <div class="section" style="display:block;">
-                            <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="edition"/>
-                        </div>
-                    </xsl:when>
                     <xsl:otherwise>
                         <div class="section" style="display:block;">
                             <!-- Caesarea customization:  -->
@@ -489,7 +456,7 @@
                     </div>    
                 </xsl:if>
                 <xsl:if test="descendant::t:listBibl">
-<!--                    <xsl:call-template name="sources"/>   -->
+                    <xsl:call-template name="sources"/>   
                 </xsl:if>
             </div>
         </bdi>
@@ -619,9 +586,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
-    <!-- I -->
-    <xsl:template match="t:idno"/>
     
     <!-- L -->
     <xsl:template match="t:location">
@@ -769,24 +733,6 @@
                     <xsl:sequence select="local:add-footnotes(@source,.)"/>
                 </li>
             </xsl:when>
-            <xsl:when test="@type='corrigenda'">
-                <div class="tei-note corrigenda">
-                    <xsl:choose>
-                        <xsl:when test="t:quote">
-                            <xsl:apply-templates/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <span>
-                                <xsl:sequence select="local:attributes(.)"/>
-                                Note: <xsl:apply-templates/>
-                                <!-- Check for ending punctuation, if none, add . -->
-                                <!-- Do not have this working -->
-                            </span>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
-                </div>
-            </xsl:when>
             <xsl:otherwise>
                 <div class="tei-note">  
                     <xsl:choose>
@@ -814,45 +760,43 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Author: </span> <a href="{$nav-base}/testimonia/browse.html?facet-authorTestimonia={encode-for-uri(string-join(t:creation/t:persName[@role='author']//text(),' '))}">
-                     <xsl:value-of select="t:creation/t:persName[@role='author']"/>
+                <span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}">
+                    <xsl:value-of select="t:creation/t:persName[@role='author']"/>
                 </a>
             </li>
             <li>
-                <span class="label">Title: </span> <a href="{$nav-base}/testimonia/browse.html?facet-workTestimonia={t:creation/t:title[@type='uniform']}">
+                <span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}">
                     <xsl:value-of select="t:creation/t:title[@type='uniform']"/>
                 </a>
             </li>
             <li>
-                <span class="label">Citation: </span> <xsl:value-of select="t:creation/t:ref"/>
+                <span class="label">Citation:</span> <xsl:value-of select="t:creation/t:ref"/>
             </li>
             <li>
-                <span class="label">Original Language: </span> <a href="{$nav-base}/testimonia/browse.html?facet-originalLanguage={t:langUsage/t:language}">
+                <span class="label">Original Language:</span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}">
                     <xsl:value-of select="t:langUsage/t:language"/>
                 </a>
             </li>
             <li>
-                <span class="label">Place Composed: </span> <a href="{$nav-base}/testimonia/browse.html?facet-placeComposed={t:creation/t:origPlace}">
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}">
                     <xsl:value-of select="t:creation/t:origPlace"/>
                 </a>
             </li>
             <li>
-                <span class="label">Date Composed: </span>
-                <a href="{$nav-base}/testimonia/browse.html?view=timeline&amp;slideID={$workid}">
+                <span class="label">Date Composed:</span>
+                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}">
                     <xsl:value-of select="normalize-space(t:creation/t:origDate)"/>
                 </a>
             </li> 
             <li>
                 <span class="label">Historical Era Composed:</span>
+                <br/> 
                 <xsl:variable name="cat" select="//t:encodingDesc"/>
                 <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
                     <xsl:variable name="id" select="replace(.,'#','')"/>
-                    <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]//text(),''))"/>
-                    <xsl:if test="$label != ''">
-                        <a href="{$nav-base}/testimonia/browse.html?view=timeline&amp;facet-eraComposed={encode-for-uri($label)}" class="indent">
-                            <xsl:value-of select="normalize-space($label)"/>
-                        </a><br/>                        
-                    </xsl:if>
+                    <a href="{$nav-base}/browse.html?view=timeline&amp;fq=;fq-Historical Era Composed:{encode-for-uri(.)}" class="indent">
+                        <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
+                    </a>
                 </xsl:for-each>
             </li> 
             <li>
@@ -1637,6 +1581,12 @@
             <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>                
             <small>
                 <span class="uri">
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($prev-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
+                    <xsl:text> </xsl:text>
                     <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
                         <span class="srp-label">URI</span>
                     </button>
@@ -1654,6 +1604,12 @@
                         console.log(e);
                         });
                     </script>
+                    <xsl:text> </xsl:text>
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($next-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
                 </span>
                 <xsl:if test="t:seriesStmt/t:biblScope/t:title">
                     <span class="series pull-right" style="margin-left:2em; padding-left:2em; display:inline">
@@ -1885,11 +1841,10 @@
         <div class="well">
             <!-- Sources -->
             <div id="sources">
-               <!--<h3>Bibliography</h3>-->
+                <h3>Bibliography</h3>
                 <xsl:choose>
                     <xsl:when test="t:listBibl">
                         <xsl:for-each select="t:listBibl">
-                            <xsl:if test="t:head"><h3><xsl:value-of select="t:head"/></h3></xsl:if>
                             <ul class="footnote-list">
                                 <xsl:for-each select="t:bibl">
                                     <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
@@ -2436,7 +2391,7 @@
             </xsl:choose>
         </a>
         <xsl:if test="preceding-sibling::*">,</xsl:if>
-        <!--   If footnotes exist call function do-refs pass footnotes and language variables to function -->
+        <!--  If footnotes exist call function do-refs pass footnotes and language variables to function -->
         <xsl:sequence select="local:add-footnotes(@source,.)"/>
     </xsl:template>
     

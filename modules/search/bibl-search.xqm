@@ -87,7 +87,7 @@ declare function bibls:online() as xs:string? {
 :)
 declare function bibls:date-range() as xs:string?{
     if($bibls:start-date != '' and $bibls:end-date != '') then 
-        concat("[descendant::tei:imprint/tei:date[. >='", global:make-iso-date($bibls:start-date),"' and . <= '",global:make-iso-date($bibls:end-date) ,"']]")
+        concat("[descendant::tei:imprint/tei:date[(. >='", global:make-iso-date($bibls:start-date),"') and (. <= '",global:make-iso-date($bibls:end-date) ,"')]]")
     else if($bibls:start-date != ''  and $bibls:end-date = '') then
         concat("[descendant::tei:imprint/tei:date[. >= '",global:make-iso-date($bibls:start-date),"']]")
     else if($bibls:end-date != ''  and $bibls:start-date = '') then
@@ -144,9 +144,7 @@ declare function bibls:search-string(){
                 else if ($parameter = 'author') then 
                     (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}&#160; </span>)
                 else if ($parameter = 'subject-exact') then 
-                    (<span class="param">Subject: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)
-                else if ($parameter = 'StartDate') then () 
-                else if ($parameter = 'EndDate') then () 
+                    (<span class="param">Subject: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
                 else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
             else ()               
 };
@@ -286,22 +284,21 @@ declare function bibls:search-form() {
                 </div>
             </div>  
             <hr/>
-            <div class="indent"> 
-            <h4>Filter by Publication Type</h4>
-            <div class="indent"> 
-            {
-                let $search := collection($config:data-root)//tei:body[ft:query(.,())]
-                let $types := ft:facets($search, "publicationType", ())
-                return 
-                    map:for-each($types, function($label, $count) {
-                            <span class="search-radio">
-                            <input type="checkbox" id="{$label}" name="facet-publicationType" value="{$label}"/>
-                            <label for="{$label}">{functx:capitalize-first(functx:camel-case-to-words($label,' '))}</label>
-                            </span>
-                        })
-                
-            } </div>
+            <div class="form-group">            
+                <label for="idno" class="col-sm-2 col-md-3  control-label">ISBN / DOI / URI: </label>
+                <div class="col-sm-10 col-md-2 ">
+                    <input type="text" id="idno" name="idno" class="form-control"  placeholder="Ex: 3490"/>
+                </div>
             </div>
+            <div class="form-group">     
+                <label for="idno" class="col-sm-2 col-md-3  control-label">Only items viewable online: </label>
+                <div class="col-sm-10 col-md-2 ">
+                    <label class="switch">
+                        <input id="online" name="online" type="checkbox"/>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div> 
         </div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;

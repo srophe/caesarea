@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- =================================================================== -->
     <!-- Helper Functions  -->
@@ -229,29 +229,25 @@
     -->
     <xsl:function name="local:do-dates">
         <xsl:param name="element" as="node()"/>
-        <xsl:if
-            test="$element/@when or $element/@notBefore or $element/@notAfter or $element/@from or $element/@to">
+        <xsl:if test="$element/@when or $element/@notBefore or $element/@notAfter or $element/@from or $element/@to">
             <xsl:choose>
                 <!-- Formats to and from dates -->
                 <xsl:when test="$element/@from">
                     <xsl:choose>
                         <xsl:when test="$element/@to">
-                            <xsl:value-of select="local:trim-date($element/@from)"/>-<xsl:value-of
-                                select="local:trim-date($element/@to)"/>
+                            <xsl:value-of select="local:trim-date($element/@from)"/>-<xsl:value-of select="local:trim-date($element/@to)"/>
                         </xsl:when>
                         <xsl:otherwise>from <xsl:value-of select="local:trim-date($element/@from)"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:when test="$element/@to">to <xsl:value-of
-                        select="local:trim-date($element/@to)"/>
+                <xsl:when test="$element/@to">to <xsl:value-of select="local:trim-date($element/@to)"/>
                 </xsl:when>
             </xsl:choose>
             <!-- Formats notBefore and notAfter dates -->
             <xsl:if test="$element/@notBefore">
                 <!-- Adds comma if there are other dates -->
-                <xsl:if test="$element/@to or $element/@from">, </xsl:if>not before <xsl:value-of
-                    select="local:trim-date($element/@notBefore)"/>
+                <xsl:if test="$element/@to or $element/@from">, </xsl:if>not before <xsl:value-of select="local:trim-date($element/@notBefore)"/>
             </xsl:if>
             <xsl:if test="$element/@notAfter">
                 <!-- Adds comma if there are other dates -->
@@ -261,9 +257,7 @@
             <!-- Formats when, single date -->
             <xsl:if test="$element/@when">
                 <!-- Adds comma if there are other dates -->
-                <xsl:if
-                    test="$element/@to or $element/@from or $element/@notBefore or $element/@notAfter"
-                    >, </xsl:if>
+                <xsl:if test="$element/@to or $element/@from or $element/@notBefore or $element/@notAfter">, </xsl:if>
                 <xsl:value-of select="local:trim-date($element/@when)"/>
             </xsl:if>
         </xsl:if>
@@ -395,29 +389,20 @@
         <xsl:param name="element"/>
         <xsl:param name="label"/>
         <xsl:param name="count"/>
-        <xsl:variable name="element"
-            select="$odd/descendant::t:elementSpec[@ident = name($element)]"/>
+        <xsl:variable name="element" select="$odd/descendant::t:elementSpec[@ident = name($element)]"/>
         <xsl:choose>
             <xsl:when test="$element/descendant::t:valItem[@ident = $label]/t:gloss">
                 <xsl:choose>
-                    <xsl:when
-                        test="$count &gt; 1 and $element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl']">
-                        <xsl:value-of
-                            select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl'][1]"
-                        />
+                    <xsl:when test="$count &gt; 1 and $element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl']">
+                        <xsl:value-of select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'pl'][1]"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:choose>
-                            <xsl:when
-                                test="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg']">
-                                <xsl:value-of
-                                    select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg'][1]"
-                                />
+                            <xsl:when test="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg']">
+                                <xsl:value-of select="$element/descendant::t:valItem[@ident = $label]/t:gloss[@type = 'sg'][1]"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of
-                                    select="$element/descendant::t:valItem[@ident = $label]/t:gloss[1]"
-                                />
+                                <xsl:value-of select="$element/descendant::t:valItem[@ident = $label]/t:gloss[1]"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>

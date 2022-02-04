@@ -105,7 +105,7 @@ let $void-file :=
          xmlns:dcterms="http://purl.org/dc/terms/"
          xmlns:foaf="http://xmlns.com/foaf/0.1/">
             <void:Dataset rdf:about="http://syriaca.org/bibl">
-                <dcterms:title>Syriaca.org: Works Cited RDF Dataset</dcterms:title>
+                <dcterms:title>yriaca.org: Works Cited RDF Dataset</dcterms:title>
                 <dcterms:publisher>Syriaca.org: The Syriac Reference Portal</dcterms:publisher>
                 <foaf:homepage rdf:resource="http://syriaca.org/bibl"/>
                 <dcterms:description>Syriaca.org: Works Cited RDF Dataset is a linked dataset derived from Syriaca.org: Works Cited data set.</dcterms:description>

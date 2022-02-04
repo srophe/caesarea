@@ -249,6 +249,14 @@
     <dateRangeLabel>899-699 BCE</dateRangeLabel>
   </record>
   <record>
+    <catId>ironIic</catId>
+    <catDesc>Iron IIC</catDesc>
+    <notBefore>-0799</notBefore>
+    <notAfter>-0731</notAfter>
+    <calendar>Gregorian</calendar>
+    <dateRangeLabel>799-731 BCE</dateRangeLabel>
+  </record>
+  <record>
     <catId>ironAgeIic</catId>
     <catDesc>Iron Age IIC</catDesc>
     <notBefore>-0699</notBefore>
@@ -263,14 +271,6 @@
     <notAfter>-0331</notAfter>
     <calendar>Gregorian</calendar>
     <dateRangeLabel>585-331 BCE</dateRangeLabel>
-  </record>
-  <record>
-    <catId>classicalPeriod</catId>
-    <catDesc>Classical Period</catDesc>
-    <notBefore>-0480</notBefore>
-    <notAfter>-0336</notAfter>
-    <calendar>Gregorian</calendar>
-    <dateRangeLabel>480-336 BCE</dateRangeLabel>
   </record>
   <record>
     <catId>earlyHellenistic</catId>
@@ -386,11 +386,11 @@
   </record>
   <record>
     <catId>britishTerritorialAdministration</catId>
-    <catDesc>British Territorial Administration</catDesc>
+    <catDesc>British Territorial Administration Period</catDesc>
     <notBefore>1917</notBefore>
     <notAfter>1920</notAfter>
     <calendar>Gregorian</calendar>
-    <dateRangeLabel>1917-1920 CE</dateRangeLabel>
+    <dateRangeLabel>1970-1920 CE</dateRangeLabel>
   </record>
   <record>
     <catId>britishMandate</catId>

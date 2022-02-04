@@ -15,7 +15,7 @@ declare namespace html="http://www.w3.org/1999/xhtml";
  : @param $node data passed to transform
 :)
 declare function global:tei2html($nodes as node()*) {
-  transform:transform(($nodes), doc($config:app-root || '/resources/xsl/tei2html.xsl'), 
+  transform:transform($nodes, doc($config:app-root || '/resources/xsl/tei2html.xsl'), 
     <parameters>
         <param name="data-root" value="{$config:data-root}"/>
         <param name="app-root" value="{$config:app-root}"/>
@@ -32,7 +32,7 @@ declare function global:tei2html($nodes as node()*) {
 :)
 declare function global:tei2html($nodes as node()*, $collection as xs:string?) {
 if($config:get-config//repo:collection[@name=$collection]/@xslt != '') then
-  transform:transform(($nodes), doc($config:app-root || string($config:get-config//repo:collection[@name=$collection]/@xslt)), 
+  transform:transform($nodes, doc($config:app-root || string($config:get-config//repo:collection[@name=$collection]/@xslt)), 
     <parameters>
         <param name="data-root" value="{$config:data-root}"/>
         <param name="app-root" value="{$config:app-root}"/>
@@ -153,7 +153,7 @@ replace(
  : @param $data:sort indicates letter for browse
  :)
 declare function global:get-alpha-filter(){
-let $sort := request:get-parameter('alpha-filter', '')[1]
+let $sort := request:get-parameter('alpha-filter', '')
 return 
         if(request:get-parameter('lang', '') = 'ar') then
             global:ar-sort()
@@ -175,7 +175,7 @@ return
  : Matches Arabic letters and their equivalent letters as established by Syriaca.org
  :)
 declare function global:ar-sort(){
-let $sort := request:get-parameter('alpha-filter', '')[1]
+let $sort := request:get-parameter('alpha-filter', '')
 return 
     if($sort = 'ٱ') then '^(ٱ|ا|آ|أ|إ)'
         else if($sort = 'ٮ') then '^(ٮ|ب)'
@@ -192,23 +192,15 @@ return
 (:~ 
  : Expand dates to make iso dates YYYY-MM-DD 
  :)
-declare function global:make-iso-date($date as xs:string?)  {
-(:xs:date(
+declare function global:make-iso-date($date as xs:string?) as xs:date* {
+xs:date(
     if($date = '0-100') then '0001-01-01'
     else if($date = '2000-') then '2100-01-01'
     else if(matches($date,'\d{4}')) then concat($date,'-01-01')
     else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
     else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
     else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
-    else $date)
-:)    
-    if($date = '0-100') then '0001-01-01'
-    else if($date = '2000-') then '2100-01-01'
-    else if(matches($date,'\d{4}')) then $date
-    else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
-    else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
-    else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
-    else $date
+    else '0100-01-01')
 };
 
 (:~ 

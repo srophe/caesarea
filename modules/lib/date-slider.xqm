@@ -22,17 +22,6 @@ import module namespace global="http://srophe.org/srophe/global" at "global.xqm"
 declare namespace facet="http://expath.org/ns/facet";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $slider:start {
-    if(request:get-parameter('start-date', '')) then request:get-parameter('start-date', '')
-    else if(request:get-parameter('startDate', '')) then request:get-parameter('startDate', '')
-    else ()
-    };
-declare variable $slider:end {
-    if(request:get-parameter('end-date', '')) then request:get-parameter('end-date', '')
-    else if(request:get-parameter('endDate', '')) then request:get-parameter('endDate', '')
-    else ()
-    };
-
 (:
  : Build date filter for date slider. 
  : @param $startDate
@@ -43,18 +32,24 @@ declare function slider:date-filter($collection) {
 let $facet-config := global:facet-definition-file($collection)
 let $slider := $facet-config/descendant-or-self::*[@display = 'slider']
 let $xpath := $slider/facet:group-by/facet:sub-path/text()
-let $startDate := $slider:start
-let $endDate := $slider:end
+let $startDate := 
+               if(request:get-parameter('startDate', '') != '') then
+                    request:get-parameter('startDate', '')
+                else()   
+let $endDate := 
+                if(request:get-parameter('endDate', '') != '') then  
+                     request:get-parameter('endDate', '')
+                else() 
 return 
     if(not(empty($startDate)) and not(empty($endDate))) then
         if($slider != '') then 
             if(starts-with($xpath,'descendant') or starts-with($xpath,'/descendant')) then
-                concat('[',$xpath,'[(. >= "', $startDate,'" and . <= "', $endDate,'")]]')
-            else concat('[descendant::',$xpath,'[(. >= "', $startDate,'" and . <= "', $endDate,'")]]')
+                concat('[',$xpath,'[(. gt "', $startDate,'" and . lt "', $endDate,'")]]')
+            else concat('[descendant::',$xpath,'[(. gt "', $startDate,'" and . lt "', $endDate,'")]]')
         else
            concat('[descendant::tei:state[@type="existence"][
-            (@from >= "', $startDate,'" and @from <= "', $endDate,'") and
-            (@to >= "', $startDate,'" and @to <= "', $endDate,'")
+            (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
+            (@to gt "', $startDate,'" and @to lt "', $endDate,'")
             ]]')
     else ()
 };
@@ -81,8 +76,8 @@ return
     if($year castable as xs:date) then 
          $year
     else if($year castable as xs:gYear) then  
-        concat($year, '-01-02')
-    else if(matches($year,'^0000')) then  '0001-01-02'
+        concat($year, '-01-01')
+    else if(matches($year,'^0000')) then  '0001-01-01'
     else ()
 };
 
@@ -104,8 +99,8 @@ let $d :=
             let $expanded := slider:expand-dates($date) 
             order by xs:date($expanded) 
             return $expanded    
-let $startDate := if($slider:start != '') then $slider:start else $d[1]
-let $endDate := if($slider:end != '') then $slider:end else $d[last()]
+let $startDate := if(request:get-parameter('startDate', '') != '') then request:get-parameter('startDate', '') else $d[1]
+let $endDate := if(request:get-parameter('endDate', '') != '') then request:get-parameter('endDate', '') else $d[last()]
 let $min := if($startDate) then 
                 slider:expand-dates($startDate) 
             else slider:expand-dates(xs:date(slider:expand-dates(string($d[1]))))
@@ -118,11 +113,11 @@ let $params :=
     string-join(
     for $param in request:get-parameter-names()
     return 
-        if($param = 'startDate' or $param = 'endDate' or $param = 'start' or $param = 'start-date' or $param = 'end-date') then ()
+        if($param = 'startDate') then ()
+        else if($param = 'endDate') then ()
+        else if($param = 'start') then ()
         else if(request:get-parameter($param, '') = ' ') then ()
-        else 
-            for $p in request:get-parameter($param, '')
-            return concat('&amp;',$param[1], '=',request:get-parameter($p, '')),'')
+        else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
 return 
 if(not(empty($d))) then
     <div>
@@ -140,7 +135,7 @@ if(not(empty($d))) then
             var maxValue = "]]>{$max}<![CDATA["
             $("#slider").dateRangeSlider({  
                             bounds: {
-                                       min:  new Date(minPadding),
+                                    min:  new Date(minPadding),
                                    	max:  new Date(maxPadding)
                                    	},
                             defaultValues: {min: new Date(minValue), max: new Date(maxValue)},
@@ -150,8 +145,7 @@ if(not(empty($d))) then
     		        		     return year;
     		        		}
                 });
-            console.log('minValue:' + minValue);
-            
+                
                 $("#slider").bind("userValuesChanged", function(e, data){
                     var url = window.location.href.split('?')[0];
                     var minDate = data.values.min.toISOString().split('T')[0]

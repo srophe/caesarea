@@ -26,18 +26,9 @@ import module namespace bibls="http://srophe.org/srophe/bibls" at "bibl-search.x
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (: Variables:)
-declare variable $search:perpage { 
-    if(request:get-parameter('perpage', 20)[1]) then 
-        if(request:get-parameter('perpage', 20)[1] castable as xs:integer) then request:get-parameter('perpage', 20)[1] cast as xs:integer
-        else 20
-    else 20
-    };
-declare variable $search:start { 
-    if(request:get-parameter('start', 1)[1]) then 
-        if(request:get-parameter('start', 1)[1] castable as xs:integer) then request:get-parameter('start', 1)[1] cast as xs:integer
-        else 1
-    else 1
-    };    
+declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
+declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
+
 (:~
  : Builds search result, saves to model("hits") for use in HTML display
 :)
@@ -158,21 +149,10 @@ declare function search:build-form($search-config) {
     let $config := doc($search-config)
     return 
         <form method="get" class="form-horizontal indent" role="form">
-            <h1 class="search-header">{if($config//label != '') then $config//label//text() else 'Search'}</h1>
+            <h1 class="search-header">{if($config//label != '') then $config//label else 'Search'}</h1>
             {if($config//desc != '') then 
                 <p class="indent info">{$config//desc}</p>
-            else(),
-            (<button type="button" class="btn btn-info pull-right clearfix search-button" data-toggle="collapse" data-target="#searchTips">
-                        Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>,                       
-                    if($config//search-tips != '') then
-                        <div class="panel panel-default collapse" id="searchTips">
-                            <div class="panel-body">
-                            <h3 class="panel-title">Search Tips</h3>
-                            {$config//search-tips}
-                            </div>
-                        </div>
-                    else if(doc-available($config:app-root || '/searchTips.html')) then doc($config:app-root || '/searchTips.html')
-                    else ())
+            else() 
             }
             <div class="well well-small search-box">
                 <div class="row">
@@ -276,28 +256,12 @@ declare function search:default-search-form() {
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-let $config-path := 
-    if($collection != '') then
-        if(string(config:collection-vars($collection)/@app-root) != '') then 
-            concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
-        else concat($config:app-root, '/', $collection,'/','search-config.xml')
-    else concat($config:app-root, '/','search-config.xml')
-let $search-config :=
-    if(doc-available($config-path)) then
-        $config-path
-    else ()
-let $collection-data := 
-    if(string(config:collection-vars($collection)/@data-root) != '') then 
-        string(config:collection-vars($collection)/@data-root)
-    else ()
-return 
+let $search-config := concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
+let $collection-data := string(config:collection-vars($collection)/@data-root)
+return
     if($collection != '') then 
         if(doc-available($search-config)) then 
-           concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",
-           facet:facet-filter(global:facet-definition-file($collection)),
-           slider:date-filter(()),
-           search:placeName(),
-           data:dynamic-paths($search-config))
+           concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),slider:date-filter(()),data:dynamic-paths($search-config))
         else if($collection = 'places') then  
             concat("collection('",$config:data-root,"')//tei:TEI",
             facet:facet-filter(global:facet-definition-file($collection)),
@@ -328,12 +292,4 @@ return
         data:element-search('bibl',request:get-parameter('bibl', '')),
         data:uri()
         )
-};
-
-(:Caesarea search elements :)
-
-declare function search:placeName() as xs:string? {
-    if(request:get-parameter('placeName', '') != '') then 
-        concat("[descendant::tei:placeName[ft:query(.,'",data:clean-string(request:get-parameter('placeName', '')),"',data:search-options())] or descendant::tei:origPlace[ft:query(.,'",data:clean-string(request:get-parameter('placeName', '')),"',data:search-options())]]")
-    else ()  
 };

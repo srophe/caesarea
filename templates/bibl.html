@@ -97,36 +97,10 @@
                     <span class="icon-bar"/>
                     <span class="icon-bar"/>
                 </button>
-                <ul class="nav navbar-nav">
-                    <li><span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
-                            <span class="banner-text"><span data-template="config:collection-title" data-template-collection="bibl">App Title</span>  <b class="caret"/></span> 
-                        </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li>
-                                <a href="$nav-base/index.html">
-                                    <span class="icon-text">Caesarea-Maritima.org: A Digital Archive</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="$nav-base/testimonia/index.html">
-                                    <span class="icon-text">Caesarea Maritima: A Collection of Testimonia</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="$nav-base/bibl/index.html">
-                                    <span class="icon-text">Caesarea Maritima: A Comprehensive Bibliography</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="$nav-base/documentation/index.html">
-                                    <span class="icon-text">Technical Documentation</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <a class="navbar-brand banner-container" href="$nav-base/index.html"> 
+                    <span class="syriaca-icon syriaca-syriaca banner-icon" data-template="app:logo"/>
+                    <span class="banner-text" data-template="config:collection-title" data-template-collection="bibl">App Title</span>
+                </a>
             </div>
             <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -135,6 +109,26 @@
                     </li>
                     <li>
                         <a href="$nav-base/bibl/browse.html" class="nav-text">Browse</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
+                            <span class="mobile-submenu">Publications</span>  <b class="caret"/>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li>
+                                <a href="$nav-base/testimonia/index.html">
+                                    <span class="icon-text">A Collection of Testimonia</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="$nav-base/bibl/index.html">
+                                    <span class="icon-text">A Comprehensive Bibliography </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="$nav-base/documentation/index.html" class="nav-text">Documentation </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="$nav-base/bibl/search.html" class="nav-text">Advanced Search</a>
@@ -167,31 +161,26 @@
             <ul class="list-inline funding" style="margin-left:2em;">
                 <li>
                     <a href="http://www.vanderbilt.edu/">
-                        <img src="$nav-base/resources/images/vu07b.gif" alt="Vanderbilt University"
-                            height="65px" />
+                        <img src="$nav-base/resources/images/vu07b.gif" alt="Vanderbilt University" height="65px"/>
                     </a>
                 </li>        
                 <li>
                     <a href="https://www.vanderbilt.edu/digitalhumanities/">
-                        <img src="$nav-base/resources/images/2020VUCDHlogo.png"
-                            alt="The Center for Digital Humanities at Vanderbilt University"
-                            height="70px" />
+                        <img src="$nav-base/resources/images/2020VUCDHlogo.png" alt="The Center for Digital Humanities at Vanderbilt University" height="70px"/>
                     </a>
                 </li>
                 <li>
                     <a href="http://www.library.vanderbilt.edu/">
-                        <img src="$nav-base/resources/images/JAH_LIBRARIES.png"
-                            alt="Vanderbilt University Libraries" height="50px" />
+                        <img src="$nav-base/resources/images/JAH_LIBRARIES.png" alt="Vanderbilt University Libraries" height="50px"/>
                     </a>
                 </li>
                 <li>
                     <a class="poweredby" href="http://srophe.app">
-                        <img src="$nav-base/resources/images/srophe.svg" alt="Srophe" height="50px"
-                        />
+                        <img src="$nav-base/resources/images/srophe.svg" alt="Srophe" height="50px"/>
                     </a>
                 </li>
             </ul>
-            <hr />
+            <hr/>
             <p class="caveat">The statements made herein are solely the responsibility of the
                 authors. Any views, findings, conclusions, or recommendations expressed in this
                 publication do not necessarily reflect those of the sponsors.</p>

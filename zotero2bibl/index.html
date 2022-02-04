@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title data-template="config:app-title">Covert Zotero Bibliography to TEI</title>
+        <title data-template="config:app-title">Srophe CTS URNs resolver</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta data-template="config:app-meta"/>
         <link rel="shortcut icon" href="$shared/resources/images/exist_icon_16x16.ico"/>
@@ -15,8 +16,8 @@
             $(document).ready(function () {
                 $('#loadingmessage').hide();
                 $('#zoteroResults').load('get-zotero-data.xql');
-                 
-                $(document).on("click", '.zotero', function(event) { 
+                      
+                $('.zotero').click(function(event) {
                     event.preventDefault();
                     var url = $(this).attr("href");
                     $('#loadingmessage').show();
@@ -30,7 +31,11 @@
                                $("#zoteroResults").html(data);
                           }
                       });
+                      
+                    //$("#zoteroResults").load(url);
+                    
                 });
+                
             });
         </script>
     </head>
@@ -72,7 +77,9 @@
                             <ul>
                                 <li>Add your Zotero group id</li>
                                 <li>Specify Zotero export format, TEI or JSON <br/>
-                                    <span class="small"><em>JSON will allow access to notes and tags. Note and tag rendering maybe repository specific and may need serialization may need to be changed in zotero2tei.xqm to match your needs.</em></span>
+                                    <span class="small">
+                                        <em>JSON will allow access to notes and tags. Note and tag rendering maybe repository specific and may need serialization may need to be changed in zotero2tei.xqm to match your needs.</em>
+                                    </span>
                                 </li>
                                 <li>
                                     Add the path to the data directory where you want to store Zotero bibliographic records in eXist.<br/>

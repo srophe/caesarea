@@ -1,4 +1,5 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
        citation.xsl
@@ -68,7 +69,7 @@
     <xsl:template match="t:titleStmt" mode="cite-biblist">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',10)"/>
+        <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',1)"/>
         <xsl:text>, </xsl:text>
         
         <!-- title of the entry -->
@@ -78,19 +79,15 @@
         
         <!-- monographic title -->
         <xsl:text> In </xsl:text>
-        <!-- Hardcoded according to: https://github.com/srophe/caesarea/issues/191#event-4177004183 -->
-        <span class="title-monographic">Caesarea Maritima: A Collection of Testimonia.</span> 
-        <xsl:text> Edited by Joseph L. Rife, Phillip I. Lieberman, and David A. Michelson. Technical design by David A. Michelson and William L. Potter. Nashville, TN: Caesarea City and Port Exploration Project, 2020.</xsl:text> 
-        <!-- 
         <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
-        -->
-        <!--<!-\- general editors -\->
+        
+        <!-- general editors -->
         <xsl:text>, edited by </xsl:text>
-        <!-\- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -\->
+        <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',20)"/>
         <xsl:text>.</xsl:text>
         <xsl:for-each select="../descendant::t:seriesStmt[1]">
-            <!-\- Add Series and Volumn -\->
+            <!-- Add Series and Volumn -->
             <xsl:if test="t:biblScope[1]/@unit='vol'">
                 <xsl:text> </xsl:text>
                 <xsl:text>Vol. </xsl:text>
@@ -98,9 +95,9 @@
                 <xsl:text> of </xsl:text>
                 <xsl:value-of select="../descendant::t:seriesStmt[1]/t:title[@level='s'][1]"/>
             </xsl:if>
-            <!-\- general editors -\->
+            <!-- general editors -->
             <xsl:text>, edited by </xsl:text>
-            <!-\- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -\->
+            <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',1)"/>
             <xsl:text>.</xsl:text>
         </xsl:for-each>
@@ -115,7 +112,7 @@
                     <xsl:value-of select="."/>.
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:for-each>-->
+        </xsl:for-each>
         <!-- publication date statement -->
         <xsl:text> Entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">

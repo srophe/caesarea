@@ -30,7 +30,7 @@
     position:relative;
     margin-top:-1em;
     padding-top:0;
-	background-image:url('../images/banner.jpg');
+	background-image:url('../images/banner.jpeg');
 	background-size:cover;
 	background-position:top;
     height:250px;
@@ -38,9 +38,8 @@
     border-bottom:4px solid #aa0000ff;
 }
 .banner-container {display:inline-block; line-height:2.5em;}
-/*.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}*/
-.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font-size:1.5em;}
-.banner-icon img{height:50px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:.15em .5em 0 .5em; padding:0;}
+.banner-text {color: #888; display:inline-block; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+.banner-icon img{height:50px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
 
 .bg-light {
   background-color: rgb(248,249,250, .85);
@@ -186,16 +185,11 @@ ul.footnote-list {margin-bottom: 1.5em;}
 .geo-home #map {border-bottom:4px solid #aa0000ff}
 
 /* H */
-h1, h2, h3, h4, .navbar { 
-    font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;  
-    font-style: normal; 
-    font-variant: normal; 
-}    
 .home-page-text {
     color:white; font-size:1.75em; margin-top:2em;
     font-weight:200;
     background: rgb(34,34,34); /* for IE */
-    background: rgba(34,34,34,0.4);
+    background: rgba(34,34,34,0.55);
     color: white; 
     padding: 2.75em 2em 2em;
     display:block;
@@ -208,14 +202,21 @@ h1, h2, h3, h4, .navbar {
     position:relative;
     margin:0;
     padding:0;
-	background-image:url('../images/banner.jpg');
+	background-image:url('../images/banner.jpeg');
 	background-size:cover;
-	background-position:bottom;
+	background-position:top;
     min-height:325px;
     width:100%;
     position:relative
 }
 
+.feature {
+    padding:1em;
+    height: 200px;
+}
+.feature .glyphicon {font-size:1.5em; color:#777; vertical-align: bottom;}
+.feature h3 {font-size:1.25em;}
+.feature p {margin:1em 2em;}
 /* I */
 .indent {margin-left: 1em;}
 img{ margin:0px }
@@ -235,10 +236,6 @@ img{ margin:0px }
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
-#infoBox {
-    word-wrap: break-word;
-}
-#infoBox .label {padding:0;}
 
 /* K */
 .keboard-btn {margin-left:-1em;}
@@ -297,7 +294,7 @@ img{ margin:0px }
 
 /* N */
 /* Navbar styles*/
-.navbar {padding:0 2em; border-bottom:4px solid #aa0000ff !important; font-size:1.15em;}
+.navbar {padding:0 2em; border-bottom:4px solid #aa0000ff !important;}
 .navbar .dropdown {margin-top:.65em; margin-left: 1.5em;}
 .navbar {border-bottom:4px solid #aa0000ff !important;}
 .navbar-inner {border-bottom:.5em solid #aa0000ff !important;}
@@ -375,7 +372,6 @@ img{ margin:0px }
 .param {font-weight:500;}
 .param-string {margin-right:.75em;}
 /* API documentation */
-.param {font-weight:bold; color: #666;}
 pre code {
 	line-height: 1.6em;
 	font-size: 11px;
@@ -409,8 +405,6 @@ pre {
     color: #666;
 }
 
-.search-radio {display:inline-block; margin:1em;}
-.search-radio label {padding-left: .5em; margin:0;}
 #sources ul {
 	list-style-type: none;
 	padding-left: -0.1em;
@@ -523,15 +517,7 @@ h4.slider {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
-.tei-note.corrigenda {
-    display:block;
-    margin:1em 0;
-    border-top: 1px solid grey;
-    font-style: italic;
-}
-.tei-text .collapse.in {
-    display: inline-block;
-}
+
 .tei-quote .tei-placeName {color: #6699cc; font-weight:bold;}
 /*.tei-title > .tei-title {font-style:italic;} */
 .top-padding {margin-top:4.5em !important;}
@@ -597,11 +583,6 @@ h4.slider {
 .historical-era-label.selected{background:#ddd;}
 .historical-era-label .dateLabel{color:#666;}
 
-
-.feature .glyphicon {font-size:1.5em; color:#777; vertical-align: bottom;}
-.feature h3 {font-size:1.25em;}
-.feature p {margin:1em 2em;}
-
 .feature {
     text-align:center;
     position:relative;
@@ -609,10 +590,10 @@ h4.slider {
     padding:0;
     border: 1px solid grey;
 	border-radius: 25px !important;
-	min-height: 300px;  
+	min-height:250px;  
 }
 .featureTestemonia .featureBanner{
-    min-height:125px; 
+    min-height:75px; 
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     background-size:cover;
@@ -621,17 +602,17 @@ h4.slider {
     border-bottom:4px solid grey;
 }
 .featureBibl .featureBanner{
-    min-height:125px;
+    min-height:75px;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
-    background-size:cover;
+background-size:cover;
 	background-position:top;    
-    background-image:url('../images/banner-bibl.jpg');
+    background-image:url('../images/featureBibl.jpg');
     border-bottom:4px solid grey;
 }
 
 .feature-text {
-    padding: 1em 1.5em;
+    padding: 1em;
     margin-top:0;
     display:block;
 }
@@ -664,6 +645,3 @@ h4.slider {
      }
 .map-overlay .filter-label {font-size: 14px !important; font-weight: 600; color:#333;}
 .map-overlay .facetDefinition h4 {font-size: 12px !important; font-weight: 600; color:#333; margin-bottom: .25em;}
-
-/* Caesarea */
-.rightBorder {border-right: 1px solid #eee;}

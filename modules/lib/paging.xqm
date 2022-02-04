@@ -27,16 +27,8 @@ declare function page:pages(
     $perpage as xs:integer?, 
     $search-string as xs:string*,
     $sort-options as xs:string*){
-let $perpage := 
-    if($perpage) then 
-        if($perpage castable as xs:integer) then $perpage cast as xs:integer
-        else 20
-    else 20
-let $start := 
-    if($start) then 
-        if($start castable as xs:integer) then $start cast as xs:integer
-        else 1
-    else 1
+let $perpage := if($perpage) then xs:integer($perpage) else 20
+let $start := if($start) then $start else 1
 let $total-result-count := count($hits)
 let $end := 
     if ($total-result-count lt $perpage) then 
@@ -46,16 +38,7 @@ let $end :=
 let $number-of-pages :=  xs:integer(ceiling($total-result-count div $perpage))
 let $current-page := xs:integer(($start + $perpage) div $perpage)
 (: get all parameters to pass to paging function, strip start parameter :)
-let $url-params := 
-        string-join(
-            for $param at $i in request:get-parameter-names()
-            return 
-                if($param = 'start') then ()
-                else 
-                    for $p in request:get-parameter($param, '')
-                    where $p 
-                    return if($i = 1) then concat($param, '=',$p) else concat('&amp;',$param, '=',$p),'')
-(: let $url-params := replace(replace(request:get-query-string(), '&amp;start=\d+', ''),'start=\d+',''):)
+let $url-params := replace(replace(request:get-query-string(), '&amp;start=\d+', ''),'start=\d+','')
 let $param-string := if($url-params != '') then concat('?',$url-params,'&amp;start=') else '?start='        
 let $pagination-links := 
     (<div class="row alpha-pages" xmlns="http://www.w3.org/1999/xhtml">
@@ -151,10 +134,9 @@ declare function page:sort($param-string as xs:string?, $start as xs:integer?, $
             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                 {
                     for $option in tokenize($options,',')
-                    let $optionParam := if($option = 'author/Editor') then 'author' else $option
                     return 
                     <li role="presentation">
-                        <a role="menuitem" tabindex="-1" href="{concat(replace($param-string,'&amp;sort-element=(\w+)', ''),$start,'&amp;sort-element=',$optionParam)}" id="rel">
+                        <a role="menuitem" tabindex="-1" href="{concat(replace($param-string,'&amp;sort-element=(\w+)', ''),$start,'&amp;sort-element=',$option)}" id="rel">
                             {
                                 if($option = 'pubDate' or $option = 'persDate') then 'Date'
                                 else if($option = 'pubPlace') then 'Place of publication'
@@ -179,16 +161,12 @@ declare function page:display-search-params($collection as xs:string?){
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
     return 
-        for $p in request:get-parameter($parameter, '')
-        return 
-            if($p != '') then
-                if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'startDate' or $parameter = 'endDate') then ()
-                else if(starts-with($parameter,'facet-')) then
-                    (<span class="param">{functx:capitalize-first(functx:camel-case-to-words(replace($parameter,'facet-',''),' '))}: </span>,<span class="match">{functx:capitalize-first(functx:camel-case-to-words($p, ' '))}&#160;</span>)
-                else if($parameter = ('q','keyword')) then 
-                    (<span class="param">Keyword: </span>,<span class="match">{$p}&#160;</span>)
-                else (<span class="param">{functx:capitalize-first(functx:camel-case-to-words($parameter, ' '))}: </span>,<span class="match">{functx:capitalize-first(functx:camel-case-to-words($p, ' '))}&#160; </span>)    
-            else ()
-)}
+        if(request:get-parameter($parameter, '') != '') then
+            if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'fq') then ()
+            else if($parameter = ('q','keyword')) then 
+                (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
+        else ())
+        }
 </span>
 };

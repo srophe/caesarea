@@ -28,7 +28,7 @@ declare function timeline:timeline($data as node()*, $title as xs:string*){
 (: Test for valid dates json:xml-to-json() May want to change some css styles for font:)
 if($data/descendant-or-self::*[@when or @to or @from or @notBefore or @notAfter]) then 
     <div class="timeline">
-        <script type="text/javascript" src="{$config:nav-base}/resources/timelinejs/storyjs-embed.js"/>
+        <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"/>
         <script type="text/javascript">
         <![CDATA[
             $(document).ready(function() {
@@ -57,7 +57,7 @@ declare function timeline:timeline($data as node()*, $title as xs:string*, $xpat
 (: Test for valid dates json:xml-to-json() May want to change some css styles for font:)
 if($data/descendant-or-self::*[@when or @to or @from or @notBefore or @notAfter]) then 
     <div class="timeline">
-        <script type="text/javascript" src="{$config:nav-base}/resources/timelinejs/js/storyjs-embed.js"/>
+        <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"/>
         <script type="text/javascript">
         <![CDATA[
             $(document).ready(function() {
@@ -153,8 +153,8 @@ let $dates :=
             <headline>{$timeline-title}</headline>
             <type>default</type>
             <asset>
-                <media>{$config:app-title}</media>
-                <credit>{$config:app-title}</credit>
+                <media>syriaca.org</media>
+                <credit>Syriaca.org</credit>
                 <caption>Events for {$timeline-title}</caption>
             </asset>
             <date>
