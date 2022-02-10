@@ -596,7 +596,7 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
                 <li>{$p[1]/text()}
                     <ul>
                         <li><a href="{$placeID}">Pleiades Gazetteer Entry</a></li>
-                        <li><a href="{concat('https://peripleo.pelagios.org/ui#selected=',$placeID)}">Search Peripleo Linked Data</a></li>
+                        <li><a href="{concat('https://peripleo.pelagios.org/ui#selected=',$placeID[1])}">Search Peripleo Linked Data</a></li>
                     </ul>
                 </li>,
             for $a in $persons
