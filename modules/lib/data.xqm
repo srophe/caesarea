@@ -7,7 +7,6 @@ module namespace data="http://srophe.org/srophe/data";
 
 import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
-import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
 import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
 import module namespace slider = "http://srophe.org/srophe/slider" at "date-slider.xqm";
 import module namespace functx="http://www.functx.com";

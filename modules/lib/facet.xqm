@@ -19,7 +19,6 @@ xquery version "3.1";
  
 module namespace facet = "http://expath.org/ns/facet";
 import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
-import module namespace functx="http://www.functx.com";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 (: External facet parameters :)
