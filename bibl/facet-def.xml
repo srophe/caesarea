@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="publicationDate" label="Publication Date" display="slider">
         <group-by>
             <sub-path>descendant::tei:biblStruct/descendant::tei:imprint/tei:date</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
-        <order-by direction="descending">order</order-by>
+        <order-by direction="descending">value</order-by>
     </facet-definition>
     <facet-definition name="subjects" label="Subjects">
         <group-by>
