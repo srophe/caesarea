@@ -593,27 +593,27 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
             for $p in $places
             group by $placeID := $p/@ref
             return
-                <li>{$p[1]/text()}
+                <li>{string-join($p[1]//text())}
                     <ul>
                         <li><a href="{$placeID}">Pleiades Gazetteer Entry</a></li>
-                        <li><a href="{concat('https://peripleo.pelagios.org/ui#selected=',$placeID)}">Search Peripleo Linked Data</a></li>
+                        <li><a href="{concat('https://peripleo.pelagios.org/ui#selected=',$placeID[1])}">Search Peripleo Linked Data</a></li>
                     </ul>
                 </li>,
-            for $a in $persons
-            group by $persID := $a/@ref
-            return 
-                <li>{$a[1]/text()}
-                    <ul>
-                        <li><a href="{$persID}">VIAF Entry</a></li>
-                        <li><a href="{concat('https://www.worldcat.org/identities/find?fullName=',$a[1]/text())}">Search WorldCat Identities</a></li>
-                    </ul>
-                </li>,
-            if($bibl) then
+                for $a in $persons
+                group by $persID := $a/@ref
+                return 
+                    <li>{string-join($a[1]//text())}
+                        <ul> 
+                            <li><a href="{$persID[1]}">VIAF Entry</a></li>
+                            <li><a href="{concat('https://www.worldcat.org/identities/find?fullName=',string-join($a[1]/text(),''))}">Search WorldCat Identities</a></li>
+                        </ul>
+                    </li>,
+                if($bibl) then
                 <li>Bibliography
                     <ul>{
                         for $b in $bibl
                         group by $biblID := $b/tei:ptr/@target
-                        let $rec := collection($config:data-root)//tei:idno[. = concat($biblID,'/tei')]/ancestor::tei:TEI
+                        let $rec := collection($config:data-root)//tei:idno[. = concat($biblID[1],'/tei')]/ancestor::tei:TEI
                         let $title := $rec/descendant::tei:title[1]/text()
                         let $zoteroURI := $rec/descendant::tei:idno[@type='URI'][starts-with(.,'https://www.zotero.org/')][1]
                         return 
@@ -624,7 +624,6 @@ declare %templates:wrap function app:linkedData($node as node(), $model as map(*
                     }</ul>
                 </li>
             else ()
-                
         )}</ul>
         </div>
     </div>
