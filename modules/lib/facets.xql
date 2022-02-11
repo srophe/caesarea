@@ -31,7 +31,7 @@ declare variable $sf:QUERY_OPTIONS := map {
     "filter-rewrite": "yes"
 };
 (: Add sort fields to browse and search options. Used for sorting, add sort fields and functions, add sort function:)
-declare variable $sf:sortFields := map { "fields": ("title", "author") };
+declare variable $sf:sortFields := map { "fields": ("title", "author","pubDate") };
 
 (:~ 
  : Build indexes for fields and facets as specified in facet-def.xml and search-config.xml files
@@ -60,6 +60,7 @@ declare function sf:build-index(){
                 <!-- Predetermined sort fields -->               
                 <field name="title" expression="sf:field(descendant-or-self::tei:body,'title')"/>
                 <field name="author" expression="sf:field(descendant-or-self::tei:body, 'author')"/>
+                <field name="pubDate" expression="sf:field(descendant-or-self::tei:body, 'pubDate')"/>
             </text>
             <text qname="tei:fileDesc"/>
             <text qname="tei:biblStruct"/>
@@ -498,19 +499,29 @@ declare function sf:facet-title($element as item()*, $facet-definition as item()
 (: Author field :)
 declare function sf:field-author($element as item()*, $name as xs:string){
     if($element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct) then 
-        if($element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:author[1]/descendant-or-self::tei:surname) then
-            concat($element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:author[1]/descendant-or-self::tei:surname, ',',  
-                $element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:author[1]/descendant-or-self::tei:forename)
-        else if($element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:editor[1]/descendant-or-self::tei:surname) then 
-               concat($element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:author[1]/descendant-or-self::tei:surname, ',',  
-                $element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:author[1]/descendant-or-self::tei:forename)
-        else  $element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct/descendant::tei:author
+        for $author in $element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:author | 
+        $element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:editor
+        let $name := 
+            if($author/descendant-or-self::tei:surname) then 
+                normalize-space(concat($author/descendant-or-self::tei:surname, if($author/descendant-or-self::tei:forename) then concat(', ',$author/descendant-or-self::tei:forename) else ()))  
+            else normalize-space(string-join($author//text(),' '))
+        return if($name != '') then $name else ()    
     else if($element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref) then
         let $value := $element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref
         return $value/parent::*[1][@ref=$value]//text() 
     else if($element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']) then 
         $element/ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']
     else $element/ancestor-or-self::tei:TEI/descendant::tei:titleStmt/descendant::tei:author
+};
+
+(: Author field :)
+declare function sf:field-pubDate($element as item()*, $name as xs:string){
+    if($element/ancestor-or-self::tei:TEI/descendant::tei:biblStruct) then 
+        for $date in $element/ancestor-or-self::tei:TEI/descendant::tei:body/tei:biblStruct/descendant-or-self::tei:imprint/tei:date
+        let $regex := "\d{4}"
+        let $d := analyze-string($date, $regex)//*:match//text()
+        return if($d != '') then $d else ()    
+    else ()
 };
 
 (:~

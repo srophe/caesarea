@@ -122,26 +122,44 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         else if(request:get-parameter('alpha-filter', '') != '' 
         and request:get-parameter('alpha-filter', '') != 'All'
         and request:get-parameter('alpha-filter', '') != 'ALL'
+        and request:get-parameter('alpha-filter', '') != 'all' and contains($sort, 'pubDate')) then
+            for $hit in $hits
+            let $root := $hit/ancestor-or-self::tei:TEI
+            let $s :=  ft:field($hit, "pubDate")            
+            order by $s[1] descending collation 'http://www.w3.org/2013/collation/UCA' 
+            where matches($s,global:get-alpha-filter())
+            return $root
+        else if(request:get-parameter('alpha-filter', '') != '' 
+        and request:get-parameter('alpha-filter', '') != 'All'
+        and request:get-parameter('alpha-filter', '') != 'ALL'
         and request:get-parameter('alpha-filter', '') != 'all') then
             for $hit in $hits
             let $root := $hit/ancestor-or-self::tei:TEI
             let $s := 
                     if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
-                    else if(contains($sort, 'title')) then ft:field($hit, "title")                
+                    else if(contains($sort, 'title')) then ft:field($hit, "title")
+                    else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
                     else if($collection = 'bibl') then ft:field($hit, "title")
                     else ft:field($hit, "author")                
             order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
             where matches($s,global:get-alpha-filter())
+            return $root
+        else if(contains($sort, 'pubDate')) then 
+            for $hit in $hits
+            let $root := $hit/ancestor-or-self::tei:TEI
+            let $s :=  ft:field($hit, "pubDate") 
+            order by $s[1] descending collation 'http://www.w3.org/2013/collation/UCA' 
             return $root
         else
             for $hit in $hits
             let $root := $hit/ancestor-or-self::tei:TEI
             let $s := 
                     if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
-                    else if(contains($sort, 'title')) then ft:field($hit, "title")                
+                    else if(contains($sort, 'title')) then ft:field($hit, "title") 
+                    else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
                     else if($collection = 'bibl') then ft:field($hit, "title")
                     else ft:field($hit, "author")  
-            order by $s[1]  collation 'http://www.w3.org/2013/collation/UCA'
+            order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
             return $root
 };
 
@@ -167,6 +185,7 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
             let $s := 
                     if(contains($sort, 'author')) then ft:field($hit, "author")[1]
                     else if($sort = 'title') then ft:field($hit, "title")
+                    else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
                     else if($sort != '' and $sort != 'title' and not(contains($sort, 'author'))) then
                         if($collection = 'bibl') then
                             data:add-sort-options-bibl($hit, $sort)
