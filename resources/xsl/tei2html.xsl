@@ -433,6 +433,13 @@
         <bdi>
             <div class="body">
                 <xsl:sequence select="local:attributes(.)"/>
+                <!-- Add Caesarea desc @type="context" -->
+                <xsl:if test="t:desc[@type='context']">
+                    <h4>Context</h4>
+                    <blockquote class="indent">
+                        <xsl:apply-templates select="t:desc[@type='context']"/>
+                    </blockquote>
+                </xsl:if>
                 <!-- Caesarea customiztion for parallel views -->
                 <xsl:choose>
                     <xsl:when test="descendant-or-self::t:ab[@type='translation']">
@@ -761,6 +768,47 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!-- Main page modules for syriaca.org display -->
+    <xsl:template match="t:note" mode="footnote">
+        <p class="footnote-text">
+            <xsl:if test="@n">
+                <xsl:attribute name="id" select="concat('note',@n)"/>
+                <span class="notes footnote-refs">
+                    <span class="footnote-ref">‎<xsl:value-of select="@n"/>
+                    </span> </span>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="t:quote">
+                    <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:when test="t:p">
+                    <xsl:for-each select="t:p">
+                        <span>
+                            <xsl:sequence select="local:attributes(.)"/>
+                            <xsl:apply-templates/>
+                        </span>                        
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span>
+                        <xsl:sequence select="local:attributes(.)"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:add-footnotes(@source,.)"/>
+            </xsl:if>
+        </p>   
+    </xsl:template>
+    <xsl:template match="t:note" mode="abstract">
+        <p>
+            <xsl:apply-templates/>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:add-footnotes(@source,.)"/>
+            </xsl:if>
+        </p>
+    </xsl:template>
     
     <!-- P -->
     <!-- Caesrea customization -->
@@ -824,48 +872,7 @@
     </xsl:template>
     <xsl:template match="t:publicationStmt | t:encodingDesc"/>
     
-    <!-- Main page modules for syriaca.org display -->
-    <xsl:template match="t:note" mode="footnote">
-        <p class="footnote-text">
-            <xsl:if test="@n">
-                <xsl:attribute name="id" select="concat('note',@n)"/>
-                <span class="notes footnote-refs">
-                    <span class="footnote-ref">‎<xsl:value-of select="@n"/>
-                    </span> </span>
-            </xsl:if>
-            <xsl:choose>
-                <xsl:when test="t:quote">
-                    <xsl:apply-templates/>
-                </xsl:when>
-                <xsl:when test="t:p">
-                    <xsl:for-each select="t:p">
-                        <span>
-                            <xsl:sequence select="local:attributes(.)"/>
-                            <xsl:apply-templates/>
-                        </span>                        
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:otherwise>
-                    <span>
-                        <xsl:sequence select="local:attributes(.)"/>
-                        <xsl:apply-templates/>
-                    </span>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="@source">
-                <xsl:sequence select="local:add-footnotes(@source,.)"/>
-            </xsl:if>
-        </p>   
-    </xsl:template>
-    <xsl:template match="t:note" mode="abstract">
-        <p>
-            <xsl:apply-templates/>
-            <xsl:if test="@source">
-                <xsl:sequence select="local:add-footnotes(@source,.)"/>
-            </xsl:if>
-        </p>
-    </xsl:template>
-    
+     
     <!-- M -->
     <xsl:template match="t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
         <xsl:param name="parentID"/>
