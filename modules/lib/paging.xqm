@@ -139,6 +139,7 @@ declare function page:sort($param-string as xs:string?, $start as xs:integer?, $
                         <a role="menuitem" tabindex="-1" href="{concat(replace($param-string,'&amp;sort-element=(\w+)', ''),$start,'&amp;sort-element=',$option)}" id="rel">
                             {
                                 if($option = 'pubDate' or $option = 'persDate') then 'Date'
+                                else if($option = 'creator') then 'Author'
                                 else if($option = 'pubPlace') then 'Place of publication'
                                 else functx:capitalize-first($option)
                             }
