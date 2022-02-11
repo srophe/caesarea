@@ -103,6 +103,13 @@ body {font-family: arial, sans-serif; background-color:white;}
         0 0 0 1.5px rgba(87, 145, 170, 0.5);
     }
     
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 15.5px;
+    border-left: 5px solid #eee;
+}
+
 /* browse menus*/
 .browse-alpha {border-bottom:1px solid #ccc; padding:.5em 1em; margin:1em 0; text-align: justify;}
 .browse-alpha li + li {padding-left: .75em;}
