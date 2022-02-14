@@ -16,6 +16,7 @@ import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
 import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
 import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 import module namespace timeline = "http://srophe.org/srophe/timeline" at "lib/timeline.xqm";
+import module namespace slider = "http://srophe.org/srophe/slider" at "lib/slider.xqm";
 import module namespace maps="http://srophe.org/srophe/maps" at "maps.xqm";
 import module namespace page="http://srophe.org/srophe/page" at "paging.xqm";
 
@@ -49,7 +50,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
   let $hits := $model("hits")
   let $facet-config := global:facet-definition-file($collection)
   return 
-    (if($browse:view = 'map') then 
+    if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">{
             let $ids := $hits/descendant-or-self::tei:publicationStmt/tei:idno[@type='URI'][starts-with(.,$config:base-uri)]
             let $mapData := for $id in distinct-values($ids)
@@ -126,6 +127,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                             if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
                         <div class="results {if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
                             {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
+                            {if($collection = 'bibl') then slider:browse-date-slider($hits, 'tei:pubDate') else ()}
                             {browse:display-hits($hits, $collection)}
                         </div>
                     </div>
@@ -136,7 +138,6 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 
             )}
         </div>
-    )
 };
 
 (:

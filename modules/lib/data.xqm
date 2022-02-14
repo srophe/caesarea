@@ -114,8 +114,9 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else if($element) then $element 
-        else ()         
-    let $hits := util:eval(data:build-collection-path($collection))[descendant::tei:body[ft:query(., (),sf:facet-query())]]  
+        else ()    
+    (: concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter($collection)) :)    
+    let $hits := util:eval(concat(data:build-collection-path($collection), slider:date-filter($collection)))[descendant::tei:body[ft:query(., (),sf:facet-query())]]  
     return 
         if(request:get-parameter('view', '') = 'map') then $hits  
         else if(request:get-parameter('view', '') = 'timeline') then $hits
