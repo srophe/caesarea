@@ -54,8 +54,6 @@ return
     else ()
 };
 
-
-
 (:
  : Date slider functions
 :)
