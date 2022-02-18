@@ -435,15 +435,20 @@
                 <xsl:sequence select="local:attributes(.)"/>
                 <!-- Add Caesarea desc @type="context" -->
                 <xsl:if test="t:desc[@type='context']">
-                    <h4>Context</h4>
-                    <blockquote class="indent">
-                        <xsl:apply-templates select="t:desc[@type='context']"/>
-                    </blockquote>
+                        <div class="tei-desc-context">
+                            <h4>Context</h4>
+                            <div>
+                                <xsl:apply-templates select="t:desc[@type='context']"/>
+                            </div>
+                        </div>
+                    
                 </xsl:if>
                 <!-- Caesarea customiztion for parallel views -->
                 <xsl:choose>
                     <xsl:when test="descendant-or-self::t:ab[@type='translation']">
-                        <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="translation"/>                                
+                        <div class="edition">
+                            <xsl:apply-templates select="descendant-or-self::t:ab[@type='edition']" mode="translation"/>    
+                        </div>                           
                     </xsl:when>
                     <xsl:otherwise>
                         <div class="section" style="display:block;">
@@ -648,7 +653,7 @@
     <xsl:template match="t:note">
         <xsl:variable name="xmlid" select="@xml:id"/>
         <xsl:choose>
-            <xsl:when test="parent::t:body"></xsl:when>
+            <xsl:when test="parent::t:body"/>
             <xsl:when test="ancestor::t:choice">
                 <xsl:text> (</xsl:text>
                 <span>
@@ -744,7 +749,7 @@
                 <div class="tei-note"> 
                     <xsl:choose>
                         <xsl:when test="@type">
-                            <h4><xsl:value-of select="@type"/></h4>
+                            <h4><xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/> Note</h4>
                         </xsl:when>
                         <xsl:otherwise>
                             <h4>Note</h4>

@@ -143,6 +143,7 @@ code.inline{
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 	}
+
 /* D */
 dt {
 	margin-top: 1.5em;
@@ -151,7 +152,8 @@ dd {
 	margin-top: 0.5em;
 }
 
-
+/* E */
+.edition {font-size: large;}
 /* F */
 footer {border-top:4px solid #aa0000ff; text-align:center;}
 footer .poweredby { margin: 33px 10px 0 0;}
@@ -362,6 +364,7 @@ img{ margin:0px }
 
 .no-indent {padding-left:1.5em;}
 .no-indent ul{padding-left:1.5em;}
+
 /* O */
 .overlay {
     font-weight:200;
@@ -524,7 +527,10 @@ h4.slider {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
-
+.tei-note {display:block; margin: 1em 0 ; font-size:small;}
+.tei-desc-context {display:block; margin: 1em 1em ; font-size:small;}
+.tei-ab .tei-note {display:block; margin: 1em 0em ; font-size:small;}
+.tei-ab .tei-note h4, .tei-desc-context h4{font-style:italic; font-size:small; font-weight:normal; margin:0;padding:0;}
 .tei-quote .tei-placeName {color: #6699cc; font-weight:bold;}
 /*.tei-title > .tei-title {font-style:italic;} */
 .top-padding {margin-top:4.5em !important;}
