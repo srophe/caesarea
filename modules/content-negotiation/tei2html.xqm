@@ -116,7 +116,6 @@ declare function tei2html:idno-title-display($id){
         <div style="margin:0 1em 1em; color: #999999;" xmlns="http://www.w3.org/1999/xhtml">
             <small>
                 <span class="uri">
-                    <a href="{replace($prev-url, $config:base-uri, $config:nav-base)}"><span class="glyphicon glyphicon-backward" aria-hidden="true"/></a>
                     &#160;<button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
                         <span class="srp-label">URI</span>
                     </button>&#160;
@@ -132,7 +131,6 @@ declare function tei2html:idno-title-display($id){
                             console.log(e);
                             });]]>
                     </script>
-                    <a href="{replace($next-url,$config:base-uri, $config:nav-base)}"><span class="glyphicon glyphicon-forward" aria-hidden="true"/></a>
                 </span>
             </small>
         </div>
