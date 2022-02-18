@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
@@ -182,9 +181,9 @@
                 <xsl:text>, </xsl:text>
                 <xsl:apply-templates select="t:biblScope" mode="footnote"/>
             </xsl:if>
-            <xsl:if test="not(empty(t:citedRange))">
+            <xsl:if test="t:citedRange[. != '']">
                 <xsl:text>, </xsl:text>
-                <xsl:for-each select="t:citedRange">
+                <xsl:for-each select="t:citedRange[. != '']">
                     <xsl:apply-templates select="." mode="footnote"/>
                     <xsl:if test="not(last())">
                         <xsl:text>, </xsl:text>
@@ -279,7 +278,22 @@
                             <!-- WS:current NOTE work in progress-->
                             <xsl:choose>
                                 <xsl:when test="$rec/descendant::t:bibl[@type='formatted'][@subtype='citation']">
-                                    <xsl:apply-templates select="$rec/descendant::t:bibl[@subtype='citation']" mode="citation"/>
+                                    <xsl:variable name="citation">
+                                        <xsl:apply-templates select="$rec/descendant::t:bibl[@subtype='citation']" mode="citation"/>    
+                                    </xsl:variable>
+                                    <xsl:choose>
+                                        <xsl:when test="ends-with($citation,'.')">
+                                            <xsl:for-each select="$citation//node()">
+                                                <xsl:choose>
+                                                    <xsl:when test="last()">
+                                                        <xsl:value-of select="substring(., 1, string-length() - 1)"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise><xsl:copy-of select="."/></xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:for-each>
+                                        </xsl:when>
+                                        <xsl:otherwise><xsl:sequence select="$citation"/></xsl:otherwise>
+                                    </xsl:choose>
                                     <xsl:sequence select="$passThrough"/>
                                     <xsl:if test="$rec/descendant::t:idno[@type='URI']">
                                         <span class="footnote-links">
