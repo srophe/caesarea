@@ -598,6 +598,14 @@
         </xsl:choose>
     </xsl:template>
     
+    <!-- I -->
+    <xsl:template match="t:idno">
+        <xsl:choose>
+            <!-- Suppres CTS-URN: https://github.com/srophe/caesarea/issues/290 -->
+            <xsl:when test="@type='CTS-URN'"></xsl:when>
+            <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- L -->
     <xsl:template match="t:location">
         <xsl:choose>
@@ -860,6 +868,7 @@
                     </a>
                 </xsl:for-each>
             </li> 
+            <!-- See: https://github.com/srophe/caesarea/issues/290
             <li>
                 <span class="label">URN:</span> 
                 <xsl:choose>
@@ -873,6 +882,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </li>
+            -->
         </ul>
     </xsl:template>
     <xsl:template match="t:publicationStmt | t:encodingDesc"/>
