@@ -527,11 +527,13 @@ h4.slider {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
+tei-lb {display:block;}
 .tei-note {display:block; margin: 1em 0 ; font-size:small;}
 .tei-desc-context {display:block; margin: 1em 1em ; font-size:small;}
 .tei-ab .tei-note {display:block; margin: 1em 0em ; font-size:small;}
 .tei-ab .tei-note h4, .tei-desc-context h4{font-style:italic; font-size:small; font-weight:normal; margin:0;padding:0;}
 .tei-quote .tei-placeName {color: #6699cc; font-weight:bold;}
+
 /*.tei-title > .tei-title {font-style:italic;} */
 .top-padding {margin-top:4.5em !important;}
 
