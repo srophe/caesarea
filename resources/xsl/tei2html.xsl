@@ -863,7 +863,8 @@
                 <xsl:variable name="cat" select="//t:encodingDesc"/>
                 <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
                     <xsl:variable name="id" select="replace(.,'#','')"/>
-                    <a href="{$nav-base}/browse.html?facet-eraComposed={encode-for-uri(.)}" class="indent">
+                    <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
+                    <a href="{$nav-base}/browse.html?facet-eraComposed={encode-for-uri($label)}" class="indent">
                         <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                     </a>
                 </xsl:for-each>
