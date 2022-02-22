@@ -527,7 +527,7 @@ h4.slider {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
-tei-lb {display:block;}
+.tei-lb {display:block;}
 .tei-note {display:block; margin: 1em 0 ; font-size:small;}
 .tei-desc-context {display:block; margin: 1em 1em ; font-size:small;}
 .tei-ab .tei-note {display:block; margin: 1em 0em ; font-size:small;}
