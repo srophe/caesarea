@@ -24,37 +24,37 @@
             <p>The full data set is released for reuse under a Creative Commons Attribution 4.0 Unported License. Individual bibliographic entries are factual data considered to be in the public domain in the United States of America and many other jurisdictions.</p>
         </licence>
     </availability>
-        <!-- lookup table to convert Zotero User IDs to Srophe editor IDs -->
+    <!-- lookup table to convert Zotero User IDs to Srophe editor IDs -->
     <editorsIdLookupTable>
         <person>
-        <zoteroId>itsbiaancaa</zoteroId>
-        <sropheId>bgardner</sropheId>
-        <nameString>Bianca Gardner</nameString>
-    </person>
-    <person>
-        <zoteroId>damichelson</zoteroId>
-        <sropheId>dmichelson</sropheId>
-        <nameString>David A. Michelson</nameString>
-    </person>
-    <person>
-        <zoteroId>WilliamPotter</zoteroId>
-        <sropheId>wpotter</sropheId>
-        <nameString>William L. Potter</nameString>
-    </person>
-    <person>
-        <zoterId>Joshua_Woods</zoterId>
-        <sropheId>jwoods</sropheId>
-        <nameString>Joshua Woods</nameString>
-    </person>
-    <person>
-        <zoterId>elianayonan</zoterId>
-        <sropheId>eyonan</sropheId>
-        <nameString>Eliana Yonan</nameString>
-    </person>
-    <person>
-        <zoterId>rifejl</zoterId>
-        <sropheId>jrife</sropheId>
-        <nameString>Joseph Rife</nameString>
-    </person>
+            <zoteroId>itsbiaancaa</zoteroId>
+            <sropheId>bgardner</sropheId>
+            <nameString>Bianca Gardner</nameString>
+        </person>
+        <person>
+            <zoteroId>damichelson</zoteroId>
+            <sropheId>dmichelson</sropheId>
+            <nameString>David A. Michelson</nameString>
+        </person>
+        <person>
+            <zoteroId>WilliamPotter</zoteroId>
+            <sropheId>wpotter</sropheId>
+            <nameString>William L. Potter</nameString>
+        </person>
+        <person>
+            <zoteroId>Joshua_Woods</zoteroId>
+            <sropheId>jwoods</sropheId>
+            <nameString>Joshua Woods</nameString>
+        </person>
+        <person>
+            <zoteroId>elianayonan</zoteroId>
+            <sropheId>eyonan</sropheId>
+            <nameString>Eliana Yonan</nameString>
+        </person>
+        <person>
+            <zoteroId>rifejl</zoteroId>
+            <sropheId>jrife</sropheId>
+            <nameString>Joseph Rife</nameString>
+        </person>
     </editorsIdLookupTable>
 </zotero-config>
