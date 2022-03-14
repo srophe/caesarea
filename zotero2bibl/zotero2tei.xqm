@@ -453,19 +453,34 @@ return
                     (: Editors :)
                     for $e in $rec?meta?createdByUser
                     let $uri := $e?links?*?href
-                    let $name := if($e?name[. != '']) then $e?name else $e?username
+                    let $name := $e?username
+                    let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                            $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
+                                        else $name
+                    let $editorsURI := replace($zotero2tei:base-uri,'/bibl','/documentation/editors.xml#')
+                    let $ref := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                    concat($editorsURI,$sropheNameID)
+                                else $uri
+                    let $nameString := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then
+                                         $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:nameString/text()
+                                       else $name
                     return
-                        <editor role="creator" ref="{$uri}">{$name}</editor>,
-                    for $e in $rec?meta?lastModifiedByUser
-                    let $uri := $e?links?*?href
-                    let $name := if($e?name[. != '']) then $e?name else $e?username
-                    return
-                        <editor role="creator" ref="{$uri}">{$name}</editor>,
+                        <editor role="creator" ref="{$ref}">{$nameString}</editor>,
                     for $e in $existing-zotero-editors[name/@ref != $rec?meta?lastModifiedByUser?links?*?href]
-                    let $uri := $existing-zotero-editors/name/@ref
-                    let $name := $existing-zotero-editors/name/text()
-                    return 
-                        <editor role="creator" ref="{$uri}">{$name}</editor>,
+                    let $uri := $e?links?*?href
+                    let $name := $e?username
+                    let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                            $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
+                                        else $name
+                    let $editorsURI := replace($zotero2tei:base-uri,'/bibl','/documentation/editors.xml#')
+                    let $ref := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                    concat($editorsURI,$sropheNameID)
+                                else $uri
+                    let $nameString := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then
+                                         $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:nameString/text()
+                                       else $name
+                    return
+                        <editor role="creator" ref="{$ref}">{$nameString}</editor>,
                     (: Replacing "Assigned: " with "Edited: " but with no username. 
                     Will duplicate editor if name is listed differently in Zotero. :)
                     (:for $e in $rec?data?tags?*?tag[starts-with(.,'Assigned:')]
@@ -481,14 +496,34 @@ return
                     (: respStmt :)
                     for $e in $rec?meta?createdByUser
                     let $uri := $e?links?*?href
-                    let $name := if($e?name[. != '']) then $e?name else $e?username
+                    let $name := $e?username
+                    let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                            $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
+                                        else $name
+                    let $editorsURI := replace($zotero2tei:base-uri,'/bibl','/documentation/editors.xml#')
+                    let $ref := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                    concat($editorsURI,$sropheNameID)
+                                else $uri
+                    let $nameString := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then
+                                         $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:nameString/text()
+                                       else $name
                     return
-                        <respStmt><resp>Record added to Zotero by</resp><name ref="{$uri}">{$name}</name></respStmt>,
+                        <respStmt><resp>Record added to Zotero by</resp> <name ref="{$ref}">{$nameString}</name></respStmt>,
                     for $e in $rec?meta?lastModifiedByUser
                     let $uri := $e?links?*?href
-                    let $name := if($e?name[. != '']) then $e?name else $e?username
+                    let $name := $e?username
+                    let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                            $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
+                                        else $name
+                    let $editorsURI := replace($zotero2tei:base-uri,'/bibl','/documentation/editors.xml#')
+                    let $ref := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
+                                    concat($editorsURI,$sropheNameID)
+                                else $uri
+                    let $nameString := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then
+                                         $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:nameString/text()
+                                       else $name
                     return
-                        <respStmt><resp>Record edited in Zotero by</resp><name ref="{$uri}">{$name}</name></respStmt>,
+                        <respStmt><resp>Record edited in Zotero by</resp> <name ref="{$ref}">{$nameString}</name></respStmt>,
                     for $e in $existing-zotero-editors[name/@ref != $rec?meta?lastModifiedByUser?links?*?href]
                     return 
                         $existing-zotero-editors,                    
@@ -501,7 +536,7 @@ return
                     for $e in $rec?data?tags?*?tag[starts-with(.,'Edited:')]
                     let $edited := substring-after($e, 'Edited: ')
                     return 
-                        <respStmt><resp>Primary editing by</resp><name>{$edited}</name></respStmt>
+                        <respStmt><resp>Primary editing by</resp> <name>{$edited}</name></respStmt>
                     )}</titleStmt>
                 <publicationStmt>
                     <authority>{$zotero2tei:zotero-config//*:sponsor/text()}</authority>
