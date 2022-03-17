@@ -660,3 +660,20 @@ background-size:cover;
      }
 .map-overlay .filter-label {font-size: 14px !important; font-weight: 600; color:#333;}
 .map-overlay .facetDefinition h4 {font-size: 12px !important; font-weight: 600; color:#333; margin-bottom: .25em;}
+
+
+/* Loading spinner icon */
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
