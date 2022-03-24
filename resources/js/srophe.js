@@ -1,7 +1,6 @@
 $(document).ready(function() {
 // Main javascript functions used by place pages
 // validate contact forms
-$('.spinning').hide();
 $.validator.setDefaults({
 	submitHandler: function() {
 	   if($('input#url').val().length == 0)
@@ -90,6 +89,9 @@ $('.dynamicContent').each(function(index, element) {
     }); 
    });
 
+//hide spinner on load
+$('.spinning').hide();
+
 //Load dynamic content
 $('.getContent').click(function(index, element) { 
     var url = $(this).data('url');
@@ -100,8 +102,7 @@ $('.getContent').click(function(index, element) {
         $('.spinning').hide();
         console.log('Getting data...')
     }); 
-   });
-   
+   }); 
 
 if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Linux") > -1) {
     $('.get-syriac').show();

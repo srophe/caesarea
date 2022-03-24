@@ -662,6 +662,10 @@ background-size:cover;
 .map-overlay .facetDefinition h4 {font-size: 12px !important; font-weight: 600; color:#333; margin-bottom: .25em;}
 
 
+/* Hide imported down arrow from github wiki menu */
+.js-wiki-sidebar-toc-toggle-chevron-button {display:none;}
+}
+
 /* Loading spinner icon */
 .glyphicon.spinning {
     animation: spin 1s infinite linear;
