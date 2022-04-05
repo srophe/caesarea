@@ -602,7 +602,7 @@
     <xsl:template match="t:idno">
         <xsl:choose>
             <!-- Suppres CTS-URN: https://github.com/srophe/caesarea/issues/290 -->
-            <xsl:when test="@type='CTS-URN'"></xsl:when>
+            <xsl:when test="@type='CTS-URN'"/>
             <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1531,6 +1531,10 @@
         <xsl:apply-templates select="t:teiHeader" mode="citation"/>
     </xsl:template>
     <xsl:template match="t:teiHeader" mode="#all">
+        <div id="license">
+            <h3>Copyright and License for Reuse</h3>
+            <xsl:apply-templates select="t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+        </div>
         <div class="citationinfo">
             <xsl:choose>
                 <xsl:when test="//t:publicationStmt/t:idno[contains(.,'/bibl/')]">
@@ -1546,21 +1550,6 @@
                                 <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                             </div>
                             <xsl:call-template name="aboutEntry"/>
-                            <div id="license">
-                                <h3>Copyright and License for Reuse</h3>
-                                <div>
-                                    <xsl:text>Except where otherwise noted, this page is © Caesarea City and Port Exploration Project </xsl:text>
-                                    <xsl:choose>
-                                        <xsl:when test="t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
-                                            <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of select="t:fileDesc/t:publicationStmt/t:date[1]"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>.
-                                </div>
-                                <xsl:apply-templates select="t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
-                            </div>
                         </div>
                         <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
                     </div>
