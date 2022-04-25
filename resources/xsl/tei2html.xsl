@@ -173,6 +173,7 @@
             <xsl:variable name="limit" select="3000"/>
             <div class="row">
                 <div class="col-md-{$width}">
+                    <h3>Text</h3>
                     <xsl:for-each select="parent::*[1]">
                         <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
                         <xsl:choose>
@@ -214,6 +215,7 @@
                 </div>
                 <xsl:for-each select="//t:anchor[@corresp = $anchorID]">
                     <div class="col-md-{$width}">
+                        <h3>Translation</h3>
                         <xsl:for-each select="parent::*[1]">
                             <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
                             <xsl:choose>
@@ -436,7 +438,7 @@
                 <!-- Add Caesarea desc @type="context" -->
                 <xsl:if test="t:desc[@type='context']">
                         <div class="tei-desc-context">
-                            <h4>Context</h4>
+                            <h3>Context</h3>
                             <div>
                                 <xsl:apply-templates select="t:desc[@type='context']"/>
                             </div>
@@ -754,7 +756,11 @@
                 </li>
             </xsl:when>
             <xsl:otherwise>
-                <div class="tei-note"> 
+                <div class="tei-note">
+                   <xsl:choose>
+                       <xsl:when test="preceding-sibling::t:note"/>
+                       <xsl:otherwise><hr/></xsl:otherwise>
+                   </xsl:choose>
                     <xsl:choose>
                         <xsl:when test="@type">
                             <h4><xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/> Note</h4>
@@ -835,7 +841,7 @@
             </li>
             <li>
                 <span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}">
-                    <xsl:value-of select="t:creation/t:title[@type='uniform']"/>
+                    <em><xsl:value-of select="t:creation/t:title[@type='uniform']"/></em>
                 </a>
             </li>
             <li>
