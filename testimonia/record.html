@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/testimonia.html" data-template-at="content">
     <div data-template="app:fix-links" class="record">
         <div class="interior-content">
             <div data-template="app:h1"/>
-            <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,text"/>
+            <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,text"  class="otherFormats"/>
             <div class="row">
                 <div class="col-md-7 col-lg-9">
                     <div data-template="app:display-nodes" data-template-paths="descendant::tei:text"/>
@@ -11,7 +10,7 @@
                 <div class="col-md-5 col-lg-3 right-menu">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a href="#" data-toggle="collapse" data-target="#infoBox">About This Testimony</a>
+                            <a href="#" data-toggle="collapse" data-target="#infoBox">About This Text </a>
                         </div>
                         <div class="panel-body collapse in" id="infoBox">
                             <div data-template="app:display-nodes" data-template-paths="(descendant::tei:profileDesc,descendant::tei:publicationStmt, descendant::tei:encodingDesc)"/>

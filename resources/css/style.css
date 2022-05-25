@@ -377,6 +377,8 @@ img{ margin:0px }
     box-decoration-break: clone;
 }
 
+.otherFormats {margin:-1.5em 1em -2.5em 1em;}
+
 /* P */
 .paging {display:block; clear:both;}
 .param {font-weight:500;}
