@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.forg/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -279,16 +279,20 @@
                             <xsl:choose>
                                 <xsl:when test="$rec/descendant::t:bibl[@type='formatted'][@subtype='citation']">
                                     <xsl:variable name="citation">
-                                        <xsl:apply-templates select="$rec/descendant::t:bibl[@type='formatted'][@subtype='citation']" mode="citation"/>    
+                                        <xsl:apply-templates select="$rec/descendant::t:bibl[@type='formatted'][@subtype='citation']" mode="citation" xml:space="preserve"/>    
                                     </xsl:variable>
+                                    <!-- Problem with spaces Here -->
                                     <xsl:choose>
                                         <xsl:when test="ends-with($citation,'.')">
-                                            <xsl:for-each select="$citation//node()">
+                                            <xsl:for-each select="$citation/node()">
                                                 <xsl:choose>
                                                     <xsl:when test="position() = last()">
-                                                       <xsl:value-of select="substring(., 1, string-length() - 1)"/>
+                                                        <xsl:value-of select="substring(., 1, string-length() - 1)"/>
                                                     </xsl:when>
-                                                    <xsl:otherwise><xsl:sequence select="."/></xsl:otherwise>
+                                                    <xsl:when test=". = ' '">
+                                                        <xsl:text> </xsl:text>
+                                                    </xsl:when>
+                                                    <xsl:otherwise><xsl:sequence select="." xml:space="preserve"/></xsl:otherwise>
                                                 </xsl:choose>
                                             </xsl:for-each>
                                         </xsl:when>
