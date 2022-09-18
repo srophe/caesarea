@@ -54,7 +54,7 @@ return
                             else 'Mention'
                         return 
                             <relation type="{$relationType}" ana="{$relationType}" active="{$facet-grp}" passive="{$place-grp}">
-                              <desc>{root($recs[1])//tei:titleStmt/tei:title}</desc>
+                              <desc>{root($recs[1])//tei:titleStmt/tei:title[@level='a'][1]}</desc>
                             </relation>
                  }</listRelation>
                 </place>      
