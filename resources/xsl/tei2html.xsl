@@ -135,9 +135,6 @@
         <xsl:apply-templates select="/descendant-or-self::t:titleStmt/t:title[1]"/>
     </xsl:variable>
  
-    <!-- t: Total number of characters in the set -->
-    <xsl:variable name="t" select="string-length(normalize-space(//body))"/>
-    
     <!-- =================================================================== -->
     <!-- Templates -->
     <!-- =================================================================== -->
@@ -168,8 +165,9 @@
     <xsl:template match="t:ab" mode="translation">
         <xsl:for-each select="descendant::t:anchor">
             <xsl:variable name="anchorID" select="@xml:id"/>
-            <xsl:variable name="columns" select="count(//t:anchor[@corresp = $anchorID])"/>
-            <xsl:variable name="width" select="12 div (count(//t:anchor[@corresp = $anchorID]) + 1)"/>
+            <xsl:variable name="corresp" select="concat('#',$anchorID)"/>
+            <xsl:variable name="columns" select="count(//t:anchor[@corresp = $corresp])"/>
+            <xsl:variable name="width" select="12 div (count(//t:anchor[@corresp = $corresp]) + 1)"/>
             <xsl:variable name="limit" select="3000"/>
             <div class="row">
                 <div class="col-md-{$width}">
@@ -194,7 +192,7 @@
                                 <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:apply-templates select="."/>        
+                                <xsl:apply-templates select="." xml:space="preserve"/>        
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:choose>
@@ -213,7 +211,7 @@
                         </xsl:choose>
                     </xsl:for-each>
                 </div>
-                <xsl:for-each select="//t:anchor[@corresp = $anchorID]">
+                <xsl:for-each select="//t:anchor[@corresp = $corresp]">
                     <div class="col-md-{$width}">
                         <h3>Translation</h3>
                         <xsl:for-each select="parent::*[1]">
