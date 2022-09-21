@@ -610,21 +610,24 @@ h4.slider {
 	min-height:250px;  
 }
 .featureTestemonia .featureBanner{
-    min-height:75px; 
+    min-height:110px; 
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     background-size:cover;
 	background-position:top;
+	 background-repeat: no-repeat;
     background-image:url('../images/featureTestimonia.jpg');
     border-bottom:4px solid grey;
 }
 .featureBibl .featureBanner{
-    min-height:75px;
+    min-height:110px;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
-background-size:cover;
-	background-position:top;    
-    background-image:url('../images/featureBibl.jpg');
+    background-size:cover;
+	background-position-x: center;
+    background-position-y: bottom 50px;  
+     background-repeat: no-repeat;
+    background-image:url('../images/banner-bibl.jpg');
     border-bottom:4px solid grey;
 }
 
