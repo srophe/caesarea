@@ -624,8 +624,7 @@ h4.slider {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     background-size:cover;
-	background-position-x: center;
-    background-position-y: bottom 50px;  
+	background-position:center;  
      background-repeat: no-repeat;
     background-image:url('../images/banner-bibl.jpg');
     border-bottom:4px solid grey;
