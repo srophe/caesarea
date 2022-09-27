@@ -32,7 +32,7 @@ declare variable $sf:QUERY_OPTIONS := map {
     "filter-rewrite": "yes"
 };
 (: Add sort fields to browse and search options. Used for sorting, add sort fields and functions, add sort function:)
-declare variable $sf:sortFields := map { "fields": ("title", "author","pubDate") };
+declare variable $sf:sortFields := map { "fields": ("title", "author","pubDate","citationNo","sortField") };
 
 (:~ 
  : Build indexes for fields and facets as specified in facet-def.xml and search-config.xml files
@@ -62,6 +62,8 @@ declare function sf:build-index(){
                 <field name="title" expression="sf:field(descendant-or-self::tei:body,'title')"/>
                 <field name="author" expression="sf:field(descendant-or-self::tei:body, 'author')"/>
                 <field name="pubDate" expression="sf:field(descendant-or-self::tei:body, 'pubDate')"/>
+                <field name="citationNo" expression="sf:field(descendant-or-self::tei:body, 'citationNo')"/>
+                <field name="sortField" expression="sf:field(descendant-or-self::tei:body, 'sortField')"/>
             </text>
             <text qname="tei:fileDesc"/>
             <text qname="tei:biblStruct"/>
@@ -571,14 +573,15 @@ declare function sf:facet-eraComposed($element as item()*, $facet-definition as 
     for $value in tokenize(util:eval(concat('$element/',$xpath)),' ')[normalize-space(.) != '']
     let $v := replace($value,'#','')
     let $label := normalize-space(string-join($element/ancestor::tei:TEI/descendant::tei:category[@xml:id = $v]//text(),''))
-    return if($label != '') then $label else if($label != ' ') then $label else $v
+    return if($label != '') then $label else if($label != ' ') then $label else if($v != '') then $v else 'no label'
 };
 
 (: Get text value of a element with ref attribute :)
 declare function sf:facet-refLabel($element as item()*, $facet-definition as item(), $name as xs:string){
     let $xpath := $facet-definition/facet:group-by/facet:sub-path/text()    
     let $value := util:eval(concat('$element/',$xpath))
-    return $value/parent::*[1][@ref=$value]//text() 
+    return normalize-space(string-join($value[1]/parent::*[@ref=$value]))
+    (:('TEST: ', normalize-space($value/parent::*[1][@ref=$value]//text()),' : ',$value):)  
 };
 
 (: Get text value of a element with ident attribute :)
@@ -586,4 +589,23 @@ declare function sf:facet-identLabel($element as item()*, $facet-definition as i
     let $xpath := $facet-definition/facet:group-by/facet:sub-path/text()    
     let $value := util:eval(concat('$element/',$xpath))
     return $value/parent::*[1][@ident=$value][1]//text() 
+};
+
+(:~
+ : TEI Title field, specific to Srophe applications 
+ :)
+declare function sf:field-citationNo($element as item()*, $name as xs:string){
+    (:profileDesc/creation/ref:)
+    if($element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:ref) then 
+        $element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:ref[1]
+    else ()
+};
+
+(:~
+ : TEI Title field, specific to Srophe applications 
+ :)
+declare function sf:field-sortField($element as item()*, $name as xs:string){
+    normalize-space(string-join(concat($element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:persName[@role='author'],' ',
+    $element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:title, ' ', 
+    $element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:ref),' '))
 };
