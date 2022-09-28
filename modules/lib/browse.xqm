@@ -37,9 +37,30 @@ declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as x
  : @param $collection collection name passed from html, should match data subdirectory name or tei series name
  : @param $element element used to filter browse results, passed from html
  : @param $facets facet xml file name, relative to collection directory
+ order by $s[1], ft:field($hit, "title")[1], ft:field($hit, "citationNo") ascending collation 'http://www.w3.org/2013/collation/UCA'
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?, $facets as xs:string?){
-    map{"hits" : data:get-records($collection, $element)}
+    let $sort := 
+        if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
+        else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
+        else if($element) then $element 
+        else ()  
+    let $hits := data:get-records($collection, $element)[descendant::tei:body[ft:query(., (),sf:facet-query())]] 
+    return
+    map{"hits" : 
+                for $hit in $hits
+                let $root := $hit/ancestor-or-self::tei:TEI
+                let $s := 
+                    if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
+                    else if(contains($sort, 'title')) then ft:field($hit, "title")
+                    else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
+                    else if($collection = 'bibl') then ft:field($hit, "title")
+                    else ft:field($hit, "author")                
+                order by ft:field($hit, "sortField")[1]
+                where matches($s,global:get-alpha-filter())
+                return $root
+                 
+    }
 };
 
 (:
@@ -186,7 +207,7 @@ declare function browse:get-map($hits as node()*){
     else if($hits//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]) then
         let $related := 
                 for $r in $hits//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]
-                let $title := string($r/ancestor::tei:TEI/descendant::tei:title[1])
+                let $title := string($r/ancestor::tei:TEI/descendant::tei:title[@level = 'a'][1])
                 let $rid := string($r/ancestor::tei:TEI/descendant::tei:idno[1])
                 let $relation := string($r/@name)
                 let $places := for $p in tokenize(string-join(($r/@passive,$r/@active,$r/@mutual),' '),' ')[contains(.,'/place/')] return <placeName xmlns="http://www.tei-c.org/ns/1.0">{$p}</placeName>
