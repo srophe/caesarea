@@ -18,7 +18,7 @@
   </record>
   <record>
     <catId>acheulean</catId>
-    <catDesc>Acheulean  </catDesc>
+    <catDesc>Acheulean</catDesc>
     <notBefore>-298050</notBefore>
     <notAfter>-148050</notAfter>
     <calendar>BP</calendar>
@@ -50,7 +50,7 @@
   </record>
   <record>
     <catId>kebaran</catId>
-    <catDesc>Kebaran </catDesc>
+    <catDesc>Kebaran</catDesc>
     <notBefore>-18050</notBefore>
     <notAfter>-13050</notAfter>
     <calendar>BP</calendar>
@@ -74,7 +74,7 @@
   </record>
   <record>
     <catId>natufianCulture</catId>
-    <catDesc>Natufian culture</catDesc>
+    <catDesc>Natufian Culture</catDesc>
     <notBefore>-10799</notBefore>
     <notAfter>-8499</notAfter>
     <calendar>Gregorian</calendar>
@@ -265,8 +265,16 @@
     <dateRangeLabel>585-331 BCE</dateRangeLabel>
   </record>
   <record>
+    <catId>classicalPeriod</catId>
+    <catDesc>Classical Period</catDesc>
+    <notBefore>-0480</notBefore>
+    <notAfter>-0336</notAfter>
+    <calendar>Gregorian</calendar>
+    <dateRangeLabel>480-336 BCE</dateRangeLabel>
+  </record>
+  <record>
     <catId>earlyHellenistic</catId>
-    <catDesc>Early Hellenistic period</catDesc>
+    <catDesc>Early Hellenistic Period</catDesc>
     <notBefore>-0331</notBefore>
     <notAfter>-0166</notAfter>
     <calendar>Gregorian</calendar>
@@ -290,7 +298,7 @@
   </record>
   <record>
     <catId>nabateanKingdom</catId>
-    <catDesc>Nabatean kingdom</catDesc>
+    <catDesc>Nabatean Kingdom</catDesc>
     <notBefore>-0167</notBefore>
     <notAfter>0106</notAfter>
     <calendar>Gregorian</calendar>
@@ -298,7 +306,7 @@
   </record>
   <record>
     <catId>lateHellenistic</catId>
-    <catDesc>Late Hellenistic period</catDesc>
+    <catDesc>Late Hellenistic Period</catDesc>
     <notBefore>-0166</notBefore>
     <notAfter>-0036</notAfter>
     <calendar>Gregorian</calendar>
@@ -306,7 +314,7 @@
   </record>
   <record>
     <catId>earlyRoman</catId>
-    <catDesc>Early Roman period</catDesc>
+    <catDesc>Early Roman Period</catDesc>
     <notBefore>-0036</notBefore>
     <notAfter>0132</notAfter>
     <calendar>Gregorian</calendar>
@@ -314,7 +322,7 @@
   </record>
   <record>
     <catId>herodian</catId>
-    <catDesc>Herodian period</catDesc>
+    <catDesc>Herodian Period</catDesc>
     <notBefore>-0036</notBefore>
     <notAfter>0070</notAfter>
     <calendar>Gregorian</calendar>
@@ -330,7 +338,7 @@
   </record>
   <record>
     <catId>lateRoman</catId>
-    <catDesc>Late Roman period</catDesc>
+    <catDesc>Late Roman Period</catDesc>
     <notBefore>0132</notBefore>
     <notAfter>0324</notAfter>
     <calendar>Gregorian</calendar>
@@ -338,7 +346,7 @@
   </record>
   <record>
     <catId>byzantine</catId>
-    <catDesc>Byzantine period</catDesc>
+    <catDesc>Byzantine Period</catDesc>
     <notBefore>0324</notBefore>
     <notAfter>0638</notAfter>
     <calendar>Gregorian</calendar>
@@ -354,7 +362,7 @@
   </record>
   <record>
     <catId>crusader</catId>
-    <catDesc>Crusader period</catDesc>
+    <catDesc>Crusader Period</catDesc>
     <notBefore>1099</notBefore>
     <notAfter>1291</notAfter>
     <calendar>Gregorian</calendar>
@@ -362,7 +370,7 @@
   </record>
   <record>
     <catId>lateIslamic</catId>
-    <catDesc>Late Islamic period</catDesc>
+    <catDesc>Late Islamic Period</catDesc>
     <notBefore>1291</notBefore>
     <notAfter>1516</notAfter>
     <calendar>Gregorian</calendar>
@@ -378,7 +386,7 @@
   </record>
   <record>
     <catId>britishTerritorialAdministration</catId>
-    <catDesc>British Territorial Administration Period</catDesc>
+    <catDesc>British Territorial Administration</catDesc>
     <notBefore>1917</notBefore>
     <notAfter>1920</notAfter>
     <calendar>Gregorian</calendar>
