@@ -24,7 +24,7 @@
                         Distributed under a Creative Commons Attribution 4.0 Unported License
                     </licence>
                 </availability>
-                <date>2020-05-26</date>
+                <date>2022-09-30</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -37,6 +37,7 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2022-09-30" who="https://caesarea-maritima.org/documentation/editors.xml#wpotter">ADDED: Taryn Marashi (tmarashi)</change>
             <change when="2020-05-26" who="https://caesarea-maritima.org/documentation/editors.xml#wpotter">CREATED: editors list</change>
         </revisionDesc>
     </teiHeader>
@@ -54,6 +55,12 @@
                         <forename>Phillip</forename>
                         <addName type="middle-initial">I.</addName>
                         <surname>Lieberman</surname>
+                    </persName>
+                </person>
+                <person xml:id="tmarashi">
+                    <persName xml:lang="en">
+                        <forename>Taryn</forename>
+                        <surname>Marashi</surname>
                     </persName>
                 </person>
                 <person xml:id="dmichelson">
