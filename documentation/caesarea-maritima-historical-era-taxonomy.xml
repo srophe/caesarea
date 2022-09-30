@@ -249,14 +249,6 @@
     <dateRangeLabel>899-699 BCE</dateRangeLabel>
   </record>
   <record>
-    <catId>ironIic</catId>
-    <catDesc>Iron IIC</catDesc>
-    <notBefore>-0799</notBefore>
-    <notAfter>-0731</notAfter>
-    <calendar>Gregorian</calendar>
-    <dateRangeLabel>799-731 BCE</dateRangeLabel>
-  </record>
-  <record>
     <catId>ironAgeIic</catId>
     <catDesc>Iron Age IIC</catDesc>
     <notBefore>-0699</notBefore>
@@ -390,7 +382,7 @@
     <notBefore>1917</notBefore>
     <notAfter>1920</notAfter>
     <calendar>Gregorian</calendar>
-    <dateRangeLabel>1970-1920 CE</dateRangeLabel>
+    <dateRangeLabel>1917-1920 CE</dateRangeLabel>
   </record>
   <record>
     <catId>britishMandate</catId>
