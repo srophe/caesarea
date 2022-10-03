@@ -833,12 +833,12 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Author:</span> <a href="{$nav-base}/search.html?fq=;fq-Author:{t:creation/t:persName[@role='author']/@ref}">
+                <span class="label">Author:</span> <a href="{$nav-base}/search.html?facet-author={t:creation/t:persName[@role='author'][@ref]//text()}">
                     <xsl:value-of select="t:creation/t:persName[@role='author']"/>
                 </a>
             </li>
             <li>
-                <span class="label">Title:</span> <a href="{$nav-base}/search.html?fq=;fq-Work:{t:creation/t:title[@type='uniform']/@ref}">
+                <span class="label">Title:</span> <a href="{$nav-base}/search.html?facet-work={t:creation/t:title[@type='uniform'][@ref]//text()}">
                     <em><xsl:value-of select="t:creation/t:title[@type='uniform']"/></em>
                 </a>
             </li>
@@ -851,7 +851,7 @@
                 </a>
             </li>
             <li>
-                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?fq=;fq-Place Composed:{t:creation/t:origPlace/@ref}">
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace[@ref]//text()}">
                     <xsl:value-of select="t:creation/t:origPlace"/>
                 </a>
             </li>
