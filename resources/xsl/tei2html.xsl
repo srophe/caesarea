@@ -1865,10 +1865,11 @@
         <div class="well">
             <!-- Sources -->
             <div id="sources">
-                <h3>Bibliography</h3>
+<!--                <h3>Bibliography</h3>-->
                 <xsl:choose>
                     <xsl:when test="t:listBibl">
                         <xsl:for-each select="t:listBibl">
+                            <xsl:if test="t:head"><h3><xsl:value-of select="t:head"/></h3></xsl:if>
                             <ul class="footnote-list">
                                 <xsl:for-each select="t:bibl">
                                     <!-- <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>-->
