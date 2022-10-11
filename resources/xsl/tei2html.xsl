@@ -171,7 +171,7 @@
             <xsl:variable name="limit" select="3000"/>
             <div class="row">
                 <div class="col-md-{$width}">
-                    <h3>Text</h3>
+                    <h3>Text <xsl:sequence select="local:add-footnotes(parent::*[1]/@source,.)"/></h3>
                     <xsl:for-each select="parent::*[1]">
                         <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
                         <xsl:choose>
@@ -192,7 +192,7 @@
                                 <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:apply-templates select="." xml:space="preserve"/>        
+                                <xsl:apply-templates select="." xml:space="preserve"/>
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:choose>
@@ -213,7 +213,7 @@
                 </div>
                 <xsl:for-each select="//t:anchor[@corresp = $corresp]">
                     <div class="col-md-{$width}">
-                        <h3>Translation</h3>
+                        <h3>Translation <xsl:sequence select="local:add-footnotes(parent::*[1]/@source,.)"/></h3>
                         <xsl:for-each select="parent::*[1]">
                             <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
                             <xsl:choose>
@@ -227,14 +227,15 @@
                                     <xsl:variable name="aftertext">
                                         <xsl:sequence select="local:truncate-after($processed-text,$limit)"/>    
                                     </xsl:variable>
-                                    <xsl:copy-of select="$text"/>  
+                                    <xsl:copy-of select="$text"/> 
+                                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
                                     <span id="show{@xml:id}" class="collapse">
                                         <xsl:copy-of select="$aftertext"/>
                                     </span>
                                     <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:apply-templates select="."/>        
+                                    <xsl:apply-templates select="."/> 
                                 </xsl:otherwise>
                             </xsl:choose>
                             <xsl:choose>
