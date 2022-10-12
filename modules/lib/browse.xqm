@@ -48,17 +48,20 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
     let $hits := data:get-records($collection, $element)[descendant::tei:body[ft:query(., (),sf:facet-query())]] 
     return
     map{"hits" : 
-                for $hit in $hits
-                let $root := $hit/ancestor-or-self::tei:TEI
-                let $s := 
-                    if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
-                    else if(contains($sort, 'title')) then ft:field($hit, "title")
-                    else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
-                    else if($collection = 'bibl') then ft:field($hit, "title")
-                    else ft:field($hit, "author")                
-                order by ft:field($hit, "sortField")[1]
-                where matches($s,global:get-alpha-filter())
-                return $root
+                if($browse:view = 'map') then 
+                    $hits
+                else 
+                    for $hit in $hits
+                    let $root := $hit/ancestor-or-self::tei:TEI
+                    let $s := 
+                        if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
+                        else if(contains($sort, 'title')) then ft:field($hit, "title")[1]
+                        else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")[1]
+                        else if($collection = 'bibl') then ft:field($hit, "title")[1]
+                        else ft:field($hit, "author")[1]                
+                    order by ft:field($hit, "sortField")[1]
+                    where matches($s,global:get-alpha-filter())
+                    return $root
                  
     }
 };
