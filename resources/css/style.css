@@ -499,7 +499,8 @@ h4.slider {
 /* T */
 .tab-content {padding-top:.25em;}
 .text {margin:0}
-.title {border-bottom:1px solid grey}
+.title {border-bottom:1px solid grey;}
+.title h1{padding-top: 1em;}
 .preferred-citation .title-analytic::before, .tei-bibl .title-analytic::before  {content: '"';}
 .preferred-citation .title-analytic::after, .tei-bibl .title-analytic::after  {content: '"';}
 .title-journal, .title-monographic{font-style:italic;}
