@@ -120,14 +120,14 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
     return 
         if(request:get-parameter('view', '') = 'map') then $hits  
         else if(request:get-parameter('view', '') = 'timeline') then $hits
+        else if(request:get-parameter('alpha-filter', '') = 'All' or request:get-parameter('alpha-filter', '') = 'ALL') then $hits
         else if(request:get-parameter('alpha-filter', '') != '' 
         and request:get-parameter('alpha-filter', '') != 'All'
         and request:get-parameter('alpha-filter', '') != 'ALL'
         and request:get-parameter('alpha-filter', '') != 'all' and contains($sort, 'pubDate')) then
             for $hit in $hits
             let $root := $hit/ancestor-or-self::tei:TEI
-            let $s :=  ft:field($hit, "pubDate")            
-            order by $s[1] descending collation 'http://www.w3.org/2013/collation/UCA' 
+            let $s :=  ft:field($hit, "pubDate")             
             where matches($s,global:get-alpha-filter())
             return $root
         else if(request:get-parameter('alpha-filter', '') != '' 
@@ -142,14 +142,12 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                     else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
                     else if($collection = 'bibl') then ft:field($hit, "title")
                     else ft:field($hit, "author")                
-            order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
             where matches($s,global:get-alpha-filter())
             return $root
         else if(contains($sort, 'pubDate')) then 
             for $hit in $hits
             let $root := $hit/ancestor-or-self::tei:TEI
-            let $s :=  ft:field($hit, "pubDate") 
-            order by $s[1] descending collation 'http://www.w3.org/2013/collation/UCA' 
+            let $s :=  ft:field($hit, "pubDate")  
             return $root
         else
             for $hit in $hits
@@ -160,7 +158,6 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                     else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
                     else if($collection = 'bibl') then ft:field($hit, "title")
                     else ft:field($hit, "author")  
-            order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
             return $root
 };
 

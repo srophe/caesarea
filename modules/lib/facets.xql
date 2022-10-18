@@ -607,5 +607,5 @@ declare function sf:field-citationNo($element as item()*, $name as xs:string){
 declare function sf:field-sortField($element as item()*, $name as xs:string){
     normalize-space(string-join(concat($element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:persName[@role='author'],' ',
     $element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:title, ' ', 
-    $element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:ref),' '))
+    $element/ancestor::tei:TEI/tei:teiHeader/tei:profileDesc/tei:creation/tei:ref/@n),' '))
 };
