@@ -48,9 +48,19 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
     let $hits := data:get-records($collection, $element)[descendant::tei:body[ft:query(., (),sf:facet-query())]] 
     return
     map{"hits" : 
-                if($browse:view = 'map') then 
-                    $hits
-                else 
+                if($browse:view = 'map' or $browse:view = 'timeline') then $hits
+                else if(request:get-parameter('alpha-filter', '') = 'All' or request:get-parameter('alpha-filter', '') = 'ALL') then 
+                     for $hit in $hits
+                     let $root := $hit/ancestor-or-self::tei:TEI
+                     let $s := 
+                             if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
+                             else if(contains($sort, 'title')) then ft:field($hit, "title") 
+                             else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
+                             else if($collection = 'bibl') then ft:field($hit, "title")
+                             else ft:field($hit, "author")  
+                     order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
+                     return $root
+                else
                     for $hit in $hits
                     let $root := $hit/ancestor-or-self::tei:TEI
                     let $s := 
