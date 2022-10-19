@@ -138,6 +138,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 {if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then ()
                  else browse:browse-abc-menu()}
                 </div>, 
+                (:
                 if($facet-config != '') then
                    <div class="row">
                     <div class="col-md-8 col-md-push-4">
@@ -153,6 +154,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     <div class="col-md-4 col-md-pull-8">{sf:display($hits, $facet-config)}</div>
                 </div> 
                 else 
+                :)
                  <div class="row">
                     <div class="col-md-12">
                         <h3>{(
