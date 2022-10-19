@@ -855,7 +855,7 @@
                         <xsl:choose>
                             <xsl:when test="@ana='#caesarea-language-of-testimonia'">Language of Testimonium:</xsl:when>
                             <xsl:when test="@ana='#caesarea-language-of-original'">Language of Original:</xsl:when>
-                            <xsl:otherwise>Original Language:</xsl:otherwise>
+                            <xsl:otherwise>Language of Original:</xsl:otherwise>
                         </xsl:choose>
                     </span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}">
                         <xsl:value-of select="."/>
