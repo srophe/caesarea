@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- =================================================================== -->
@@ -13,6 +12,7 @@
     <!-- Add a lang attribute to HTML elements -->
     <xsl:function name="local:attributes">
         <xsl:param name="node"/>
+
         <!-- Add lang attribute and direction attributes -->
         <xsl:if test="$node/@xml:lang">
             <xsl:copy-of select="$node/@xml:lang"/>
@@ -25,7 +25,7 @@
                         <xsl:value-of select="'ltr'"/>
                     </xsl:attribute>
                 </xsl:when>
-                <xsl:when test="$node/@xml:lang = ('syr', 'ar', 'syc', 'syr-Syrj')">
+                <xsl:when test="$node/@xml:lang = ('syr', 'ar', 'syc', 'syr-Syrj','he', 'tmr', 'jpa')">
                     <xsl:attribute name="dir">
                         <xsl:value-of select="'rtl'"/>
                     </xsl:attribute>

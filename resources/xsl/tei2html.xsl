@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -175,12 +175,20 @@
             <div class="row">
                 <div class="col-md-{$width}">
                     <h3>Text</h3>
+                    <div>
+                        <xsl:if test="parent::*[1]/@xml:lang = ('syr', 'ar', 'syc', 'syr-Syrj','he', 'tmr', 'jpa')">
+                            <xsl:attribute name="dir">rtl</xsl:attribute>
+                        </xsl:if>
                     <xsl:for-each select="parent::*[1]">
                         <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
                         <xsl:choose>
                             <xsl:when test="$wordCount gt $limit">
                                 <xsl:variable name="processed-text">
-                                    <xsl:apply-templates/>
+                                    <span class="tei-{local-name(.)}">
+<!--                                        <xsl:sequence select="local:attributes(.)"/>-->
+                                        <xsl:call-template name="rend"/>
+                                        <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                                    </span>
                                 </xsl:variable>
                                 <xsl:variable name="text">
                                     <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
@@ -195,7 +203,11 @@
                                 <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:apply-templates select="." xml:space="preserve"/>
+                                <span class="tei-{local-name(.)}">
+                                    <xsl:sequence select="local:attributes(.)"/>
+                                    <xsl:call-template name="rend"/>
+                                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                                </span>
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:choose>
@@ -213,16 +225,25 @@
                             </xsl:when>
                         </xsl:choose>
                     </xsl:for-each>
+                    </div>
                 </div>
                 <xsl:for-each select="//t:anchor[@corresp = $corresp]">
                     <div class="col-md-{$width}">
-                        <h3>Translation <xsl:sequence select="local:add-footnotes(parent::*[1]/@source,.)"/></h3>
+                        <h3>Translation</h3>
+                        <div>
+                            <xsl:if test="parent::*[1]/@xml:lang = ('syr', 'ar', 'syc', 'syr-Syrj','he', 'tmr', 'jpa')">
+                                <xsl:attribute name="dir">rtl</xsl:attribute>
+                            </xsl:if>
                         <xsl:for-each select="parent::*[1]">
                             <xsl:variable name="wordCount" select="string-length(normalize-space(.))"/>
                             <xsl:choose>
                                 <xsl:when test="$wordCount gt $limit">
                                     <xsl:variable name="processed-text">
-                                        <xsl:apply-templates/>
+                                        <span class="tei-{local-name(.)}">
+                                            <xsl:sequence select="local:attributes(.)"/>
+                                            <xsl:call-template name="rend"/>
+                                            <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                                        </span>
                                     </xsl:variable>
                                     <xsl:variable name="text">
                                         <xsl:sequence select="local:truncate-text($processed-text,$limit)"/>    
@@ -238,7 +259,11 @@
                                     <button class="btn btn-info btn-sm togglelink" data-toggle="collapse" data-target="#show{@xml:id}" data-text-togglr="Show less" data-text-original="Show More" data-text-swap="Show Less">Show more</button>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:apply-templates select="."/> 
+                                    <span class="tei-{local-name(.)}">
+                                        <xsl:sequence select="local:attributes(.)"/>
+                                        <xsl:call-template name="rend"/>
+                                        <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                                    </span> 
                                 </xsl:otherwise>
                             </xsl:choose>
                             <xsl:choose>
@@ -256,6 +281,7 @@
                                 </xsl:when>
                             </xsl:choose>
                         </xsl:for-each>
+                        </div>    
                     </div>
                 </xsl:for-each>
             </div>
