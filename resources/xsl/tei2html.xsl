@@ -914,7 +914,7 @@
                             <xsl:when test="@ana='#caesarea-language-of-original'">Language of Original:</xsl:when>
                             <xsl:otherwise>Language of Original:</xsl:otherwise>
                         </xsl:choose>
-                    </span> <a href="{$nav-base}/search.html?fq=;fq-Original Language:{t:langUsage/t:language/@ident}">
+                    </span> <a href="{$nav-base}/search.html?facet-originalLanguage={t:langUsage/t:language/@ident}">
                         <xsl:value-of select="."/>
                     </a>
                 </li>  
@@ -938,12 +938,28 @@
                     <xsl:variable name="id" select="replace(.,'#','')"/>
                     <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
                     <div class="indent">
-                        <a href="{$nav-base}/browse.html?facet-eraComposed={encode-for-uri($label)}" >
+                        <a href="{$nav-base}/search.html?facet-eraComposed={encode-for-uri($label)}" >
                             <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                         </a>  
                     </div>
                 </xsl:for-each>
             </li> 
+            <xsl:if test="//t:profileDesc/t:textClass/t:catRef[@scheme='#CM-NEAEH']">
+                <li>
+                    <span class="label">Historical Era(s) Mentioned:</span>
+                    <br/> 
+                    <xsl:variable name="cat" select="//t:encodingDesc"/>
+                    <xsl:for-each select="tokenize(//t:profileDesc/t:textClass/t:catRef[@scheme='#CM-NEAEH']/@target,' ')">
+                        <xsl:variable name="id" select="replace(.,'#','')"/>
+                        <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
+                        <div class="indent">
+                            <a href="{$nav-base}/search.html?facet-eraMentioned={encode-for-uri($label)}" >
+                                <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
+                            </a>  
+                        </div>
+                    </xsl:for-each>
+                </li> 
+            </xsl:if>
             <!-- See: https://github.com/srophe/caesarea/issues/290
             <li>
                 <span class="label">URN:</span> 

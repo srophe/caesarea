@@ -1,14 +1,14 @@
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="author" label="Author">
-        <group-by function="refLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref</sub-path>
+        <group-by>
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="work" label="Work">
-        <group-by function="refLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']/@ref</sub-path>
+        <group-by>
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
@@ -23,6 +23,13 @@
     <facet-definition name="eraComposed" label="Historical Era Composed">
         <group-by function="eraComposed">
             <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:origDate/@period</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="eraMentioned" label="Historical Era(s) Mentioned">
+        <group-by function="eraMentioned">
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:textClass/tei:catRef[@scheme='#CM-NEAEH']/@target</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
