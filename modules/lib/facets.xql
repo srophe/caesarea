@@ -576,6 +576,15 @@ declare function sf:facet-eraComposed($element as item()*, $facet-definition as 
     return if($label != '') then $label else if($label != ' ') then $label else if($v != '') then $v else 'no label'
 };
 
+(: Caesarea facets :)
+declare function sf:facet-eraMentioned($element as item()*, $facet-definition as item(), $name as xs:string){
+    let $xpath := $facet-definition/facet:group-by/facet:sub-path/text()
+    for $value in tokenize(util:eval(concat('$element/',$xpath)),' ')[normalize-space(.) != '']
+    let $v := replace($value,'#','')
+    let $label := normalize-space(string-join($element/ancestor::tei:TEI/descendant::tei:category[@xml:id = $v]//text(),''))
+    return if($label != '') then $label else if($label != ' ') then $label else if($v != '') then $v else 'no label'
+};
+
 (: Get text value of a element with ref attribute :)
 declare function sf:facet-refLabel($element as item()*, $facet-definition as item(), $name as xs:string){
     let $xpath := $facet-definition/facet:group-by/facet:sub-path/text()    
