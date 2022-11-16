@@ -453,7 +453,7 @@ return
                     (: Editors :)
                     for $e in $rec?meta?createdByUser
                     let $uri := $e?links?*?href
-                    let $name := $e?username
+                    let $name := if($e?name[. != '']) then $e?name else $e?username
                     let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
                                             $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
                                         else $name
@@ -466,9 +466,10 @@ return
                                        else $name
                     return
                         <editor role="creator" ref="{$ref}">{$nameString}</editor>,
-                    for $e in $existing-zotero-editors[name/@ref != $rec?meta?lastModifiedByUser?links?*?href]
+                   (: for $e in $existing-zotero-editors[name/@ref != $rec?meta?lastModifiedByUser?links?*?href]:)
+                    for $e in $rec?meta?lastModifiedByUser
                     let $uri := $e?links?*?href
-                    let $name := $e?username
+                    let $name := if($e?name[. != '']) then $e?name else $e?username
                     let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
                                             $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
                                         else $name
@@ -496,7 +497,7 @@ return
                     (: respStmt :)
                     for $e in $rec?meta?createdByUser
                     let $uri := $e?links?*?href
-                    let $name := $e?username
+                    let $name := if($e?name[. != '']) then $e?name else $e?username
                     let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
                                             $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
                                         else $name
@@ -511,7 +512,7 @@ return
                         <respStmt><resp>Record added to Zotero by</resp> <name ref="{$ref}">{$nameString}</name></respStmt>,
                     for $e in $rec?meta?lastModifiedByUser
                     let $uri := $e?links?*?href
-                    let $name := $e?username
+                    let $name := if($e?name[. != '']) then $e?name else $e?username
                     let $sropheNameID := if($zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]) then 
                                             $zotero2tei:zotero-config//*:editorsIdLookupTable/*:person[*:zoteroId = $name]/*:sropheId/text()
                                         else $name
@@ -525,8 +526,10 @@ return
                     return
                         <respStmt><resp>Record edited in Zotero by</resp> <name ref="{$ref}">{$nameString}</name></respStmt>,
                     for $e in $existing-zotero-editors[name/@ref != $rec?meta?lastModifiedByUser?links?*?href]
+                    let $uri := $existing-zotero-editors/name/@ref
+                    let $name := $existing-zotero-editors/name/text()
                     return 
-                        $existing-zotero-editors,                    
+                        <editor role="creator" ref="{$uri}">{$name}</editor>,                    
                     (: Replacing "Assigned: " with "Edited: " but with no username :)
                     (:for $e in $rec?data?tags?*?tag[starts-with(.,'Assigned:')]
                     let $assigned := substring-after($e, 'Assigned: ')
