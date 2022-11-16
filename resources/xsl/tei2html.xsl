@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -811,7 +811,7 @@
                             <xsl:attribute name="lang">
                                 <xsl:value-of select="'en'"/>
                             </xsl:attribute>
-                            <xsl:attribute name="dir" >
+                            <xsl:attribute name="dir">
                                 <xsl:value-of select="'ltr'"/>
                             </xsl:attribute>
                         </xsl:otherwise>
@@ -937,9 +937,11 @@
                 <xsl:for-each select="tokenize(t:creation/t:origDate/@period,' ')">
                     <xsl:variable name="id" select="replace(.,'#','')"/>
                     <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
-                    <a href="{$nav-base}/browse.html?facet-eraComposed={encode-for-uri($label)}" class="indent">
-                        <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
-                    </a>
+                    <div class="indent">
+                        <a href="{$nav-base}/browse.html?facet-eraComposed={encode-for-uri($label)}" >
+                            <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
+                        </a>  
+                    </div>
                 </xsl:for-each>
             </li> 
             <!-- See: https://github.com/srophe/caesarea/issues/290
