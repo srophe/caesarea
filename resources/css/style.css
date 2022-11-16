@@ -539,6 +539,7 @@ h4.slider {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
+.tei-foreign {font-style:italic;}
 .tei-lb {display:block;}
 .tei-title{font-style:italic;}
 .tei-note {display:block; margin: 1em 0 ; font-size:small;}
