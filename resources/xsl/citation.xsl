@@ -43,7 +43,7 @@
         <xsl:text>, </xsl:text>
         
         <!-- publication date statement -->
-        <xsl:text> last modified </xsl:text>
+        <xsl:text> entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">
             <xsl:choose>
                 <xsl:when test=". castable as xs:date">

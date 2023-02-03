@@ -31,7 +31,7 @@ declare function bibl2html:record($nodes) {
                         if(count($titleStmt/tei:editor) gt 1) then ' (eds.), ' else ' (ed.), ')
     let $id := $nodes/descendant-or-self::tei:publicationStmt[1]/tei:idno[1]                         
     return 
-        ($persons, '"',tei2html:tei2html($titleStmt/tei:title[1]),'" in ',tei2html:tei2html($titleStmt/tei:title[@level='m'][1]),' last modified ',
+        ($persons, '"',tei2html:tei2html($titleStmt/tei:title[1]),'" in ',tei2html:tei2html($titleStmt/tei:title[@level='m'][1]),' entry published ',
         for $d in $nodes/descendant-or-self::tei:publicationStmt/tei:date[1] return if($d castable as xs:date) then format-date(xs:date($d), '[MNn] [D], [Y]') else string($d),', ',replace($id[1],'/tei','')) 
 };
 
