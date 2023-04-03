@@ -5,7 +5,7 @@ xquery version "3.1";
 module namespace search="http://srophe.org/srophe/search";
 
 (:eXist templating module:)
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace templates="http://exist-db.org/xquery/html-templating";
 
 (: Import KWIC module:)
 import module namespace kwic="http://exist-db.org/xquery/kwic";
@@ -26,8 +26,8 @@ import module namespace bibls="http://srophe.org/srophe/bibls" at "bibl-search.x
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (: Variables:)
-declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
+declare variable $search:start {request:get-parameter('start', 1)[1] cast as xs:integer};
+declare variable $search:perpage {request:get-parameter('perpage', 20)[1] cast as xs:integer};
 
 (:~
  : Builds search result, saves to model("hits") for use in HTML display
