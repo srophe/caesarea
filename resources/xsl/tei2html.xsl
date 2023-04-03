@@ -938,7 +938,7 @@
                     <xsl:variable name="id" select="replace(.,'#','')"/>
                     <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
                     <div class="indent">
-                        <a href="{$nav-base}/search.html?facet-eraComposed={encode-for-uri($label)}" >
+                        <a href="{$nav-base}/search.html?facet-eraComposed={encode-for-uri($label)}">
                             <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                         </a>  
                     </div>
@@ -953,30 +953,30 @@
                         <xsl:variable name="id" select="replace(.,'#','')"/>
                         <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
                         <div class="indent">
-                            <a href="{$nav-base}/search.html?facet-eraMentioned={encode-for-uri($label)}" >
+                            <a href="{$nav-base}/search.html?facet-eraMentioned={encode-for-uri($label)}">
                                 <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                             </a>  
                         </div>
                     </xsl:for-each>
                 </li> 
             </xsl:if>
-            <!-- See: https://github.com/srophe/caesarea/issues/290
-            <li>
-                <span class="label">URN:</span> 
-                <xsl:choose>
-                    <xsl:when test="t:textClass/t:classCode/t:idno/@xml:base != ''">
-                        <a href="{string(t:textClass/t:classCode/t:idno/@xml:base)}{t:textClass/t:classCode/t:idno}">
-                            <xsl:value-of select="t:textClass/t:classCode/t:idno"/>
-                        </a>            
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="t:textClass/t:classCode/t:idno"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </li>
-            -->
+           
         </ul>
     </xsl:template>
+    <!-- Caesrea customization  -->
+    <xsl:template match="t:listRef">
+        <ul class="list-unstyled">
+            <li>
+                <span class="label"><xsl:value-of select="t:desc"/>:</span>
+                <ul class="list-unstyled indent">
+                    <xsl:for-each select="t:ref[. != '']">
+                        <li><xsl:apply-templates select="."/></li>
+                    </xsl:for-each>
+                </ul>
+            </li>
+        </ul>
+    </xsl:template>
+    
     <xsl:template match="t:publicationStmt | t:encodingDesc"/>
     
      
