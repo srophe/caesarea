@@ -19,6 +19,8 @@ declare variable $data:QUERY_OPTIONS := map {
     "filter-rewrite": "yes"
 };
 
+declare variable $data:SORT_FIELDS := $config:get-config//*:sortFields/*:fields;
+
 (:~
  : Return document by id/tei:idno or document path
  : Return by id if get-parameter $id
@@ -27,9 +29,12 @@ declare variable $data:QUERY_OPTIONS := map {
 declare function data:get-document() {
     (: Get document by id or tei:idno:)
     if(request:get-parameter('id', '') != '') then  
-        if($config:document-id) then 
-           collection($config:data-root)//tei:idno[. = request:get-parameter('id', '')]/ancestor::tei:TEI
-        else collection($config:data-root)/id(request:get-parameter('id', ''))/ancestor::tei:TEI
+        if(contains(request:get-parameter('id', ''),'/spear/')) then
+                for $rec in collection($config:data-root)//tei:ab[tei:idno[. = request:get-parameter('id', '')]]
+                return <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:TEI/tei:teiHeader, <body>{$rec}</body>}</tei:TEI>   
+        else if($config:document-id) then 
+           collection($config:data-root)//tei:idno[@type='URI'][. = request:get-parameter('id', '')]/ancestor::tei:TEI[1]
+        else collection($config:data-root)/id(request:get-parameter('id', ''))/ancestor::tei:TEI[1]
     (: Get document by document path. :)
     else if(request:get-parameter('doc', '') != '') then 
         if(starts-with(request:get-parameter('doc', ''),$config:data-root)) then 
@@ -46,7 +51,7 @@ declare function data:get-document() {
 declare function data:get-document($id as xs:string?) {
     if(starts-with($id,'http')) then
         if($config:document-id) then 
-            collection($config:data-root)//tei:idno[. = $id]/ancestor::tei:TEI
+            collection($config:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI
         else collection($config:data-root)/id($id)/ancestor::tei:TEI
     else if(starts-with($id,$config:data-root)) then 
             doc(xmldb:encode-uri($id || '.xml'))
@@ -93,7 +98,7 @@ declare function data:element-filter($element as xs:string?) as xs:string? {
 declare function data:build-collection-path($collection as xs:string?) as xs:string?{  
     let $collection-path := 
             if(config:collection-vars($collection)/@data-root != '') then concat('/',config:collection-vars($collection)/@data-root)
-            else if($collection != '') then concat('/',$collection)
+            else if($config:get-config//repo:collections[@title = $collection]) then concat('/',$config:get-config//repo:collections[@title = $collection]/@data-root)                
             else ()
     let $get-series :=  
             if(config:collection-vars($collection)/@collection-URI != '') then string(config:collection-vars($collection)/@collection-URI)
@@ -114,9 +119,14 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else if($element) then $element 
-        else ()    
+        else ()   
+    let $collection-path := 
+            if(config:collection-vars($collection)/@data-root != '') then concat('/',config:collection-vars($collection)/@data-root)
+            else if($config:get-config//repo:collections[@title = $collection]) then  concat('/',$config:get-config//repo:collections[@title = $collection]/@data-root)                
+            else ()         
+    let $hits := collection($config:data-root || $collection-path)//tei:TEI[slider:date-filter($collection)][.//tei:body[ft:query(., (),sf:facet-query())]]
     (: concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter($collection)) :)    
-    let $hits := util:eval(concat(data:build-collection-path($collection), slider:date-filter($collection)))[descendant::tei:body[ft:query(., (),sf:facet-query())]]  
+    (:let $hits := util:eval(concat(data:build-collection-path($collection), slider:date-filter($collection)))[descendant::tei:body[ft:query(., (),sf:facet-query())]]:)  
     return 
         if(request:get-parameter('view', '') = 'map') then $hits  
         else if(request:get-parameter('view', '') = 'timeline') then $hits
@@ -126,16 +136,14 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
         and request:get-parameter('alpha-filter', '') != 'ALL'
         and request:get-parameter('alpha-filter', '') != 'all' and contains($sort, 'pubDate')) then
             for $hit in $hits
-            let $root := $hit/ancestor-or-self::tei:TEI
             let $s :=  ft:field($hit, "pubDate")             
             where matches($s,global:get-alpha-filter())
-            return $root
+            return $hit
         else if(request:get-parameter('alpha-filter', '') != '' 
         and request:get-parameter('alpha-filter', '') != 'All'
         and request:get-parameter('alpha-filter', '') != 'ALL'
         and request:get-parameter('alpha-filter', '') != 'all') then
             for $hit in $hits
-            let $root := $hit/ancestor-or-self::tei:TEI
             let $s := 
                     if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
                     else if(contains($sort, 'title')) then ft:field($hit, "title")
@@ -143,22 +151,20 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                     else if($collection = 'bibl') then ft:field($hit, "title")
                     else ft:field($hit, "author")                
             where matches($s,global:get-alpha-filter())
-            return $root
+            return $hit
         else if(contains($sort, 'pubDate')) then 
             for $hit in $hits
-            let $root := $hit/ancestor-or-self::tei:TEI
             let $s :=  ft:field($hit, "pubDate")  
-            return $root
+            return $hit
         else
             for $hit in $hits
-            let $root := $hit/ancestor-or-self::tei:TEI
             let $s := 
                     if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
                     else if(contains($sort, 'title')) then ft:field($hit, "title") 
                     else if(contains($sort, 'pubDate')) then ft:field($hit, "pubDate")
                     else if($collection = 'bibl') then ft:field($hit, "title")
                     else ft:field($hit, "author")  
-            return $root
+            return $hit
 };
 
 (:~
@@ -166,14 +172,31 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
  : Build a search XPath based on search parameters. 
  : Add sort options. 
 :)
-declare function data:search($collection as xs:string*, $queryString as xs:string?, $sort-element as xs:string?) {                      
-    let $eval-string := if($queryString != '') then concat($queryString,slider:date-filter($collection)) 
-                        else concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter($collection))
+declare function data:search($collection as xs:string*, $queryString as xs:string*, $sort-element as xs:string*) {                      
+    let $params := 
+ for $p in request:get-parameter-names()
+                        where request:get-parameter($p, '') != ''
+    return $p
+    (: for debugging        
+    let $evalString := 
+            if($p != '') then  
+                if($queryString != '') then $queryString
+                else if(data:create-query($collection) != '') then
+                    concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter(()))
+                else()    
+            else ()
+    :)            
     let $hits :=
-            if(request:get-parameter-names() = '' or empty(request:get-parameter-names())) then 
-                collection($config:data-root || '/' || $collection)//tei:body[ft:query(., (),sf:facet-query())]
-            else util:eval($eval-string)//tei:body[ft:query(., (),sf:facet-query())]              
-    let $sort := if($sort-element != '') then $sort-element
+            if($params != '') then
+ if($queryString != '') then 
+                if(ends-with($queryString,'//tei:body')) then () 
+                else util:eval($queryString)
+ else if(data:create-query($collection) != '') then
+                util:eval(concat(data:build-collection-path($collection), data:create-query($collection),slider:date-filter(())))
+            else () 
+        else ()              
+    let $sort := if($sort-element != '') then 
+                    $sort-element
                  else if(request:get-parameter('sort-element', '') != '') then
                     request:get-parameter('sort-element', '')
                  else ()
