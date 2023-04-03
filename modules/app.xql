@@ -7,7 +7,7 @@ xquery version "3.1";
 module namespace app="http://srophe.org/srophe/templates";
 
 (:eXist templating module:)
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace templates="http://exist-db.org/xquery/html-templating";
 
 (: Import Srophe application modules. :)
 import module namespace config="http://srophe.org/srophe/config" at "config.xqm";
@@ -29,8 +29,8 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
 (: Global Variables:)
-declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $app:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
+declare variable $app:start {request:get-parameter('start', 1)[1] cast as xs:integer};
+declare variable $app:perpage {request:get-parameter('perpage', 25)[1] cast as xs:integer};
 
 (:~
  : Get app logo. Value passed from repo-config.xml  
