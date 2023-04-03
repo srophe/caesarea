@@ -963,7 +963,7 @@
            
         </ul>
     </xsl:template>
-    <!-- Caesrea customization -->
+    <!-- Caesrea customization  -->
     <xsl:template match="t:listRef">
         <ul class="list-unstyled">
             <li>
