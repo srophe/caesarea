@@ -45,10 +45,13 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else if($element) then $element 
         else ()  
-    let $hits := data:get-records($collection, $element)[descendant::tei:body[ft:query(., (),sf:facet-query())]] 
+    let $hits := data:get-records($collection, $element) 
     return
-    map{"hits" : 
-                if($browse:view = 'map' or $browse:view = 'timeline') then $hits
+    map{"hits" : $hits}
+};
+
+(:
+if($browse:view = 'map' or $browse:view = 'timeline') then $hits
                 else if(request:get-parameter('alpha-filter', '') = 'All' or request:get-parameter('alpha-filter', '') = 'ALL') then 
                      for $hit in $hits
                      let $root := $hit/ancestor-or-self::tei:TEI
@@ -72,10 +75,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
                     order by ft:field($hit, "sortField")[1]
                     where matches($s,global:get-alpha-filter())
                     return $root
-                 
-    }
-};
-
+:)
 (:
  : Main HTML display of browse results
  : @param $collection passed from html 
@@ -138,7 +138,6 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 {if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then ()
                  else browse:browse-abc-menu()}
                 </div>, 
-                (:
                 if($facet-config != '') then
                    <div class="row">
                     <div class="col-md-8 col-md-push-4">
@@ -154,7 +153,6 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     <div class="col-md-4 col-md-pull-8">{sf:display($hits, $facet-config)}</div>
                 </div> 
                 else 
-                :)
                  <div class="row">
                     <div class="col-md-12">
                         <h3>{(
