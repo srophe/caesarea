@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -914,13 +914,13 @@
                             <xsl:when test="@ana='#caesarea-language-of-original'">Language of Original:</xsl:when>
                             <xsl:otherwise>Language of Original:</xsl:otherwise>
                         </xsl:choose>
-                    </span> <a href="{$nav-base}/search.html?facet-originalLanguage={t:langUsage/t:language/@ident}">
+                    </span> <a href="{$nav-base}/search.html?facet-originalLanguage={text()}">
                         <xsl:value-of select="."/>
                     </a>
                 </li>  
             </xsl:for-each>
             <li>
-                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace[@ref]//text()}">
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace/text()}">
                     <xsl:value-of select="t:creation/t:origPlace"/>
                 </a>
             </li>

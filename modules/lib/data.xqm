@@ -207,7 +207,7 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
                  else ()
     return
         if((request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance') or ($sort-element != '' and $sort-element != 'relevance')) then 
-            for $hit in $hits
+            for $hit in $hits//tei:body[ft:query(., (),sf:facet-query())]
             let $s := 
                     if(contains($sort, 'author')) then ft:field($hit, "author")[1]
                     else if(request:get-parameter('sort', '') = 'title') then 
@@ -222,7 +222,7 @@ declare function data:search($collection as xs:string*, $queryString as xs:strin
             order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
             return $hit/ancestor-or-self::tei:TEI
         else 
-            for $hit in $hits
+            for $hit in $hits//tei:body[ft:query(., (),sf:facet-query())]
             order by ft:score($hit) descending
             return $hit/ancestor-or-self::tei:TEI  
 };
