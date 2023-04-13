@@ -680,6 +680,6 @@ declare %templates:wrap function app:status($node as node(), $model as map(*)){
     let $status := $model("hits")//tei:revisionDesc/@status
     return 
         if($status = 'draft') then
-            <span class="rec-status {$status} btn btn-info" style="width:100%;margin-bottom:1em;">Status: {string($status)}</span>
+            <span class="rec-status {$status} btn btn-warning" style="width:100%;margin-bottom:1em;">Status: {string($status)}</span>
         else ()
 };
