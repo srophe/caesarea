@@ -35,8 +35,8 @@
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="placeComposed" label="Place Composed">
-        <group-by function="refLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:origPlace/@ref</sub-path>
+        <group-by>
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:origPlace</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
