@@ -252,6 +252,25 @@ declare function search:default-search-form() {
     </form>
 };
 
+(:~
+ : Caesarea specific author search 
+ : ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']
+:)
+declare function search:author(){
+    if(exists(request:get-parameter('author', '')) and request:get-parameter('author', '') != '') then 
+        concat("[.//tei:profileDesc/tei:creation/tei:persName[@role='author'][ft:query(.,'",request:get-parameter('author', ''),"',sf:facet-query())]]")
+    else ()    
+};
+(:~
+ : Caesarea specific title search 
+ : ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']
+:)
+declare function search:title(){
+    if(exists(request:get-parameter('title', '')) and request:get-parameter('title', '') != '') then 
+        concat("[.//tei:profileDesc/tei:creation/tei:title[@type='uniform'][ft:query(.,'",request:get-parameter('title', ''),"',sf:facet-query())]]")
+    else ()    
+};
+
 (:~   
  : Builds general search string from main syriaca.org page and search api.
 :)
@@ -262,13 +281,14 @@ return
     if($collection != '') then 
         if(doc-available($search-config)) then 
            concat("collection('",$config:data-root,"/",$collection,"')//tei:TEI",facet:facet-filter(global:facet-definition-file($collection)),slider:date-filter(()),data:dynamic-paths($search-config))
-        else if($collection = 'places') then  
+        else if($collection = 'bibl') then  
             concat("collection('",$config:data-root,"')//tei:TEI",
             facet:facet-filter(global:facet-definition-file($collection)),
             slider:date-filter(()),
             data:keyword-search(),
             data:element-search('placeName',request:get-parameter('placeName', '')),
             data:element-search('title',request:get-parameter('title', '')),
+            data:element-search('author',request:get-parameter('author', '')),
             data:element-search('bibl',request:get-parameter('bibl', '')),
             data:uri(),
             data:element-search('term',request:get-parameter('term', ''))
@@ -278,6 +298,8 @@ return
             facet:facet-filter(global:facet-definition-file($collection)),
             slider:date-filter(()),
             data:keyword-search(),
+            search:author(),
+            search:title(),
             data:element-search('placeName',request:get-parameter('placeName', '')),
             data:element-search('title',request:get-parameter('title', '')),
             data:element-search('bibl',request:get-parameter('bibl', '')),
@@ -288,7 +310,8 @@ return
         slider:date-filter(()),
         data:keyword-search(),
         data:element-search('placeName',request:get-parameter('placeName', '')),
-        data:element-search('title',request:get-parameter('title', '')),
+        search:author(),
+        search:title(),
         data:element-search('bibl',request:get-parameter('bibl', '')),
         data:uri()
         )
