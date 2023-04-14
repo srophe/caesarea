@@ -71,6 +71,7 @@ declare function sf:build-index(){
             <text qname="tei:author" boost="5.0"/>
             <text qname="tei:persName" boost="5.0"/>
             <text qname="tei:placeName" boost="5.0"/>
+            <text qname="tei:origPlace" boost="5.0"/>
             <text qname="tei:title" boost="10.5"/>
             <text qname="tei:desc" boost="2.0"/>
         </lucene> 

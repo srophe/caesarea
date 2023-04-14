@@ -270,6 +270,11 @@ declare function search:title(){
         concat("[.//tei:profileDesc/tei:creation/tei:title[@type='uniform'][ft:query(.,'",request:get-parameter('title', ''),"',sf:facet-query())]]")
     else ()    
 };
+declare function search:placeName(){
+    if(exists(request:get-parameter('placeName', '')) and request:get-parameter('placeName', '') != '') then 
+        concat("[.//tei:placeName[ft:query(.,'",request:get-parameter('placeName', ''),"',sf:facet-query())] or .//tei:origPlace[ft:query(.,'",request:get-parameter('placeName', ''),"',sf:facet-query())]]")
+    else ()    
+};
 
 (:~   
  : Builds general search string from main syriaca.org page and search api.
@@ -300,8 +305,7 @@ return
             data:keyword-search(),
             search:author(),
             search:title(),
-            data:element-search('placeName',request:get-parameter('placeName', '')),
-            data:element-search('title',request:get-parameter('title', '')),
+            search:placeName(),
             data:element-search('bibl',request:get-parameter('bibl', '')),
             data:uri()
           )
