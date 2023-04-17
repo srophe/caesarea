@@ -15,7 +15,14 @@
     </facet-definition>
     <facet-definition name="originalLanguage" label="Original Language">
         <group-by function="identLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:langUsage/tei:language/@ident</sub-path>
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:langUsage/tei:language[@ana="#caesarea-language-of-original"]/@ident</sub-path>
+        </group-by>
+        <max-values show="5">10</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <facet-definition name="languageTestimonium" label="Language of Testimonium">
+        <group-by function="identLabel">
+            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:langUsage/tei:language[@ana="#caesarea-language-of-testimonia"]/@ident</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>

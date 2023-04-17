@@ -908,19 +908,22 @@
             </li>
             <xsl:for-each select="t:langUsage/t:language">
                 <li>
-                    <span class="label">
-                        <xsl:choose>
-                            <xsl:when test="@ana='#caesarea-language-of-testimonia'">Language of Testimonium:</xsl:when>
-                            <xsl:when test="@ana='#caesarea-language-of-original'">Language of Original:</xsl:when>
-                            <xsl:otherwise>Language of Original:</xsl:otherwise>
-                        </xsl:choose>
-                    </span> <a href="{$nav-base}/search.html?facet-originalLanguage={text()}">
-                        <xsl:value-of select="."/>
-                    </a>
+                    <xsl:choose>
+                        <xsl:when test="@ana='#caesarea-language-of-testimonia'">
+                            <span class="label">Language of Testimonium:</span> <a href="{$nav-base}/search.html?facet-languageTestimonium={text()}">
+                                <xsl:value-of select="."/>
+                            </a>
+                        </xsl:when>
+                        <xsl:when test="@ana='#caesarea-language-of-original'">
+                            <span class="label">Language of Original:</span> <a href="{$nav-base}/search.html?facet-originalLanguage={text()}">
+                                <xsl:value-of select="."/>
+                            </a>
+                        </xsl:when>
+                    </xsl:choose>
                 </li>  
             </xsl:for-each>
             <li>
-                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace/text()}">
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace}">
                     <xsl:value-of select="t:creation/t:origPlace"/>
                 </a>
             </li>
