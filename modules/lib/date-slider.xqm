@@ -84,19 +84,20 @@ return
  : @param $hits node containing all hits from search/browse pages
  : @param $mode selects which date element to use for filter. Current modes are 'inscription' and 'bibl'
 :)
-declare function slider:browse-date-slider($hits, $mode as xs:string?){                  
+declare function slider:browse-date-slider($hits as item()*, $mode as xs:string?){                  
 (: Dates in current results set :)  
 let $d := 
         if($mode) then 
             for $date in util:eval(concat('$hits/',$mode))
             let $expanded := slider:expand-dates($date) 
-            order by xs:date($expanded)
-            return $expanded    
+            order by $expanded
+            return $expanded   
+
         else 
             for $date in $hits/descendant::tei:state[@type="existence"]/@to | $hits/descendant::tei:state[@type="existence"]/@from
             let $expanded := slider:expand-dates($date) 
             order by xs:date($expanded) 
-            return $expanded    
+            return $expanded 
 let $startDate := if(request:get-parameter('startDate', '') != '') then request:get-parameter('startDate', '') else $d[1]
 let $endDate := if(request:get-parameter('endDate', '') != '') then request:get-parameter('endDate', '') else $d[last()]
 let $min := if($startDate) then 
@@ -107,15 +108,26 @@ let $max :=
             else slider:expand-dates(xs:date(slider:expand-dates(string($d[last()]))))        
 let $minPadding := slider:expand-dates((xs:date(slider:expand-dates(string($d[1]))) - xs:yearMonthDuration('P10Y')))
 let $maxPadding := slider:expand-dates((xs:date(slider:expand-dates(string($d[last()]))) + xs:yearMonthDuration('P10Y')))
-let $params := 
-    string-join(
-    for $param in request:get-parameter-names()
+let $paramString := 
+            for $p in request:get-parameter-names()
+            return 
+                if($p = 'startDate' or $p = 'start' or $p = 'endDate' or request:get-parameter($p, '') = ' ' or request:get-parameter($p, '') = '') then ()
+                else 
+                    for $v in request:get-parameter($p, '') 
+                    return 
+                        concat('&amp;', $p, '=', $v)
+let $params := string-join(($paramString),'')
+(:
+   string-join(
+    (for $param in request:get-parameter-names()
     return 
         if($param = 'startDate') then ()
         else if($param = 'endDate') then ()
         else if($param = 'start') then ()
         else if(request:get-parameter($param, '') = ' ') then ()
-        else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
+        else if(request:get-parameter($param, '') = '') then ()
+        else concat('&amp;',$param, '=',request:get-parameter($param, ''))),'') 
+        :)
 return 
 if(not(empty($d))) then
     <div>
