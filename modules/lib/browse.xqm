@@ -106,6 +106,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             <div class="horizontal-facets">
             {
+            (:
              let $dates := doc($config:app-root || '/documentation/caesarea-maritima-historical-era-taxonomy.xml')//*:record
              let $d := tokenize(string-join(collection($config:data-root)//tei:origDate/@period,' '),' ')
              let $selected := substring-after(request:get-parameter('fq', ''),':')
@@ -120,12 +121,15 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     {$controlled-vocab/*:catDesc/text()}
                     <br/><span class="dateLabel">{$controlled-vocab/*:dateRangeLabel}</span>
                 </a>
+            :)
+            (: &all-eraComposed=on and display horizontal:)
+            sf:display($hits, $facet-config/descendant-or-self::facet:facet-definition[@name='eraComposed'])
             }
             </div>
             {
             if($collection = 'bibl') then
-                timeline:timeline($hits, 'Timeline', 'tei:biblStruct/descendant::tei:imprint/tei:date')
-            else timeline:timeline($hits, 'Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')
+                timeline:timeline($hits, 'Bibliography Timeline', 'tei:biblStruct/descendant::tei:imprint/tei:date')
+            else timeline:timeline($hits, 'Testimonia Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')
             }
         </div>
     else
