@@ -743,3 +743,21 @@ h4.slider {
   -webkit-transform: rotate(-45deg);
    z-index: 1500;
 }
+/* Custom facets */
+.timeline {
+  border:1px solid #ccc;
+/*  border-radius: 25px;*/
+  }
+.horizontal-facets .facet-title{display:none;}
+.horizontal-facets .facet-label  {
+    width: 125px;
+    height: 75px;
+    display: inline-block;
+    text-align: center;
+    margin: 0.2em;
+    padding: 0.5em;
+    font-size: .90em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
