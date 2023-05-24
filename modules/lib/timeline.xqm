@@ -2,7 +2,7 @@ xquery version "3.0";
 
 module namespace timeline="http://srophe.org/srophe/timeline";
 
-(:~ 
+(:~
  : Module to build timeline json passed to http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js widget
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-08-05
@@ -28,24 +28,19 @@ declare function timeline:timeline($data as node()*, $title as xs:string*){
 (: Test for valid dates json:xml-to-json() May want to change some css styles for font:)
 if($data/descendant-or-self::*[@when or @to or @from or @notBefore or @notAfter]) then 
     <div class="timeline">
-        <script type="text/javascript" src="{$config:app-root}/resources/js/storyjs-embed.js"/>
+        <link title="timeline-styles" rel="stylesheet" href="{$config:nav-base}/resources/timelinejs/css/timeline.css"/>
+        <script src="{$config:nav-base}/resources/timelinejs/js/timeline-min.js"></script>
+        <div id='timeline-embed' style="width: 100%; height: 600px"></div>
         <script type="text/javascript">
         <![CDATA[
-            $(document).ready(function() {
-                var parentWidth = $(".timeline").width();
-                createStoryJS({
-                    start:      'start_at_end',
-                    type:       'timeline',
-                    width:      "'" +parentWidth+"'",
-                    height:     '450',
-                    source:     ]]>{timeline:get-all-dates($data, $title)}<![CDATA[,
-                    embed_id:   'srophe-timeline'
-                    });
-                });
-                ]]>
+            var options = {
+                timenav_height_percentage: 75,
+                //initial_zoom: 5
+                }
+            window.timeline = new TL.Timeline('timeline-embed',]]>{timeline:get-all-dates($data, $title)}<![CDATA[, options);
+            ]]>
         </script>
-    <div id="my-timeline"/>
-    <p>*Timeline generated with <a href="http://timeline.knightlab.com/">http://timeline.knightlab.com/</a></p>
+        <p>*Timeline generated with <a href="http://timeline.knightlab.com/">http://timeline.knightlab.com/</a></p>
     </div>
 else ()
 };
@@ -56,36 +51,20 @@ else ()
 declare function timeline:timeline($data as node()*, $title as xs:string*, $xpath as xs:string*){
 (: Test for valid dates json:xml-to-json() May want to change some css styles for font:)
 if($data/descendant-or-self::*[@when or @to or @from or @notBefore or @notAfter]) then 
-    <div class="timeline">
-        <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"/>
+      <div class="timeline">
+        <link title="timeline-styles" rel="stylesheet" href="{$config:nav-base}/resources/timelinejs/css/timeline.css"/>
+        <script src="{$config:nav-base}/resources/timelinejs/js/timeline-min.js"></script>
+        <div id='timeline-embed' style="width: 100%; height: 600px"></div>
         <script type="text/javascript">
         <![CDATA[
-            $(document).ready(function() {
-                var dates = ]]>{if($xpath != '') then timeline:get-date-xpath($data, $title, $xpath) else timeline:get-all-dates($data, $title)}<![CDATA[;
-                //var start_index = 0;
-                var target_date = ']]>{if(request:get-parameter('startDate', '') != '') then $timeline:startDateFormated else 'start_at_end'}<![CDATA[';
-                var dateArray = dates.timeline.date
-                index = dateArray.findIndex(x => x.startDate === target_date);
-                
-                var target_id = ']]>{if(request:get-parameter('slideID', '') != '') then request:get-parameter('slideID', '') else 'start_at_end'}<![CDATA[';
-                var slideID =  dateArray.findIndex(x => x.id === target_id);
-                console.log('Index: ' + slideID + ' target-id ' + target_id);
-                
-                var parentWidth = $(".timeline").width();
-                createStoryJS({
-                    //start:      'start_at_end',
-                    start_at_slide: slideID,
-                    type:       'timeline',
-                    width:      "'" +parentWidth+"'",
-                    height:     '450',
-                    source:     dates,
-                    embed_id:   'my-timeline'
-                    });
-                });
-                ]]>
+            var options = {
+                timenav_height_percentage: 75,
+                //initial_zoom: 5
+                }
+            window.timeline = new TL.Timeline('timeline-embed',]]>{timeline:get-date-xpath($data, $title, $xpath)}<![CDATA[,options);
+            ]]>
         </script>
-    <div id="my-timeline"/>
-    <p>*Timeline generated with <a href="http://timeline.knightlab.com/">http://timeline.knightlab.com/</a></p>
+        <p>*Timeline generated with <a href="http://timeline.knightlab.com/">http://timeline.knightlab.com/</a></p>
     </div>
 else ()
 };
@@ -97,15 +76,13 @@ declare function timeline:get-date-xpath($data as node()*, $title as xs:string*,
 let $timeline-title := if($title != '') then $title else 'Timeline'
 let $dates := 
     <root>
-        <timeline>
-            <headline>{$timeline-title}</headline>
-            <type>default</type>
-            <asset>
-                <media>{$config:app-title}</media>
-                <credit>{$config:app-title}</credit>
-                <caption>{$timeline-title}</caption>
-            </asset>
-            <date>
+        <title>
+            <text>
+                <headline>{$timeline-title}</headline>
+                <!--<text>{$timeline-title} and description</text>-->
+            </text>
+        </title>
+        <events>
                 {for $p in $xpath
                  for $date in util:eval(concat('$data/descendant-or-self::', $p))
                  let $start :=  if($date/@when) then string($date/@when)
@@ -131,8 +108,7 @@ let $dates :=
                     if($start != '' or $end != '') then 
                         timeline:format-dates($start, $end, $title, string-join($date/descendant-or-self::text(),' '), $link, $id)
                     else () 
-                 }</date>
-        </timeline>
+                 }</events>
     </root>
 return
     serialize($dates, 
@@ -149,23 +125,26 @@ declare function timeline:get-all-dates($data as node()*, $title as xs:string*){
 let $timeline-title := if($title != '') then $title else 'Timeline'
 let $dates := 
     <root>
-        <timeline>
-            <headline>{$timeline-title}</headline>
-            <type>default</type>
-            <asset>
-                <media>syriaca.org</media>
-                <credit>Syriaca.org</credit>
+        <title>
+            <media>
+                <url>syriaca.org</url>
                 <caption>Events for {$timeline-title}</caption>
-            </asset>
-            <date>
-                {(
-                    timeline:get-birth($data), 
-                    timeline:get-death($data), 
-                    timeline:get-floruit($data), 
-                    timeline:get-state($data), 
-                    timeline:get-events($data)
-                    )}</date>
-        </timeline>
+                <credit>syriaca.org</credit>
+            </media>
+            <text>
+                <headline>{$timeline-title}</headline>
+                <text>{$timeline-title} and description</text>
+            </text>
+        </title>
+        <events>
+            {
+                timeline:get-birth($data), 
+                timeline:get-death($data), 
+                timeline:get-floruit($data), 
+                timeline:get-state($data), 
+                timeline:get-events($data)
+             }
+        </events>
     </root>
 return
     serialize($dates, 
@@ -178,31 +157,39 @@ return
 declare function timeline:format-dates($start as xs:string*, $end as xs:string*, $headline as xs:string*, $text as xs:string* ){
     if($start != '' or $end != '') then 
         <json:value json:array="true">
-            {(
+            <start_date><year>{$start}</year></start_date>
+            <end_date><year>{$end}</year></end_date>
+            <text>
+               <headline>{$headline}</headline> 
+               <text>{$text}</text>
+            </text>
+            {(:
                 if($start != '' or $end != '') then 
-                    <startDate>
+                    <start_date>
                         {
                             if(empty($start)) then $end
                             else if(starts-with($start,'-')) then concat('-',tokenize($start,'-')[2])
                             else replace($start,'-',',')
                         }
-                    </startDate>
+                    </start_date>
                  else (),
                 if($end != '') then 
-                    <endDate>
+                    <end_date>
                         {
                             if(starts-with($end,'-')) then concat('-',tokenize($end,'-')[2])
                             else replace($end,'-',',')
                         }
-                    </endDate>
+                    </end_date>
                  else (),
-                 if($headline != '') then 
-                    <headline>{$headline}</headline>
-                 else (),
-                 if($text != '') then 
-                    <text>{$text}</text> 
-                else ()                 
-                )}
+                 <text>{
+                    if($headline != '') then 
+                       <headline>{$headline}</headline>
+                    else (),
+                    if($text != '') then 
+                       <text>{$text}</text> 
+                   else ()  }
+                 </text>           
+                :)''}
         </json:value>
     else ()
 };
@@ -211,32 +198,39 @@ declare function timeline:format-dates($start as xs:string*, $end as xs:string*,
 declare function timeline:format-dates($start as xs:string*, $end as xs:string*, $headline as xs:string*, $text as xs:string*, $link as xs:string*, $id as xs:string?){
     if($start != '' or $end != '') then 
         <json:value json:array="true">
-            {(
+            <start_date><year>{$start}</year></start_date>
+            <end_date><year>{$end}</year></end_date>
+            <text>
+               <headline>{$headline}</headline> 
+               <text>{$text}</text>
+            </text>
+            {(:
                 if($start != '' or $end != '') then 
-                    <startDate>
+                    <start_date>
                         {
                             if(empty($start)) then $end
                             else if(starts-with($start,'-')) then concat('-',tokenize($start,'-')[2])
                             else replace($start,'-',',')
                         }
-                    </startDate>
+                    </start_date>
                  else (),
                 if($end != '') then 
-                    <endDate>
+                    <end_date>
                         {
                             if(starts-with($end,'-')) then concat('-',tokenize($end,'-')[2])
                             else replace($end,'-',',')
                         }
-                    </endDate>
+                    </end_date>
                  else (),
-                 if($headline != '') then 
-                    <headline>{$headline}</headline>
-                 else (),
-                 if($text != '') then 
-                    <text>{$text}<![CDATA[ <a href="]]>{$link}<![CDATA["><span class="glyphicon glyphicon-circle-arrow-right"></span></a>]]></text> 
-                else (),
-                <id>{$id}</id>
-                )}
+                 <text>{
+                    if($headline != '') then 
+                       <headline>{$headline}</headline>
+                    else (),
+                    if($text != '') then 
+                       <text>{$text}</text> 
+                   else ()  }
+                 </text>           
+                :)''}
         </json:value>
     else ()
 };
