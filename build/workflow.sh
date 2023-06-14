@@ -60,7 +60,7 @@ aws ecr get-login-password --region $AWS_REGION | \
 docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com 
 echo "Logged in successfully"
 
-docker tag $PACKAGE_NAME:$VERSION $DOCKER_URL
+docker tag "$PACKAGE_NAME:$VERSION" $DOCKER_URL
 echo "Pushing to $DOCKER_URL"
 docker push $DOCKER_URL
 
