@@ -28,9 +28,17 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 declare variable $browse:alpha-filter {request:get-parameter('alpha-filter', '')};
 declare variable $browse:lang {request:get-parameter('lang', '')};
 declare variable $browse:view {request:get-parameter('view', '')};
-declare variable $browse:start {request:get-parameter('start', 1)[1] cast as xs:integer};
-declare variable $browse:perpage {request:get-parameter('perpage', 25)[1] cast as xs:integer};
-
+(: Global Variables:)
+declare variable $browse:start {
+    if(request:get-parameter('start', 1)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('start', 1)[1]) 
+    else 1};
+declare variable $browse:perpage {
+    if(request:get-parameter('perpage', 25)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('perpage', 25)[1]) 
+    else 25
+    };
+    
 (:~
  : Build initial browse results based on parameters
  : Calls data function data:get-records(collection as xs:string*, $element as xs:string?)
