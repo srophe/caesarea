@@ -135,9 +135,9 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
             }
             </div>
             {
-            if($collection = 'bibl') then
-                timeline:timeline($hits, 'Bibliography Timeline', 'tei:biblStruct/descendant::tei:imprint/tei:date')
-            else timeline:timeline($hits, 'Testimonia Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')
+            if($collection = 'bibl') then ()
+(:                timeline:timeline($hits, 'Bibliography Timeline', 'tei:biblStruct/descendant::tei:imprint/tei:date'):)
+            else () (:timeline:timeline($hits, 'Testimonia Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate'):)
             }
         </div>
     else
