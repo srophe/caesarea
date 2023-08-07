@@ -13,8 +13,6 @@
     <sponsor xmlns="http://www.tei-c.org/ns/1.0">Vanderbilt University</sponsor>
     <principal xmlns="http://www.tei-c.org/ns/1.0">Joseph Rife</principal>
     <editor xmlns="http://www.tei-c.org/ns/1.0" role="general" ref="http://caesarea-maritima.org/documentation/editors.xml#jrife">Joseph Rife</editor>
-    <editor xmlns="http://www.tei-c.org/ns/1.0" role="general" ref="http://caesarea-maritima.org/documentation/editors.xml#packerman-lieberman">Phillip
-        Ackerman-Lieberman</editor>
     <editor xmlns="http://www.tei-c.org/ns/1.0" role="technical" ref="http://caesarea-maritima.org/documentation/editors.xml#dmichelson">David A.
         Michelson</editor>
     <editor xmlns="http://www.tei-c.org/ns/1.0" role="technical" ref="http://caesarea-maritima.org/documentation/editors.xml#wpotter">William L. Potter</editor>
