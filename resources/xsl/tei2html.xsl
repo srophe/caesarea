@@ -894,12 +894,12 @@
         <ul class="list-unstyled">
             <xsl:variable name="workid" select="//t:publicationStmt/t:idno[@type='URI'][1]"/>
             <li>
-                <span class="label">Author:</span> <a href="{$nav-base}/search.html?facet-author={t:creation/t:persName[@role='author'][@ref]//text()}">
+                <span class="label">Author:</span> <a href="{$nav-base}/testimonia/search.html?facet-author={t:creation/t:persName[@role='author'][@ref]//text()}">
                     <xsl:value-of select="t:creation/t:persName[@role='author']"/>
                 </a>
             </li>
             <li>
-                <span class="label">Title:</span> <a href="{$nav-base}/search.html?facet-work={t:creation/t:title[@type='uniform'][@ref]//text()}">
+                <span class="label">Title:</span> <a href="{$nav-base}/testimonia/search.html?facet-work={t:creation/t:title[@type='uniform'][@ref]//text()}">
                     <em><xsl:value-of select="t:creation/t:title[@type='uniform']"/></em>
                 </a>
             </li>
@@ -910,12 +910,12 @@
                 <li>
                     <xsl:choose>
                         <xsl:when test="@ana='#caesarea-language-of-testimonia'">
-                            <span class="label">Language of Testimonium:</span> <a href="{$nav-base}/search.html?facet-languageTestimonium={text()}">
+                            <span class="label">Language of Testimonium:</span> <a href="{$nav-base}/testimonia/search.html?facet-languageTestimonium={text()}">
                                 <xsl:value-of select="."/>
                             </a>
                         </xsl:when>
                         <xsl:when test="@ana='#caesarea-language-of-original'">
-                            <span class="label">Language of Original:</span> <a href="{$nav-base}/search.html?facet-originalLanguage={text()}">
+                            <span class="label">Language of Original:</span> <a href="{$nav-base}/testimonia/search.html?facet-originalLanguage={text()}">
                                 <xsl:value-of select="."/>
                             </a>
                         </xsl:when>
@@ -923,7 +923,7 @@
                 </li>  
             </xsl:for-each>
             <li>
-                <span class="label">Place Composed:</span> <a href="{$nav-base}/search.html?facet-placeComposed={t:creation/t:origPlace}">
+                <span class="label">Place Composed:</span> <a href="{$nav-base}/testimonia/search.html?facet-placeComposed={t:creation/t:origPlace}">
                     <xsl:value-of select="t:creation/t:origPlace"/>
                 </a>
             </li>
@@ -941,7 +941,7 @@
                     <xsl:variable name="id" select="replace(.,'#','')"/>
                     <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
                     <div class="indent">
-                        <a href="{$nav-base}/search.html?facet-eraComposed={encode-for-uri($label)}">
+                        <a href="{$nav-base}/testimonia/search.html?facet-eraComposed={encode-for-uri($label)}">
                             <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                         </a>  
                     </div>
@@ -956,7 +956,7 @@
                         <xsl:variable name="id" select="replace(.,'#','')"/>
                         <xsl:variable name="label" select="normalize-space(string-join($cat/descendant::t:category[@xml:id = $id]/descendant-or-self::text()))"/>                   
                         <div class="indent">
-                            <a href="{$nav-base}/search.html?facet-eraMentioned={encode-for-uri($label)}">
+                            <a href="{$nav-base}/testimonia/search.html?facet-eraMentioned={encode-for-uri($label)}">
                                 <xsl:value-of select="$cat/descendant::t:category[@xml:id = $id]"/>
                             </a>  
                         </div>
