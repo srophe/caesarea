@@ -110,11 +110,10 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                 </div>
             </div>
           </div>
-    else if($browse:view = 'timeline') then 
-        <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
+    else if($browse:view = 'timeline') then ()
+      (:  <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">
             <div class="horizontal-facets">
             {
-            (:
              let $dates := doc($config:app-root || '/documentation/caesarea-maritima-historical-era-taxonomy.xml')//*:record
              let $d := tokenize(string-join(collection($config:data-root)//tei:origDate/@period,' '),' ')
              let $selected := substring-after(request:get-parameter('fq', ''),':')
@@ -129,17 +128,16 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     {$controlled-vocab/*:catDesc/text()}
                     <br/><span class="dateLabel">{$controlled-vocab/*:dateRangeLabel}</span>
                 </a>
-            :)
-            (: &all-eraComposed=on and display horizontal:)
             sf:display($hits, $facet-config/descendant-or-self::facet:facet-definition[@name='eraComposed'])
             }
             </div>
             {
-            if($collection = 'bibl') then ()
-(:                timeline:timeline($hits, 'Bibliography Timeline', 'tei:biblStruct/descendant::tei:imprint/tei:date'):)
-            else () (:timeline:timeline($hits, 'Testimonia Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate'):)
+            if($collection = 'bibl') then
+                timeline:timeline($hits, 'Bibliography Timeline', 'tei:biblStruct/descendant::tei:imprint/tei:date')
+            else timeline:timeline($hits, 'Testimonia Timeline', 'tei:teiHeader/tei:profileDesc/tei:creation/tei:origDate')
             }
         </div>
+        :)
     else
         <div class="{if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then 'col-md-8 col-md-push-4' else 'col-md-12'}" xmlns="http://www.w3.org/1999/xhtml">
            {( if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
