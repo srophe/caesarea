@@ -281,7 +281,7 @@ declare function app:display-map($node as node(), $model as map(*)){
  :)                 
 declare function app:display-timeline($node as node(), $model as map(*)){
     if($model("hits")/descendant::tei:body/descendant::*[@when or @notBefore or @notAfter]) then
-        timeline:timeline($model("hits"), 'Timeline')
+      (:  timeline:timeline($model("hits"), 'Timeline'):) ()
      else ()
 };
 

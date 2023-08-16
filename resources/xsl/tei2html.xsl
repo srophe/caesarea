@@ -929,9 +929,9 @@
             </li>
             <li>
                 <span class="label">Date Composed:</span>
-                <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}">
+               <!-- <a href="{$nav-base}/browse.html?view=timeline&amp;slideID={$workid}">-->
                     <xsl:value-of select="normalize-space(t:creation/t:origDate)"/>
-                </a>
+                <!--</a>-->
             </li> 
             <li>
                 <span class="label">Historical Era Composed:</span>
