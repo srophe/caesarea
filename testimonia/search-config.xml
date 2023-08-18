@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <search-config>
     <label>Testimonia: Advanced Search</label>
-    <desc>This advanaced function searches the TEI XML records for all testimonia.</desc>
+    <desc>This advanced function searches the TEI XML records for all testimonia.</desc>
     <!-- Uses Lucene full text search make sure any elements used in the search-config.xml 
         are added to the collection.xconf file in your data repository. -->                            
     <input type="text" label="Keyword " name="keyword" element="." title="Use this box to search for keywords anywhere in the testimonia." placeholder="Search by keywords anywhere..." keyboard="yes"/>

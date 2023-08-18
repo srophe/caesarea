@@ -2,7 +2,7 @@
 <search-config>
     <label>Testimonia: Advanced Search</label>
     <desc>
-        <p>This advanaced function searches the TEI XML records for all testimonia. </p>
+        <p>This advanced function searches the TEI XML records for all testimonia. </p>
         <p> You may wish to expand your search by using wildcard characters to increase results. See
                 <a href="#" data-toggle="collapse" data-target="#searchTips">search tips</a> for
             more details. </p>
