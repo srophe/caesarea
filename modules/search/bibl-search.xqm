@@ -161,7 +161,7 @@ declare function bibls:get-subjects(){
  : Builds advanced search form for persons
  :)
 declare function bibls:search-form() {   
-<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
+<form method="get" action="bibl/search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
     <div class="well well-small">
         {let $search-config := 
                 if(doc-available(concat($config:app-root, '/bibl/search-config.xml'))) then concat($config:app-root, '/bibl/search-config.xml')
