@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -151,8 +151,30 @@
         <div id="about">
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
-                    <h3>About this Online Bibliography</h3>
-                    <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
+                    <xsl:variable name="url" select="replace(descendant-or-self::t:publicationStmt/t:idno[@type='URI'],'/tei','')"/>
+                    <h3>About <em>Caesarea Maritima: A Comprehensive Bibliography</em></h3>
+                    <h4>How to Cite:</h4>
+                    <p>Joseph L. Rife, ed., <em>A Comprehensive Bibliography on Caesarea Maritima</em> 
+                        (Nashville, TN: Caesarea City and Port Exploration Project, 2023), <a href="https://caesarea-maritima.org/bibl/index.html">https://caesarea-maritima.org/bibl/index.html</a>.</p>
+                    <h4>Copyright and License for Reuse:</h4>
+                    <p><xsl:value-of select="descendant-or-self::t:fileDesc/t:publicationStmt/t:availability/t:licence/t:p"/></p>
+                    <h4>Editorial Responsibility for This Entry:</h4>
+                    <p>
+                        <xsl:sequence select="local:emit-responsible-persons-all(descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt/t:principal,'footnote')"/><xsl:text>, general editor</xsl:text>
+                    </p>
+                    <xsl:for-each select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt/t:editor[@role='creator']">
+                        <p>
+                            <xsl:sequence select="local:emit-responsible-persons-all(.[@role='creator'],'footnote')"/>
+                            <xsl:text>, entry contributor, </xsl:text>
+                            <a href="{$url}"><xsl:value-of select="$url"/></a>
+                        </p>
+                    </xsl:for-each>
+                    <h4>Additional Credit:</h4>
+                    <xsl:for-each select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt/t:respStmt">
+                        <p><xsl:value-of select="string-join(descendant-or-self::text(),' ')"/></p>    
+                    </xsl:for-each>
+                    
+<!--                    <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>-->
                 </xsl:when>
                 <xsl:otherwise>
                     <h3>About this Entry</h3>
