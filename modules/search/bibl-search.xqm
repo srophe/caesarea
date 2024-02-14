@@ -9,32 +9,26 @@ import module namespace functx="http://www.functx.com";
 import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 import module namespace data="http://srophe.org/srophe/data" at "../lib/data.xqm";
 import module namespace global="http://srophe.org/srophe/global" at "../lib/global.xqm";
-import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "../lib/facets.xql";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $bibls:title {request:get-parameter('title', '')};
-declare variable $bibls:author {request:get-parameter('author', '')};
 declare variable $bibls:idno {request:get-parameter('idno', '')};
 declare variable $bibls:subject {request:get-parameter('subject', '')};
 declare variable $bibls:id-type {request:get-parameter('id-type', '')};
-declare variable $bibls:pub-place {request:get-parameter('pub-place', '')};
 declare variable $bibls:publisher {request:get-parameter('publisher', '')};
 declare variable $bibls:date {request:get-parameter('date', '')};
 declare variable $bibls:start-date {request:get-parameter('start-date', '')};
 declare variable $bibls:end-date {request:get-parameter('end-date', '')};
 declare variable $bibls:online {request:get-parameter('online', '')};
 
-
-declare function bibls:title() as xs:string? {
-    if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",data:clean-string($bibls:title),"',data:search-options())]")
-    else ()    
+declare variable $bibls:ft-query-options := map {
+    "default-operator": "and",
+    "phrase-slop": 1,
+    "leading-wildcard": "yes",
+    "filter-rewrite": "yes"
 };
 
-declare function bibls:author() as xs:string? {
-    if($bibls:author != '') then concat("[ft:query(descendant::tei:author,'",data:clean-string($bibls:author),"',data:search-options()) or ft:query(descendant::tei:editor,'",data:clean-string($bibls:author),"',data:search-options())]")
-    else ()    
-};
 
 (:
  : NOTE: Forsee issues here if users want to seach multiple ids at one time. 
@@ -43,91 +37,86 @@ declare function bibls:author() as xs:string? {
 declare function bibls:idno() as xs:string? {
     if($bibls:idno != '') then  
             if($bibls:id-type != '') then concat("[descendant::tei:idno[@type='",$bibls:id-type,"'][matches(.,'",$bibls:idno,"$')]]")
-            else concat("[descendant::tei:idno[matches(.,'",$bibls:idno,"$')]]")
-
-    (:
-        let $id := replace($bibls:idno,'[^\d\s]','')
-        let $syr-id := concat('http://syriaca.org/bibl/',$id)
-        return 
-            if($bibls:id-type != '') then concat("[descendant::tei:idno[@type='",$bibls:id-type,"'][normalize-space(.) = '",$id,"']]")
-            else concat("[descendant::tei:idno[normalize-space(.) = '",$id,"' or .= '",$syr-id,"']]")
-    :)            
+            else concat("[descendant::tei:idno[matches(.,'",$bibls:idno,"$')]]")        
     else ()    
 };
 
-declare function bibls:pub-place() as xs:string? {
-    if($bibls:pub-place != '') then 
-        concat("[descendant::tei:imprint/tei:pubPlace[ft:query(.,'",data:clean-string($bibls:pub-place),"',data:search-options())]]")
-    else ()  
+declare function bibls:format-dates($date as xs:string?){
+let $date := substring($date,1,4)
+return 
+    if(matches($date,'\d{4}')) then concat($date,'-01-01')
+    else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
+    else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
+    else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
+    else '0100-01-01'
 };
-
-declare function bibls:publisher() as xs:string? {
-    if($bibls:publisher != '') then 
-        concat("[descendant::tei:imprint/tei:publisher[ft:query(.,'",data:clean-string($bibls:publisher),"',data:search-options())]]")
-    else ()  
-};
-
-declare function bibls:date() as xs:string? {
-    if($bibls:date != '') then 
-        concat("[descendant::tei:imprint/tei:date[ft:query(.,'",data:clean-string($bibls:date),"',data:search-options())]]")
-    else ()  
-};
-
-declare function bibls:online() as xs:string? {
-    if($bibls:online = 'on') then 
-        "[descendant::tei:idno[not(matches(.,'^(https://biblia-arabica.com|https://www.zotero.org|https://api.zotero.org)'))] or descendant::tei:ref/@target[not(matches(.,'^(https://biblia-arabica.com|https://www.zotero.org|https://api.zotero.org)'))]]"
-    else ()  
-};
-
-(:~
- : Build date search string
- : @param $bibls:date-type indicates element to restrict date searches on, if empty, no element restrictions
- : @param $bibls:start-date start date
- : @param $bibls:end-date end date       
-:)
-declare function bibls:date-range() as xs:string?{
-    if($bibls:start-date != '' and $bibls:end-date != '') then 
-        concat("[descendant::tei:imprint/tei:date[(. >='", global:make-iso-date($bibls:start-date),"') and (. <= '",global:make-iso-date($bibls:end-date) ,"')]]")
-    else if($bibls:start-date != ''  and $bibls:end-date = '') then
-        concat("[descendant::tei:imprint/tei:date[. >= '",global:make-iso-date($bibls:start-date),"']]")
-    else if($bibls:end-date != ''  and $bibls:start-date = '') then
-        concat("[descendant::tei:imprint/tei:date[. <= '",global:make-iso-date($bibls:end-date) ,"']]")
-    else ()
-}; 
-
-declare function bibls:subject() as xs:string?{
-    if(request:get-parameter('subject', '') != '' or request:get-parameter('subject-exact', '')) then 
-        if(request:get-parameter('subject', '')) then 
-            concat("[descendant::tei:relation[@ref='dc:subject']/descendant::tei:desc[ft:query(.,'",data:clean-string(request:get-parameter('subject', '')),"',data:search-options())]]")     
-        else if(request:get-parameter('subject-exact', '')) then 
-            concat("[descendant::tei:relation[@ref='dc:subject']/descendant::tei:desc[. = '",request:get-parameter('subject-exact', ''),"']]")
-        else()
-    else ()  
-};
-
-declare function bibls:mss() as xs:string?{
-    if(request:get-parameter('mss', '') != '') then
-        concat("[descendant::tei:relation[@ref='dcterms:references']/descendant::tei:desc[ft:query(.,'",data:clean-string(request:get-parameter('mss', '')),"',data:search-options())]]")
-    else ()  
-};
-
 (:~     
- : Build query string to pass to search.xqm 
+ : Build query 
 :)
-declare function bibls:query-string() as xs:string? { 
- concat("collection('",$config:data-root,"/bibl/tei')//tei:TEI[descendant::tei:idno[. = 'https://caesarea-maritima.org/bibl/comprehensive']]",facet:facet-filter(global:facet-definition-file('bibl')),
-    data:keyword-search(),
-    bibls:title(),
-    bibls:author(),
-    bibls:pub-place(),
-    bibls:publisher(),
-    bibls:date(),
-    bibls:date-range(),
-    bibls:subject(),
-    bibls:mss(),
-    bibls:online(),
-    bibls:idno()
-    )
+declare function bibls:query() {                 
+    let $sort := if(request:get-parameter('sort-element', '') != '') then
+                    request:get-parameter('sort-element', '')
+                 else ()
+    let $fields := 
+        string-join(for $p in request:get-parameter-names()
+        where request:get-parameter($p, '') != ''
+        return 
+            if($p = 'title') then concat("title:", data:clean-string(request:get-parameter($p, '')))
+            else if($p = 'author') then concat("author:", data:clean-string(request:get-parameter($p, '')))
+            else if($p = 'pub-place') then concat("pubPlace:", data:clean-string(request:get-parameter($p, '')))
+            else if($p = 'publisher') then concat("publisher:", data:clean-string(request:get-parameter($p, '')))
+            else if($p = 'online' and request:get-parameter($p, '') = 'on') then "online:on"
+            else (),' AND ')            
+    let $query-configuration := 
+        map {
+            "fields": $sf:sortFields,
+            "facets": sf:facets(),
+            "query-string": $fields
+        } 
+    let $query-options := 
+        map:merge((
+            $bibls:ft-query-options,
+            $query-configuration?fields,
+            $query-configuration?facets
+        ))
+    let $keyword := 
+        if(request:get-parameter('keyword', '') != '') then 
+            if($fields != '') then 
+                concat(data:clean-string(request:get-parameter('keyword', '')), ' AND ', $fields)
+            else data:clean-string(request:get-parameter('keyword', '')) 
+        else if($fields != '') then $fields 
+        else ()
+    let $subject := 
+        if(request:get-parameter('subject', '') != '') then data:clean-string(request:get-parameter('subject', ''))
+        else ()
+    let $startDate := if(request:get-parameter('start-date','') != '') then bibls:format-dates(request:get-parameter('start-date','')[1])
+                      else if(request:get-parameter('startDate','') != '') then bibls:format-dates(request:get-parameter('startDate','')[1])
+                      else ()
+    let $endDate :=   if(request:get-parameter('end-date','') != '') then bibls:format-dates(request:get-parameter('end-date','')[1])
+                      else if(request:get-parameter('endDate','') != '') then bibls:format-dates(request:get-parameter('endDate','')[1])
+                      else ()                                
+    let $hits := 
+        if($startDate and $endDate) then 
+            collection($config:data-root || '/bibl/tei')//tei:TEI[descendant::tei:idno[. = 'https://caesarea-maritima.org/bibl/comprehensive']]
+            [ft:query(.,  $keyword, $query-options)]
+            [descendant::tei:imprint/tei:date[(. >= $startDate) and (. <= $endDate)]]
+        else if($startDate and not($endDate)) then
+            collection($config:data-root || '/bibl/tei')//tei:TEI[descendant::tei:idno[. = 'https://caesarea-maritima.org/bibl/comprehensive']]
+            [ft:query(.,  $keyword, $query-options)]
+            [descendant::tei:imprint/tei:date[(. >= $startDate)]]
+        else if($endDate and not($startDate)) then
+            collection($config:data-root || '/bibl/tei')//tei:TEI[descendant::tei:idno[. = 'https://caesarea-maritima.org/bibl/comprehensive']]
+            [ft:query(.,  $keyword, $query-options)]
+            [descendant::tei:imprint/tei:date[(. <= $endDate)]]
+        else collection($config:data-root || '/bibl/tei')//tei:TEI[descendant::tei:idno[. = 'https://caesarea-maritima.org/bibl/comprehensive']][ft:query(.,  $keyword, $query-options)]
+    for $hit in $hits
+    let $s :=
+        if(contains($sort, 'author')) then ft:field($hit, "author")[1]
+        else if($sort = 'pubDate') then  ft:field($hit, "pubDate")[1]
+        else if(contains($sort, 'title')) then ft:field($hit, "title")[1]
+        else ft:score($hit)  
+    order by $s ascending
+    return $hit
 };
 
 (:~
@@ -161,7 +150,7 @@ declare function bibls:get-subjects(){
  : Builds advanced search form for persons
  :)
 declare function bibls:search-form() {   
-<form method="get" action="bibl/search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
+<form method="get" action="{$config:nav-base}/bibl/search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
     <div class="well well-small">
         {let $search-config := 
                 if(doc-available(concat($config:app-root, '/bibl/search-config.xml'))) then concat($config:app-root, '/bibl/search-config.xml')

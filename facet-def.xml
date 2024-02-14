@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facets xmlns="http://expath.org/ns/facet">
+    <!--
     <facet-definition name="author" label="Author">
         <group-by function="refLabel">
             <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']/@ref</sub-path>
@@ -35,4 +36,5 @@
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
+    -->
 </facets>

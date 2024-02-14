@@ -44,12 +44,14 @@ declare variable $search:perpage {
  : Search results stored in map for use by other HTML display functions 
 :)
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $sort-element as xs:string*){
-    let $queryExpr := if($collection = 'bibl') then
-                            bibls:query-string()
-                      else search:query-string($collection)                        
-    let $hits := if($queryExpr != '') then 
-                     data:search($collection, $queryExpr, $sort-element[1])
-                 else data:search($collection, '', $sort-element[1])
+    let $queryExpr := ()                      
+    let $hits :=
+                 if($collection = 'bibl') then
+                      bibls:query()
+                 else search:query()
+                 
+                 
+                 
     return
          map {
                 "hits" :
@@ -58,6 +60,55 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
                     else $hits,
                 "query" : $queryExpr
         }  
+};
+(:~     
+ : Build query
+                 testimonial 
+                    keyword
+                    title
+                    author
+                    placeName
+
+:)
+declare function search:query() {                 
+    let $sort := if(request:get-parameter('sort-element', '') != '') then
+                    request:get-parameter('sort-element', '')
+                 else ()
+    let $fields := 
+        string-join(for $p in request:get-parameter-names()
+        where request:get-parameter($p, '') != ''
+        return 
+            if($p = 'title') then concat("title:", data:clean-string(request:get-parameter($p, '')))
+            else if($p = 'author') then concat("author:", data:clean-string(request:get-parameter($p, '')))
+            else if($p = 'placeName') then concat("placeName:", data:clean-string(request:get-parameter($p, '')))
+            else (),' AND ')            
+    let $query-configuration := 
+        map {
+            "fields": $sf:sortFields,
+            "facets": sf:facets(),
+            "query-string": $fields
+        } 
+    let $query-options := 
+        map:merge((
+            $bibls:ft-query-options,
+            $query-configuration?fields,
+            $query-configuration?facets
+        ))
+    let $keyword := 
+        if(request:get-parameter('keyword', '') != '') then 
+            if($fields != '') then 
+                concat(data:clean-string(request:get-parameter('keyword', '')), ' AND ', $fields)
+            else data:clean-string(request:get-parameter('keyword', '')) 
+        else if($fields != '') then $fields 
+        else ()                                
+    let $hits := collection($config:data-root || '/testimonia/tei')//tei:TEI[ft:query(.,  $keyword, $query-options)]
+    for $hit in $hits
+    let $s :=
+        if(contains($sort, 'author')) then ft:field($hit, "author")[1]
+        else if(contains($sort, 'title')) then ft:field($hit, "title")[1]
+        else ft:score($hit)  
+    order by $s ascending
+    return $hit
 };
 
 (:~ 
@@ -93,13 +144,8 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                              </div>   
                     }</div>
                 </div>
-                <div class="col-md-4 col-md-pull-8">{
-                 let $hits := $model("hits")
-                 let $facet-config := global:facet-definition-file($collection)
-                 return 
-                     if(not(empty($facet-config))) then 
-                         sf:display($model("hits"),$facet-config)
-                     else ()  
+                <div class="col-md-4 col-md-pull-8">{ 
+                    sf:display($hits, $facet-config)
                 }</div>
             </div>
         else 
