@@ -1,49 +1,49 @@
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="author" label="Author">
         <group-by>
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']</sub-path>
+            <sub-path>descendant::tei:profileDesc/tei:creation/tei:persName[@role='author']</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="work" label="Work">
         <group-by>
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']</sub-path>
+            <sub-path>descendant::tei:profileDesc/tei:creation/tei:title[@type='uniform']</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="originalLanguage" label="Original Language">
         <group-by function="identLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:langUsage/tei:language[@ana="#caesarea-language-of-original"]/@ident</sub-path>
+            <sub-path>descendant::tei:profileDesc/tei:langUsage/tei:language[@ana="#caesarea-language-of-original"]/@ident</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="languageTestimonium" label="Language of Testimonium">
         <group-by function="identLabel">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:langUsage/tei:language[@ana="#caesarea-language-of-testimonia"]/@ident</sub-path>
+            <sub-path>descendant::tei:profileDesc/tei:langUsage/tei:language[@ana="#caesarea-language-of-testimonia"]/@ident</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="eraComposed" label="Historical Era Composed">
         <group-by function="eraComposed">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:origDate/@period</sub-path>
+            <sub-path>descendant::tei:profileDesc/tei:creation/tei:origDate/@period</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="eraMentioned" label="Historical Era(s) Mentioned">
         <group-by function="eraMentioned">
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:textClass/tei:catRef[@scheme='#CM-NEAEH']/@target</sub-path>
+            <sub-path>descendant::tei:profileDesc/tei:textClass/tei:catRef[@scheme='#CM-NEAEH']/@target</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <facet-definition name="placeComposed" label="Place Composed">
         <group-by>
-            <sub-path>ancestor::tei:TEI/descendant::tei:profileDesc/tei:creation/tei:origPlace</sub-path>
+            <sub-path>descendant::tei:profileDesc/tei:creation/tei:origPlace</sub-path>
         </group-by>
         <max-values show="5">10</max-values>
         <order-by direction="ascending">value</order-by>
