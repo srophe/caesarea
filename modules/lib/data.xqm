@@ -108,7 +108,7 @@ declare function data:element-filter($element as xs:string?) as xs:string? {
  : @note there are two ways to define collections, physical collection and tei collection. TEI collection is defined in the seriesStmt
  : Enhancement: It would be nice to be able to pass in multiple collections to browse function
 :)
-declare function data:build-collection-path($collection as xs:string?) as xs:string?{  
+declare function data:build-collection-path($collection as xs:string?){  
     let $collection-path := 
             if(config:collection-vars($collection)/@data-root != '') then concat('/',config:collection-vars($collection)/@data-root)
             else if($config:get-config//repo:collections[@title = $collection]) then  concat('/',$config:get-config//repo:collections[@title = $collection]/@data-root)                
@@ -119,7 +119,10 @@ declare function data:build-collection-path($collection as xs:string?) as xs:str
     let $series-path := 
             if($get-series != '') then concat("//tei:idno[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
             else "//tei:TEI"
-    return concat("collection('",$config:data-root,$collection-path,"')",$series-path)
+    return 
+        if($get-series != '') then 
+            collection($config:data-root || $collection-path)//tei:TEI[descendant::tei:seriesStmt/tei:idno[. = $get-series]]
+        else collection($config:data-root || $collection-path)//tei:TEI
 };
 
 (:~
@@ -131,8 +134,19 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
-        else ()         
-    let $hits := util:eval(data:build-collection-path($collection))[descendant::tei:body[ft:query(., (),sf:facet-query())]]                        
+        else () 
+    let $collection-path := 
+            if(config:collection-vars($collection)/@data-root != '') then concat('/',config:collection-vars($collection)/@data-root)
+            else if($config:get-config//repo:collections[@title = $collection]) then  concat('/',$config:get-config//repo:collections[@title = $collection]/@data-root)                
+            else ()
+    let $get-series :=  
+            if(config:collection-vars($collection)/@collection-URI != '') then string(config:collection-vars($collection)/@collection-URI)
+            else ()             
+    let $hits := if($get-series != '') then 
+                    collection($config:data-root || $collection-path)//tei:TEI[descendant::tei:seriesStmt/tei:idno[. = $get-series]][ft:query(., (),sf:facet-query())]
+                 else collection($config:data-root || $collection-path)//tei:TEI[ft:query(., (),sf:facet-query())]
+        
+    (:util:eval(data:build-collection-path($collection))[descendant::tei:body[ft:query(., (),sf:facet-query())]]:)                        
     return 
         if(request:get-parameter('view', '') = 'map') then $hits  
         else if(request:get-parameter('view', '') = 'timeline') then $hits
@@ -149,7 +163,6 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
             and request:get-parameter('alpha-filter', '') != 'ALL'
             and request:get-parameter('alpha-filter', '') != 'all') then
                 for $hit in $hits
-                let $root := $hit/ancestor-or-self::tei:TEI
                 let $s := 
                     if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
                     else if(contains($sort, 'title')) then ft:field($hit, "title")
@@ -158,10 +171,9 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                     else ft:field($hit, "author")    
                 order by $s[1] collation 'http://www.w3.org/2013/collation/UCA'
                 where matches($s[1],global:get-alpha-filter())
-                return $root
+                return $hit
         else 
                 for $hit in $hits
-                let $root := $hit/ancestor-or-self::tei:TEI
                 let $s := 
                     if(contains($sort, 'author') or contains($sort, 'creator')) then ft:field($hit, "author")[1]
                     else if(contains($sort, 'title')) then ft:field($hit, "title")
@@ -169,7 +181,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                     else if($collection = 'bibl') then ft:field($hit, "title")
                     else ft:field($hit, "author")                
                 order by $s[1] collation 'http://www.w3.org/2013/collation/UCA', ft:field($hit, "author")[1]  collation 'http://www.w3.org/2013/collation/UCA'
-                return $root 
+                return $hit 
 };
 
 (:~
