@@ -279,10 +279,10 @@ declare function data:create-query($collection as xs:string?) as xs:string?{
         else
             concat(
             data:keyword-search(),
-            data:element-search('title',request:get-parameter('title', '')),
-            data:element-search('author',request:get-parameter('author', '')),
-            data:element-search('placeName',request:get-parameter('placeName', '')),
-            data:element-search('persName',request:get-parameter('persName', '')),
+            data:element-search('title',data:clean-string(request:get-parameter('title', ''))),
+            data:element-search('author',data:clean-string(request:get-parameter('author', ''))),
+            data:element-search('placeName',data:clean-string(request:get-parameter('placeName', ''))),
+            data:element-search('persName',data:clean-string(request:get-parameter('persName', ''))),
             data:relation-search()
             )               
 };
@@ -426,9 +426,16 @@ declare function data:search-options(){
 declare function data:clean-string($string){
 let $query-string := $string
 let $query-string := 
-	   if (functx:number-of-matches($query-string, '"') mod 2) then 
+(:if there is an uneven number of quotation marks, delete all quotation marks.:)
+	  (: if(functx:number-of-matches($query-string, '"') mod 2) then 
 	       replace($query-string, '"', ' ')
-	   else $query-string   (:if there is an uneven number of quotation marks, delete all quotation marks.:)
+       else if (functx:number-of-matches($query-string, "'") mod 2) then 
+	       replace($query-string, "''", ' ')	       
+	   else $query-string
+	   :)
+	   replace(replace($query-string,"'",''),'"','')
+let $query-string := replace(replace($query-string, '~ ~', '~'),'~~','~')
+(:'πόλεως~ ~':)
 let $query-string := 
 	   if ((functx:number-of-matches($query-string, '\(') + functx:number-of-matches($query-string, '\)')) mod 2 eq 0) 
 	   then $query-string
@@ -436,12 +443,11 @@ let $query-string :=
 let $query-string := 
 	   if ((functx:number-of-matches($query-string, '\[') + functx:number-of-matches($query-string, '\]')) mod 2 eq 0) 
 	   then $query-string
-	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)
-let $query-string := replace($string,"'","''")	   
+	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)	   
+(:let $query-string := replace($string,"'","''"):)	   
 return 
     if(matches($query-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.' (: Must enter some text with wildcard searches:)
     else replace(replace($query-string,'<|>|@|&amp;',''), '(\.|\[|\]|\\|\||\-|\^|\$|\+|\{|\}|\(|\)|(/))','\\$1')
-
 };
 
 (:~
@@ -469,13 +475,17 @@ declare function data:dynamic-paths($search-config as xs:string?){
  : General keyword anywhere search function 
 :)
 declare function data:keyword-search(){
-    if(request:get-parameter('keyword', '') != '') then 
-        for $query in request:get-parameter('keyword', '') 
-        return concat("[ft:query(descendant-or-self::tei:body,'",data:clean-string($query),"',sf:facet-query()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader,'",data:clean-string($query),"',sf:facet-query())]")
-    else if(request:get-parameter('q', '') != '') then 
-        for $query in request:get-parameter('q', '') 
-        return concat("[ft:query(descendant-or-self::tei:body,'",data:clean-string($query),"',sf:facet-query()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader,'",data:clean-string($query),"',sf:facet-query())]")
-    else ()
+    let $query := 
+            if(request:get-parameter('keyword', '') != '') then 
+                request:get-parameter('keyword', '')
+            else if(request:get-parameter('q', '') != '') then request:get-parameter('q', '')
+            else ()
+    let $query := (:replace(replace($query,"'",''),'"',''):)data:clean-string($query)
+    return         
+        if($query != '') then 
+             (:concat("[ft:query(descendant-or-self::tei:body,'",data:clean-string($query),"',sf:facet-query()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader,'",data:clean-string($query),"',sf:facet-query())]"):)
+             concat("[ft:query(descendant-or-self::tei:body,'",$query,"')]")
+        else ()
 };
 
 (:~

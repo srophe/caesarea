@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <zotero-config>
     <!-- Used by get-zotero-data.pp.xql-->
     <groupid>2320447</groupid>
-    <last-modified-version>1741</last-modified-version>
+    <last-modified-version>7711</last-modified-version>
     <!-- format json or tei -->
     <format>json</format>
     <data-dir>/db/apps/caesarea-data/data/bibl/tei</data-dir>

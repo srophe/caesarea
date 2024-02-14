@@ -1647,10 +1647,12 @@
         <xsl:apply-templates select="t:teiHeader" mode="citation"/>
     </xsl:template>
     <xsl:template match="t:teiHeader" mode="#all">
+        <!--
         <div id="license">
             <h3>Copyright and License for Reuse</h3>
             <xsl:apply-templates select="t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
         </div>
+        -->
         <div class="citationinfo">
             <xsl:choose>
                 <xsl:when test="//t:publicationStmt/t:idno[contains(.,'/bibl/')]">

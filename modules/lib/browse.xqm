@@ -95,7 +95,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
     if($browse:view = 'map') then 
         <div class="col-md-12 map-lg" xmlns="http://www.w3.org/1999/xhtml">{
             let $ids := $hits/descendant-or-self::tei:publicationStmt/tei:idno[@type='URI'][starts-with(.,$config:base-uri)]
-            let $mapData := for $id in distinct-values($ids)
+            let $mapData := for $id in $ids
                             let $id-results := doc($config:app-root || '/resources/lodHelpers/placeNames.xml')//tei:relation[@active = $id]
                             return $id-results
             return maps:build-leaflet-map-cluster($mapData)
