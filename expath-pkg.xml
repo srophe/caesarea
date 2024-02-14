@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://expath.org/ns/pkg" name="http://srophe.org/caesarea" abbrev="caesarea" version="0.27" spec="1.0">
+<package xmlns="http://expath.org/ns/pkg" name="http://srophe.org/caesarea" abbrev="caesarea" version="0.28" spec="1.0">
     <title>Caesarea-Maritima.org</title>
 </package>
