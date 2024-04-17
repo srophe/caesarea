@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 wsalesky/srophe-base:1.0.0
+FROM --platform=linux/amd64 wsalesky/srophe-base:1.0.1
 
 ARG ADMIN_PASSWORD
 
