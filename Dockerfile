@@ -1,4 +1,5 @@
 # Start from the existing working base image
+#FROM existdb/existdb:6.0.1
 FROM --platform=linux/amd64 wsalesky/srophe-base:1.0.1
 
 # Copy over all the files you need 
@@ -8,6 +9,9 @@ COPY conf/controller-config.xml /exist/etc/webapp/WEB-INF/
 COPY conf/collection.xconf.init /exist/etc/
 COPY conf/exist-webapp-context.xml /exist/etc/jetty/webapps/
 COPY conf/conf.xml /exist/etc/conf.xml
+#COPY build/entrypoint.sh /entrypoint.sh
+
+EXPOSE 8080 8443
 
 ENV JAVA_TOOL_OPTIONS \
 -Dfile.encoding=UTF8 \
@@ -29,8 +33,11 @@ ENV JAVA_TOOL_OPTIONS \
 -XX:HeapDumpPath=/exist/heapDump/exist-memory-dump.hprof \
 -XX:InitiatingHeapOccupancyPercent=70
 
-EXPOSE 8080 8443
+HEALTHCHECK CMD [ "java", \
+"org.exist.start.Main", "client", \
+"--no-gui",  \
+"--user", "guest", "--password", "guest", \
+"--xpath", "system:get-version()" ]
 
-HEALTHCHECK CMD [ "java", "-jar", "start.jar", "client", "--no-gui",  "--xpath", "system:get-version()" ]
 
-ENTRYPOINT [ "java", "-jar", "start.jar", "jetty" ]
+ENTRYPOINT [ "java", "org.exist.start.Main", "client", "--no-gui"]
