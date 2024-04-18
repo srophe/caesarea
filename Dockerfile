@@ -40,4 +40,7 @@ HEALTHCHECK CMD [ "java", \
 "--xpath", "system:get-version()" ]
 
 
-RUN [ "java", "org.exist.start.Main", "client", "--no-gui"]
+ENTRYPOINT [ "java", \
+"org.exist.start.Main"]
+
+CMD ["jetty" ]
