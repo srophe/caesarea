@@ -1,7 +1,7 @@
 GITHUB_ORG="srophe"
 GITHUB_REPOSITORY="caesarea-data"
 
-CESSARY CONFIG FOR THE BUILD, AND POPULATE VERSION AND PACKAGE_NAME
+### CREATE NECESSARY CONFIG FOR THE BUILD, AND POPULATE VERSION AND PACKAGE_NAME
 # use sed to replace the template git-sync with secrets and other
 # Application git-sync
 TEMPLATE_FILE="./build/git-sync_template.xql"
