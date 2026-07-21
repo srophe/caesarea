@@ -1,3 +1,5 @@
+2026-07-21: Archiving this repository as no longer needed. Application code has been migrated to the [HeardLibrary/Caesarea](https://github.com/HeardLibrary/Caesarea) repository.
+
 # Srophé Application - Caesarea Application
 A TEI publishing application.
 
